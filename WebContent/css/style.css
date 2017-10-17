@@ -1,0 +1,102 @@
+@CHARSET "UTF-8";
+@import "reset.css";
+@import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");
+
+*{
+	/* 패딩이나 보더를 박스 너비에 포함
+박스 크기를 일정하게 고정 */
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+a{
+  text-decoration: none;
+  color: #000;
+  display: block;
+}
+img{
+  width: 100%;
+}
+body{
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 14px;
+}
+
+
+/* 헤더 관련 CSS */
+.header{
+  padding: 50px 0;
+  position: relative;
+  overflow: hidden;
+}
+.header .logo{
+  text-align: center;
+  font-size: 32px;
+}
+
+/* 3개 링크 메뉴 */
+.header .menu{
+	text-align: center;
+	font-size: 20px;	
+
+	padding: 50px 0 0;
+	float: left;
+}
+
+.header .menu ul{
+	display: inline-block;
+	overflow: hidden;
+}
+.header .menu ul li{
+	float: left;
+	position: relative;
+}
+.header .menu ul li::after{
+	content: "";
+	width: 0;
+	height: 2px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	background: #000;
+	-webkit-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
+	opacity: 0.2;
+}
+.header .menu ul li.on::after{
+	width: 100%;
+	opacity: 1;
+}
+.header .menu ul li:hover::after{
+	width: 100%;
+}
+.header .menu ul li a{
+	padding: 10px 20px;
+}
+
+
+/* 오른쪽 로그인메뉴  */
+.header .gnb{
+	padding: 50px 0 0;
+	float: right;
+	vertical-align: middle; /* 어서오세요 글자 중앙정렬*/
+}
+.header .gnb ul{
+	overflow: hidden;
+	border: 1px solid #fff;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.header .gnb ul:hover{
+	border: 1px solid #ccc;
+}
+.header .gnb ul li{
+	float: left;
+}
+.header .gnb ul li a{
+	padding: 10px 20px;
+}
+.header .gnb ul li a:hover{
+	font-weight: bold;
+}
