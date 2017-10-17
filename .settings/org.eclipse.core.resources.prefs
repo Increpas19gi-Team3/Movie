@@ -1,5 +1,11 @@
 eclipse.preferences.version=1
+encoding//WebContent/admin/admin.jsp=UTF-8
+encoding//WebContent/admin/admin_Movie.jsp=UTF-8
+encoding//WebContent/admin/admin_Movie3.jsp=UTF-8
+encoding//WebContent/admin/admin_Screening.jsp=UTF-8
+encoding//WebContent/admin/admin_Theater.jsp=UTF-8
 encoding//WebContent/com/main.jsp=UTF-8
+encoding//WebContent/member/member.jsp=UTF-8
 encoding//WebContent/movie/movie.jsp=UTF-8
 encoding//WebContent/reserve/reserve.jsp=UTF-8
 encoding//WebContent/theater/theater.jsp=UTF-8

@@ -100,3 +100,30 @@ body{
 .header .gnb ul li a:hover{
 	font-weight: bold;
 }
+
+
+/* footer 관련 */
+.footer{
+  margin: 0 -100px 0;
+  background: #eee;
+}
+.footer .site_info{
+  overflow: hidden;
+  border-top: 1px solid #fff;
+}
+.footer .site_info .logo{
+  width: 20%;
+  padding: 30px 0;
+  float: left;
+  font-size: 32px;
+  text-align: center;
+}
+.footer .site_info .info_area{
+  width: 80%;
+  padding: 30px 200px 30px 50px;
+  line-height: 20px;
+  float: left;
+  font-size: 12px;
+  color: #666;
+  border-left: 1px solid #fff;
+}

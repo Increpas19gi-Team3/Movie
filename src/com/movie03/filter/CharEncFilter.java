@@ -42,8 +42,10 @@ public class CharEncFilter implements Filter {
 		
 		// pass the request along the filter chain
 		System.out.println("필터: 요청파라미터한글인코딩");
+		
 		request.setCharacterEncoding("UTF-8");//요청전처리
 		chain.doFilter(request, response);
+		
 		//다음번째 filter 로 넘김. 다음번째 filter가 없으면 doPost로 이동
 		System.out.println("필터: 응답전송");
 	}

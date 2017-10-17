@@ -22,14 +22,15 @@ import com.movie03.dto.BoardVO;
 //     /web-study-11/board/reply_add.do
 //      /web-study-1/board/boardReplyList2.jsp
 //    슬래시로 시작하는 경우 *.확장자 패턴 X
-//@WebServlet("*.do")
-public class BoardServlet3 extends HttpServlet {
+
+@WebServlet("*.do")
+public class MovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public BoardServlet3() {
+	public MovieServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,15 +41,19 @@ public class BoardServlet3 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// /web-study-11/board/reply_add.do
 		
-		String command = request.getRequestURI();
-
-		System.out.println("BoardServlet3 :" + command);
-		ActionFactory3 af = ActionFactory3.getInstance();
+		System.out.println("▶▶▶▶▶ doGet");
+		
+		
+		String command = request.getRequestURI();//접근한 주소
+		System.out.println("MovieServlet :" + command);
+		
+		ActionFactory af = ActionFactory.getInstance();
 		
 		// 액션컨트롤러 객체 리턴받음
 		Action2 action = af.getAction(command);
+		
+		System.out.println("action :"+ action);
 		
 		if (action != null) {
 			
@@ -64,6 +69,8 @@ public class BoardServlet3 extends HttpServlet {
 			
 			
 			String url = action.execute(model);
+			System.out.println("url :"+url);
+			
 			request.setAttribute("model", model);
 			// 디버그코드
 			System.out.println("model=" + model);
@@ -80,6 +87,9 @@ public class BoardServlet3 extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		//request.setCharacterEncoding("UTF-8");
+		
+		System.out.println("▶▶▶▶▶ doPost");
+		
 		doGet(request, response);
 	}
 
