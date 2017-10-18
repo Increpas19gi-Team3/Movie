@@ -24,7 +24,7 @@
 					<td>${res.DIRECTOR}</td>
 					<td>${res.ACTOR}</td>
 					<td>${res.PRICE}</td>
-					<td><input type="button" value="예매하기" onclick="ReserveServlet"></td>
+					<td><input type="button" value="예매하기" onclick="location.href='BoardServlet"></td>
 				</tr>
 			</c:forEach>
 		</table>
