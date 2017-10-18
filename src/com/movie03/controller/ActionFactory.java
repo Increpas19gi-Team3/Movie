@@ -20,6 +20,7 @@ import com.movie03.controller.action.BoardReplyDelAction2;
 //import com.movie03.controller.action.BoardViewAction;
 //import com.movie03.controller.action.BoardWriteAction;
 //import com.movie03.controller.action.BoardWriteFormAction;
+import com.movie03.controller.action.ReserveAction;
 
 public class ActionFactory {
 	private static ActionFactory instance = new ActionFactory();
@@ -60,7 +61,7 @@ public class ActionFactory {
 		
 		// 예약 관리
 		else if(uri.contains("/reserve/reserve.do")){
-			action = new Reserve();
+			action = new ReserveAction();
 		}
 		// 
 		

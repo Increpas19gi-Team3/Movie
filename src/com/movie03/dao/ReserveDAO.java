@@ -10,6 +10,7 @@ import java.util.List;
 import com.movie03.dto.MovieVO;
 import com.movie03.dto.ReserveVO;
 
+import oracle.net.aso.b;
 import util.DBManager;
 
 
@@ -19,7 +20,7 @@ import util.DBManager;
  *
  */
 public class ReserveDAO {
-	private ReserveDAO() {}
+	public ReserveDAO() {}
 
 	private static ReserveDAO instance = new ReserveDAO();
 
@@ -38,13 +39,20 @@ public class ReserveDAO {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql); //글행집합
 			while (rs.next()) {
-				ReserveVO bVo = new ReserveVO();//글(VO)
+				MovieVO bVo = new MovieVO();//글(VO)
 				bVo.setMCODE(rs.getString("MCODE"));
-				bVo.setMID(rs.getString("MID"));
-				bVo.setRCODE(rs.getString("RCODE"));
-				bVo.setRDAY(rs.getString("RCODE"));
-				bVo.setRSEAT(rs.getString("RCODE"));
-				bVo.set
+				bVo.setACTOR(rs.getString("ACTOR"));
+				bVo.setAPPRAISAL(rs.getString("APPRAISAL"));
+				bVo.setDIRECTOR(rs.getString("DIRECTOR"));
+				bVo.setENDDAY(rs.getString("ENDDAY"));
+				bVo.setGENRE(rs.getString("GENRE"));
+				bVo.setMCOMMENT(rs.getString("MCOMMENT"));
+				bVo.setOPENDAY(rs.getString("OPENDAY"));
+				bVo.setPOSTER(rs.getString("POSTER"));
+				bVo.setPRICE(rs.getInt("PRICE"));
+				bVo.setSTARTDAY(rs.getString("STARTDAY"));
+				bVo.setSYNOPSIS(rs.getString("SYNOPSIS"));
+				bVo.setTITLE(rs.getString("TITLE"));
 				
 				list.add(bVo);//글목록에 글(VO) 추가
 			}
