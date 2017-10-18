@@ -19,7 +19,7 @@
       <div class="menu">
         <ul>
           <li><a href="../movie/movie.do">영화</a></li>
-          <li><a href="../reserve/reserve.jsp">예매</a></li>
+          <li><a href="/Movie/MovieServlet.do?command=reserve_list">예매</a></li>
           <li><a href="../theater/theater.jsp">극장정보</a></li>
         </ul>
       </div>

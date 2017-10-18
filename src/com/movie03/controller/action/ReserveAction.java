@@ -14,11 +14,12 @@ public class ReserveAction implements Action{
 
 	@Override
 	public String execute(Map<String, Object> reqModel, Map<String, Object> respModel) throws IOException {
-		ReserveDAO dao= new ReserveDAO();
-		List<MovieVO> res= dao.selectMvList();
-
+				
 		String url = "/reserve/reserve.jsp";//출력뷰
-		respModel.put("res", res);
+		ReserveDAO dao= new ReserveDAO();
+		
+		List<MovieVO> movieList= dao.selectMvList();
+		respModel.put("movieList", movieList);
 		
 		return url;
 	}
