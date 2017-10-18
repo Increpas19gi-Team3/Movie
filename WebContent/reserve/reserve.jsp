@@ -6,17 +6,17 @@
 
 <%-- 정적 인클루드 --%>
 <%@include file="/com/header.jsp" %>
-
+<link rel="stylesheet" type="text/css" href="css/shopping.css">
 	<div id="wrap" align="center">
 		<h1>영화 리스트</h1>
 		<table border="1">
 			
 			<tr>
-				<th>제목</th>
-				<th>감독</th>
-				<th>배우</th>
-				<th>가격</th>
-				<th>예매</th>
+				<th class="title">제목</th>
+				<th class="title">감독</th>
+				<th class="title">배우</th>
+				<th class="title">가격</th>
+				<th class="title">예매</th>
 			</tr>
 			<!-- 글목록을 요청영역에서 가져옴  -->
 			<%
@@ -32,13 +32,13 @@
 			%>
 				
 			
-			<c:forEach var="movie" items="${mVo}" varStatus="status">
+			<c:forEach var="movie" items="${mVo}">
 				<tr class="record">
-					<td>${movie.TITLE}</td>
-					<td>${movie.DIRECTOR}</td>
-					<td>${movie.ACTOR}</td>
-					<td>${movie.PRICE}</td>
-					<td><input type="button" value="예매하기" onclick="location.href='/Movie/reserveMovie.do?command=reserveMovie"></td>
+					<th>${movie.TITLE}</th>
+					<th>${movie.DIRECTOR}</th>
+					<th>${movie.ACTOR}</th>
+					<th>${movie.PRICE}</th>
+					<th><input type="button" value="예매하기" onclick="location.href='/Movie/reserve/reserveMovie.jsp?title=${movie.TITLE}'"></th>
 				</tr>
 			</c:forEach>
 		</table>
