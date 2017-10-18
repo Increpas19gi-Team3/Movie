@@ -59,20 +59,15 @@ public class MovieServlet extends HttpServlet {
 			Map<String, Object> respModel  = new HashMap<String, Object>();
 			
 			
-//			BoardVO vo = new BoardVO();
-//			//vo에 글내용(파라미터)을 채움
-//			//.......
-//			// model.put("vo", vo);
-//			
-//			respModel.put("writer", "kim"); // 작성자 -> 유저id 별로 저장??? 여기서 세션 정보를 가져올 수 있나?
-//			//아니면 파라미터? userID= 
-			
-			
+			// AC 에 가서 url 과 reqModel, respModel 객체를 통해 작업 & 저장하기
 			String url = action.execute(reqModel, respModel);
 			System.out.println("url :"+url);
 			
+			//request 객체에 reqModel, respModel을 저장
 			request.setAttribute("reqModel", reqModel);
 			request.setAttribute("respModel", respModel);
+			
+			
 			// 디버그코드
 			System.out.println("reqModel=" + reqModel);
 			System.out.println("respModel=" + respModel);
