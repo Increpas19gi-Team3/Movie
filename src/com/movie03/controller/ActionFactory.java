@@ -22,6 +22,7 @@ import com.movie03.controller.action.MovieAction;
 //import com.movie03.controller.action.BoardWriteAction;
 //import com.movie03.controller.action.BoardWriteFormAction;
 import com.movie03.controller.action.ReserveAction;
+import com.movie03.controller.action.ReserveMovieAction;
 
 public class ActionFactory {
 	private static ActionFactory instance = new ActionFactory();
@@ -63,6 +64,8 @@ public class ActionFactory {
 		// 예약 관리
 		else if(uri.contains("/Movie/MovieServlet.do")){
 			action = new ReserveAction();
+		}else if(uri.contains("/Movie/MovieServlet.do")){
+			action = new ReserveMovieAction();
 		}
 		
 		// 영화 관리
