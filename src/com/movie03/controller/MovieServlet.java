@@ -99,7 +99,7 @@ public class MovieServlet extends HttpServlet {
 		
 		System.out.println("***** 저장된 reqModel 출력 *****");
 		Set keys = reqModel.keySet();
-		for (Object key : keys) {//for (Object key : keys) {
+		for (Object key : keys) {
 			System.out.println(key + " : " + reqModel.get(key));
 		}
 		System.out.println("********************************");
