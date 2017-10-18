@@ -30,8 +30,8 @@ public class AdminDAO {
 	 * 영화관 정보 가져오기
 	 * @return List<TheaterVO>
 	 */
-	public TheaterVO selectTheater(){
-		TheaterVO theaterVo = null;
+	public List<TheaterVO> selectTheater(){
+		List<TheaterVO> list = new ArrayList<TheaterVO>();
 		
 		String sql = "SELECT * FROM THEATER";
 		
@@ -45,13 +45,13 @@ public class AdminDAO {
 			rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
-				theaterVo = new TheaterVO();
+				TheaterVO theaterVo = new TheaterVO();
 				theaterVo.setTCODE(rs.getString("TCODE"));
 				theaterVo.setTNAME(rs.getString("TNAME"));
 				theaterVo.setTLOCAL(rs.getString("TLOCAL"));
 				theaterVo.setTDESC(rs.getString("TDESC"));
 				theaterVo.setTIMAGE(rs.getString("TIMAGE"));
-				
+				list.add(theaterVo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -59,6 +59,6 @@ public class AdminDAO {
 			DBManager.close(conn, stmt, rs);
 		}
 		
-		return theaterVo;
+		return list;
 	}
 }

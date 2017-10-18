@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.movie03.dao.AdminDAO;
-import com.movie03.dao.TheaterDAO;
 
 /**
  * 영화관 관리 AC
@@ -18,24 +17,25 @@ public class AdminTheaterAction implements Action{
 		
 		String url = "";
 		
-		String cmd = (String)reqModel.get("CmdAdmin");
-		System.out.println("cmd="+cmd);
+		String cmd = (String)reqModel.get("AdminTheater");
+		System.out.println("cmd = " +cmd);
 		
 		
 		if(cmd != null) {
 			
-			if(cmd.equals("TheaterUpdate")){//정보 수정
+			if(cmd.equals("Update")){//정보 수정
+	 			System.out.println("정보 수정 >>");
 	 			
-			}else if(cmd.equals("TheaterInsert")){//정보 등록
-	 			
+			}else if(cmd.equals("Insert")){//정보 등록
+	 			System.out.println("정보 등록 >>");
 			}
 			
 		}else{ //영화관 정보 가져오기
 			AdminDAO adminDAO = AdminDAO.getInstance();
 			
-			respModel.put("CmdAdmin:Theater", adminDAO.selectTheater());
+			respModel.put("CmdAdmin_Theater", adminDAO.selectTheater());
 			
-			System.out.println("respModel : CmdAdmin:Theater ="+respModel.get("CmdAdmin:Theater"));
+			System.out.println("respModel : CmdAdmin:Theater ="+ respModel.get("CmdAdmin_Theater"));
 			
 //			bDao.updateReadCount(num);//글 조회수 1 증가
 //			
