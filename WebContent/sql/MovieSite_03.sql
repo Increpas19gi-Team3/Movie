@@ -177,8 +177,8 @@ ALTER TABLE Screening
 INSERT INTO THEATER VALUES(
     'T01', '용산CGV', '서울특별시 용산구 한강대로 23길', 
     '누적관람객 2,500만명! 대한민국 국민 절반이 이용한 CGV 관람객 NO.1 극장',
-    'null.png');
- 
+    'cvgImg.png');
+
 
 -- 회원정보 입력
 INSERT INTO MEMBER VALUES('son', '1234', '손가연', 'son@mail.com', '010-111-1111', '0');

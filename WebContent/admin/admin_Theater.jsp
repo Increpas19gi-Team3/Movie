@@ -6,31 +6,37 @@
 
 <%-- 정적 인클루드 --%>
 <%@include file="/com/header_Admin.jsp" %>
-
-
-admin_Theater.jsp
-
-극장 정보 관리	리스트	
-	상세보기	극장이름, 극장 위치
-	수정	
-<br />
-
 <%
 	HashMap<String, Object> respModel = (HashMap<String, Object>)request.getAttribute("respModel");
-	//respModel.get("CmdAdmin:Theater");// request 객체로 가져온 데이터
-	//System.out.println("respModel 데이터:"+respModel.get("CmdAdmin:Theater"));
-
-	TheaterVO theaterVo = (TheaterVO)respModel.get("CmdAdmin:Theater");//1개 행이라 바로 받음
-	
+	ArrayList<TheaterVO> tVO = (ArrayList<TheaterVO>)respModel.get("CmdAdmin_Theater");//1개 행이라 바로 받음
+	pageContext.setAttribute("tVO", tVO);
 %>
-
-<p /><p/ >
-
-	<%= theaterVo.getTCODE() %><br />
-	<%= theaterVo.getTNAME() %> <br />
-	<%= theaterVo.getTLOCAL() %> <br />
-	<%= theaterVo.getTDESC() %> <br />
-	<%= theaterVo.getTIMAGE() %> <br />
 	
+	<c:choose>
+		<c:when test="${not empty tVO}">
+			<c:forEach var="tVO" items="${tVO }">
+				
+				<div id = "theater_Info">
+					<img src="../image/"${tVO.TIMAGE }><br />
+					
+					<%-- ${tVO.TCODE }<br /> --%>
+					${tVO.TNAME }<br />
+					${tVO.TLOCAL }<br />
+					${tVO.TDESC }<br />
+				</div>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			
+			<hr>
+			<div id="">
+				<form action="/admin/theater_Insert.do" method="post">
+					<input type="submit" value="등록" />
+				</form>
+			</div>
+		
+		</c:otherwise>
+	</c:choose>
+
 
 <%@include file="/com/footer.jsp" %>
