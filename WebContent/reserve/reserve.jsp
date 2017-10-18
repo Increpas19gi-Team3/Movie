@@ -38,7 +38,7 @@
 					<td>${movie.DIRECTOR}</td>
 					<td>${movie.ACTOR}</td>
 					<td>${movie.PRICE}</td>
-					<td><input type="button" value="예매하기" onclick="location.href='BoardServlet'"></td>
+					<td><input type="button" value="예매하기" onclick="location.href='/Movie/reserveMovie.do?command=reserveMovie"></td>
 				</tr>
 			</c:forEach>
 		</table>
