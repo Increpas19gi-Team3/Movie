@@ -23,7 +23,7 @@ public class MovieVO {
 	
 	public String getMCODE() {
 		return MCODE;
-	}
+	}	
 	public void setMCODE(String mCODE) {
 		MCODE = mCODE;
 	}

@@ -63,7 +63,11 @@ public class ActionFactory {
 		else if(uri.contains("/reserve/reserve.do")){
 			action = new ReserveAction();
 		}
-		// 
+		
+		// 영화 관리
+		else if(uri.contains("/movie/movie.do")){
+			action = new ReserveAction();
+		}
 		
 		System.out.println("AF :"+ action);
 		return action;
