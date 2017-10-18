@@ -130,12 +130,21 @@ body{
 
 
 /* 영화관 정보*/
+.theater{
+  	padding: 50px 0;
+  	position: relative;
+  	overflow: hidden;
+}
+.theater .logo{
+  	text-align: center;
+	font-size: 32px;
+}
 .theater_Info {
 	width: 80%;
-  padding: 30px 200px 30px 50px;
-  line-height: 20px;
-  float: left;
-  font-size: 20px;
-  color: #666;
-  border-left: 1px solid #fff;
+  	padding: 30px 200px 30px 50px;
+  	line-height: 20px;
+  	float: left;
+  	font-size: 20px;
+  	color: #666;
+  	border-left: 1px solid #fff;
 }
