@@ -3,6 +3,11 @@ package com.movie03.controller.action;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * 상영관 관리 AC
+ * @author 손가연
+ *
+ */
 public class AdminScreeningAction implements Action2{
 
 	@Override

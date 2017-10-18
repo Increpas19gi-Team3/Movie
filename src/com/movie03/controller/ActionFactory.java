@@ -4,6 +4,7 @@ package com.movie03.controller;
 import com.movie03.controller.action.Action2;
 import com.movie03.controller.action.AdminAction;
 import com.movie03.controller.action.AdminMovieAction;
+import com.movie03.controller.action.AdminReserveAction;
 import com.movie03.controller.action.AdminScreeningAction;
 import com.movie03.controller.action.AdminTheaterAction;
 //import com.movie03.controller.action.BoardCheckPassAction;
@@ -42,14 +43,17 @@ public class ActionFactory {
 		if(uri.contains("/admin/admin.do")){
 			action = new AdminAction(); 
 			
-		}else if(uri.contains("/admin/admin_Theater.do")){//
+		}else if(uri.contains("/admin/admin_Theater.do")){// 영화관 관리
 			action = new AdminTheaterAction(); 
 			
-		}else if(uri.contains("/admin/admin_Screening.do")){
+		}else if(uri.contains("/admin/admin_Screening.do")){// 상영관 관리
 			action = new AdminScreeningAction(); 
 			
-		}else if(uri.contains("/admin/admin_Movie.do")){
+		}else if(uri.contains("/admin/admin_Movie.do")){// 영화 목록 관리
 			action=new AdminMovieAction();
+			
+		}else if(uri.contains("/admin/admin_Reserve.do")){// 예약 관리
+			action=new AdminReserveAction();
 		}
 		
 		// 회원관리
