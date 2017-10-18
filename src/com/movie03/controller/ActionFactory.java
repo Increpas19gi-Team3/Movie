@@ -1,6 +1,7 @@
 package com.movie03.controller;
 
 
+import com.movie03.controller.action.Action;
 import com.movie03.controller.action.Action2;
 import com.movie03.controller.action.AdminAction;
 import com.movie03.controller.action.AdminMovieAction;
@@ -31,10 +32,9 @@ public class ActionFactory {
 		return instance;
 	}
 
-	// AC 등록
-	public Action2 getAction(String uri) {
+	public Action getAction(String uri) {
 		///web-study-11/board/reply_add.do
-		Action2 action = null;
+		Action action = null;
 		System.out.println("ActionFactory :" + uri);
 		
 		//요청URI에 reply_add.do 커멘드가 포함되면  

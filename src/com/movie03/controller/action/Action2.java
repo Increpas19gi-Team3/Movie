@@ -9,4 +9,5 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface Action2 {
 	public String execute(Map<String, Object> model) throws IOException;
+	
 }

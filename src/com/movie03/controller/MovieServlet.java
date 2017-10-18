@@ -44,36 +44,38 @@ public class MovieServlet extends HttpServlet {
 		
 		System.out.println("▶▶▶▶▶ doGet");
 		
-		
 		String command = request.getRequestURI();//접근한 주소
 		System.out.println("MovieServlet :" + command);
 		
 		ActionFactory af = ActionFactory.getInstance();
-		
 		// 액션컨트롤러 객체 리턴받음
-		Action2 action = af.getAction(command);
-		
+		Action action = af.getAction(command);
 		System.out.println("action :"+ action);
 		
 		if (action != null) {
 			
 			// 액션컨트롤러의 액션메소드 execute 호출
-			Map<String, Object> model = new HashMap<String, Object>(); // 100번지
+			Map<String, Object> reqModel = new HashMap<String, Object>();
+			Map<String, Object> respModel  = new HashMap<String, Object>();
+			
+			
 			BoardVO vo = new BoardVO();
 			//vo에 글내용(파라미터)을 채움
 			//.......
 			// model.put("vo", vo);
 			
-			model.put("writer", "kim"); // 작성자 -> 유저id 별로 저장??? 여기서 세션 정보를 가져올 수 있나?
+			respModel.put("writer", "kim"); // 작성자 -> 유저id 별로 저장??? 여기서 세션 정보를 가져올 수 있나?
 			//아니면 파라미터? userID= 
 			
 			
-			String url = action.execute(model);
+			String url = action.execute(reqModel, respModel);
 			System.out.println("url :"+url);
 			
-			request.setAttribute("model", model);
+			request.setAttribute("reqModel", reqModel);
+			request.setAttribute("respModel", respModel);
 			// 디버그코드
-			System.out.println("model=" + model);
+			System.out.println("reqModel=" + reqModel);
+			System.out.println("respModel=" + respModel);
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 			dispatcher.forward(request, response);
