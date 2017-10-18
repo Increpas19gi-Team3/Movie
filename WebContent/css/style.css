@@ -127,3 +127,15 @@ body{
   color: #666;
   border-left: 1px solid #fff;
 }
+
+
+/* 영화관 정보*/
+.theater_Info {
+	width: 80%;
+  padding: 30px 200px 30px 50px;
+  line-height: 20px;
+  float: left;
+  font-size: 20px;
+  color: #666;
+  border-left: 1px solid #fff;
+}
