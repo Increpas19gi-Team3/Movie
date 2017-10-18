@@ -139,7 +139,7 @@ body{
   	text-align: center;
 	font-size: 32px;
 }
-.theater_Info {
+.theater .theater_Info {
 	width: 80%;
   	padding: 30px 200px 30px 50px;
   	line-height: 20px;
