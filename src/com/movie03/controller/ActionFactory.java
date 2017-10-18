@@ -64,7 +64,7 @@ public class ActionFactory {
 		// 예약 관리
 		else if(uri.contains("/Movie/MovieServlet.do")){
 			action = new ReserveAction();
-		}else if(uri.contains("/Movie/MovieServlet.do")){
+		}else if(uri.contains("/Movie/reserveMovie.do")){
 			action = new ReserveMovieAction();
 		}
 		
