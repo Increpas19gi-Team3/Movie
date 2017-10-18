@@ -59,7 +59,9 @@ public class ActionFactory {
 		// 회원관리
 		
 		// 예약 관리
-		
+		else if(uri.contains("/reserve/reserve.do")){
+			action = new Reserve();
+		}
 		// 
 		
 		System.out.println("AF :"+ action);
