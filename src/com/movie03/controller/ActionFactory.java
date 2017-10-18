@@ -15,6 +15,7 @@ import com.movie03.controller.action.AdminTheaterAction;
 //import com.movie03.controller.action.BoardReplyAction;
 import com.movie03.controller.action.BoardReplyAction2;
 import com.movie03.controller.action.BoardReplyDelAction2;
+import com.movie03.controller.action.MovieAction;
 //import com.movie03.controller.action.BoardUpdateAction;
 //import com.movie03.controller.action.BoardUpdateFormAction;
 //import com.movie03.controller.action.BoardViewAction;
@@ -66,10 +67,10 @@ public class ActionFactory {
 		
 		// 영화 관리
 		else if(uri.contains("/movie/movie.do")){
-			action = new ReserveAction();
+			action = new MovieAction();
 		}
 		
-		System.out.println("AF :"+ action);
+		System.out.println("ActionFactory Action :"+ action);
 		return action;
 	}
 }
