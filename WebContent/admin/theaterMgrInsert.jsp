@@ -28,10 +28,10 @@
 			<form action="../admin/admin_Theater.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name = "AdminTheater" value="UPDATE">
 				<input type="hidden" name = "TheaterTCODE" value="T01">
-				<label> 극장 이름 </label> <input type="text" name="TheaterTNAME"><p>
-				<label> 극장 이름 </label> <input type="text" name="TheaterTNAME"><p>
-				<label> 극장 이름 </label> <input type="text" name="TheaterTNAME"><p>
-				<label> 극장 이름 </label> <input type="text" name="TheaterTNAME"><p>
+				<label> 이름 </label> <input type="text" name="TheaterTNAME"><p>
+				<label> 위치 </label> <input type="text" name="TheaterTNAME"><p>
+				<label> 소개 </label> <input type="text" name="TheaterTNAME"><p>
+				<label> 사진 </label> <input type="text" name="TheaterTNAME"><p>
 				<label> 극장 이름 </label> <input type="text" name="TheaterTNAME"><p>
 				
 				
