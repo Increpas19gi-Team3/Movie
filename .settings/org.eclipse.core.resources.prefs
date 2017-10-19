@@ -1,7 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/admin/adminMain.jsp=UTF-8
 encoding//WebContent/admin/movieMgrView.jsp=UTF-8
-encoding//WebContent/admin/screeningMgrView.jsp=UTF-8
+encoding//WebContent/admin/screenMgrView.jsp=UTF-8
 encoding//WebContent/admin/theaterMgrView.jsp=UTF-8
 encoding//WebContent/com/footer.jsp=UTF-8
 encoding//WebContent/com/header_Admin.jsp=UTF-8

@@ -53,12 +53,16 @@ public class AdminTheaterAction implements Action{
 	 			tVO.setTDESC(reqTDESC);
 	 			tVO.setTIMAGE(reqTIMAGE);
 	 			
-	 			adminDAO.updateTheater(tVO);
+	 			adminDAO.updateTheater(tVO); //수정
 	 			
-	 			url = "../admin/admin_Theater.do";
+	 			// 보기 페이지로 이동
+	 			List<TheaterVO> theaterList = adminDAO.selectTheater();
+	 			respModel.put("MgrViewTheater", theaterList);
+	 			respModel.put("CmdMgr", "Theater_VIEW");
+				url = "../admin/theaterMgrView.jsp";
 				
 				
-			}else if(cmd.equals("Theater_INSERT")){//정보 수정
+			}else if(cmd.equals("Theater_INSERT")){//정보 등록
 	 			System.out.println("정보 등록 >>");
 				
 				TheaterVO tVO = new TheaterVO();
@@ -69,7 +73,18 @@ public class AdminTheaterAction implements Action{
 	 			
 	 			adminDAO.insertTheater(tVO); // 영화관 정보 저장
 	 			
-	 			url = "../admin/admin_Theater.do";
+	 			// 보기 페이지로 이동
+	 			List<TheaterVO> theaterList = adminDAO.selectTheater();
+	 			respModel.put("MgrViewTheater", theaterList);
+	 			respModel.put("CmdMgr", "Theater_VIEW");
+				url = "../admin/theaterMgrView.jsp";
+				
+			}else{//Theater_VIEW
+	 			// 보기 페이지로 이동
+	 			List<TheaterVO> theaterList = adminDAO.selectTheater();
+	 			respModel.put("MgrViewTheater", theaterList);
+	 			
+				url = "../admin/theaterMgrView.jsp";
 			}
 			
 		}else{ //영화관 정보 가져오기
@@ -86,10 +101,8 @@ public class AdminTheaterAction implements Action{
 				url = "../admin/theaterMgrView.jsp";
 			}
 			
-			
-			System.out.println("AdminTheaterAction url =" + url);
 		}
-		
+		System.out.println("AdminTheaterAction url =" + url);
 		return url;
 	}
 

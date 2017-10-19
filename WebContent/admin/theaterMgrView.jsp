@@ -18,6 +18,7 @@
 			<div class = "logo">
 				${tVO.TNAME }
 			</div>
+			<hr>
 			<div class = "theater_Info">
 				소개 : ${tVO.TDESC }<br />
 				위치 : ${tVO.TLOCAL }<br />
@@ -26,8 +27,7 @@
 					<input type="hidden" name = "CmdMgr" value="Theater_UPDATE_FORM">
 					<input type="submit" value="영화관 정보 수정" />
 				</form>
-					
-				<hr>
+				
 				<p />
 				<img src="../image/${tVO.TIMAGE }"><br />				
 			</div>
