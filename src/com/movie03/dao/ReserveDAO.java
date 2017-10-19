@@ -67,18 +67,19 @@ public class ReserveDAO {
 	}
 	
 	
-	public List<ScreenTurnVO> selectTurnMovie(){
-		String sql = "select STTURN from screenturn where MCODE=? and to_char(stdate, 'YYYY/MM/DD')=?";
+	public List<ScreenTurnVO> selectTurnMovie(String rday, String mcode){
+		String sql = "select * from screenturn where MCODE=? and to_char(stdate, 'YYYY-MM-DD')=?";
 		List<ScreenTurnVO> list = new ArrayList<ScreenTurnVO>();//목록
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			//뷰를 하고 싶은 글번호 세팅
-			pstmt.setString(1,  sdsfsdffsdfsdfsdfsdf);
-			pstmt.setString(2, );
+			pstmt.setString(1,  mcode);
+			pstmt.setString(2, rday);
 			
 			rs = pstmt.executeQuery();
 			
@@ -94,9 +95,39 @@ public class ReserveDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			DBManager.close(conn, stmt, rs);
+			DBManager.close(conn, pstmt, rs);
 		}
 		return list;
+	}
+	
+	
+	public String selectMovieCode(String title){
+		String sql = "select mcode from movie where title=?";
+		String mcode = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		System.out.println("title : " + title);
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, title);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				mcode = rs.getString("MCODE");
+				System.out.println("mcode : " + mcode);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return mcode;
 	}
 	
 }

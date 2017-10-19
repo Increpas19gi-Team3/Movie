@@ -12,11 +12,15 @@ public class ReserveMovieAction implements Action{
 
 	@Override
 	public String execute(Map<String, Object> reqModel, Map<String, Object> respModel) throws IOException {
-		String url = "/reserve/reserveMovie.jsp";//출력뷰
+		String url = "/reserve/newReserveMovie.jsp";//출력뷰
 		ReserveDAO dao= new ReserveDAO();
+		String rday = (String)reqModel.get("rday");
+		String title = (String)reqModel.get("title");
 		
-		List<ScreenTurnVO> movieList= dao.selectTurnMovie();
-		respModel.put("movieList", movieList);
+		String mcode = dao.selectMovieCode(title);
+		
+		List<ScreenTurnVO> List= dao.selectTurnMovie(rday, mcode);
+		respModel.put("movieList", List);
 		
 		return url;
 	}
