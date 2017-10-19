@@ -29,14 +29,12 @@
 				<input type="hidden" name = "AdminTheater" value="UPDATE">
 				<input type="hidden" name = "TheaterTCODE" value="T01">
 				<label> 이름 </label> <input type="text" name="TheaterTNAME"><p>
-				<label> 위치 </label> <input type="text" name="TheaterTNAME"><p>
-				<label> 소개 </label> <input type="text" name="TheaterTNAME"><p>
-				<label> 사진 </label> <input type="text" name="TheaterTNAME"><p>
-				<label> 극장 이름 </label> <input type="text" name="TheaterTNAME"><p>
+				<label> 위치 </label> <input type="text" name="TheaterTLOCAL"><p>
+				<label> 소개 </label> <input type="text" name="TheaterTDESC"><p>
+				<label> 사진 </label> <input type="file" name="TheaterTIMAGE"><p>
 				
-				
-				
-				<input type="submit" value="영화관 정보 등록" />
+				<input type="submit" value="등록" />
+				<input type="reset">
 			</form>
 		</div>
 	</div>
