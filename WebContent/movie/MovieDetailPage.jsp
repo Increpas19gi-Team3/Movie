@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%-- 정적 인클루드 --%>
 
 <%@include file="/com/header.jsp"%>
@@ -6,9 +8,9 @@
 <%@page import="com.movie03.dto.MovieVO"%>
 <%@ page import="java.util.HashMap"%>
 
-<div id="" align="center">
+<div id="#" align="center">
 	<h1>상영중인 영화 리스트</h1>
-	<table class="">
+	<table class="#">
 		<tr>
 			<th>영화 이미지</th>
 			<th>영화코드</th>
@@ -33,7 +35,7 @@
 		%>
 		
 		<c:forEach var="movie" items="${mVo}">
-				<tr class="">
+				<tr class="#">
 					<th>${movie.POSTER}</th>
 					<th>${movie.MCODE}</th>
 					<th>${movie.TITLE}</th>
@@ -58,7 +60,6 @@
 	 : 페이지를 영화-리스트 페이지로 넘어감  
 	 : 일단 onclick="MovieList.java"라고 씀 -->	 
 	 <input type="button" value="뒤로가기" onclick="MovieList.java">
-
 </div>
 
 <%@include file="/com/footer.jsp"%>
