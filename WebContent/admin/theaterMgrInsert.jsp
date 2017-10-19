@@ -13,18 +13,24 @@
 			극장 정보 입력
 			<hr>
 		</div>
-		<div class ="theather_reg" style="text-align: center; padding: 30px 50px 30px 50px;">
-			
-			
-			<form action="thumbnail.jsp" method="post" >
-			상품명 : <input type="text" name="pname"><p>
-			판매수량 : <input type="text" name="pqty"><p>
-			이미지 파일 : <input type="file" name="filename"><p>
-			<input type="submit" value="전송">
-		</form>
-			
-			
-			
+		
+		
+		<div class ="theather_reg" style="text-align: left; padding: 30px 50px 30px 50px;">
+			<form action="../admin/admin_Theater.do" method="post">
+				<input type="hidden" name = "AdminTheater" value="UPDATE">
+				<input type="hidden" name = "TheaterTCODE" value="T01">
+				<label> 이름 </label> <input type="text" name="TheaterTNAME"><p>
+				<label> 위치 </label> <input type="text" name="TheaterTLOCAL"><p>
+				<label> 소개 </label> <input type="text" name="TheaterTDESC"><p>
+				
+				<input type="submit" value="등록" />
+				<input type="reset">
+			</form>
+		</div>
+		
+		
+		Multipart 용 <br>
+		<div class ="theather_reg" style="text-align: left; padding: 30px 50px 30px 50px;">
 			<form action="../admin/admin_Theater.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name = "AdminTheater" value="UPDATE">
 				<input type="hidden" name = "TheaterTCODE" value="T01">

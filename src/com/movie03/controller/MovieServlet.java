@@ -1,5 +1,6 @@
 package com.movie03.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -15,6 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.movie03.controller.action.Action;
 
+
+import java.awt.Graphics2D;
+import java.awt.image.renderable.ParameterBlock;
+import java.awt.image.BufferedImage;
+import javax.media.jai.JAI;
+import javax.media.jai.RenderedOp;
+import javax.imageio.ImageIO;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import util.ThumbImage;
+
 /**
  * Servlet implementation class BoardServlet
  */
@@ -26,6 +39,7 @@ public class MovieServlet extends HttpServlet {
 //	전역변수로 쓸 것인지 확인 필요함.	
 //	Map<String, Object> reqModel = null;
 //	Map<String, Object> respModel  = null;
+	
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -56,7 +70,27 @@ public class MovieServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("▶▶▶▶▶ doGet");
-
+		System.out.println("request getContentType : " + request.getContentType());
+		
+		//multipart Request 용 처리
+		String imagePath = null;
+		imagePath = request.getRealPath("image");
+		int size = 1*1024*1024 ;//1MB , 파일 크기 제한byte단위
+		MultipartRequest multiReq = null;
+		if (request.getContentType() != null){
+			if(request.getContentType().contains("multipart/form-data")){
+				try{
+					multiReq = new MultipartRequest(request,
+					  imagePath,//저장 폴더
+					  size,		// 크기
+					  "utf-8", //파일명 인코딩
+					  new DefaultFileRenamePolicy());	//파일명 중복 시, 숫자를 붙여서 덮어쓰기 방지
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		//지역변수로 Map 사용
 		Map<String, Object> reqModel = new HashMap<String, Object>();
 		Map<String, Object> respModel  = new HashMap<String, Object>();
@@ -64,6 +98,7 @@ public class MovieServlet extends HttpServlet {
 		
 		
 		/* 파라메터, request 객체 를 전부 reqModel에 저장하는 로직 Start */
+		
 		// JSP 에서 넘어온 파라메터를 requestModel 에 저장
 		System.out.println("----- getParameterNames -----");
 		Enumeration<String> params = request.getParameterNames();
@@ -72,8 +107,43 @@ public class MovieServlet extends HttpServlet {
 		    System.out.println(name + " : " + request.getParameter(name));
 		    
 		    reqModel.put(name, request.getParameter(name));
+		}System.out.println("-----------------------------");
+				
+		
+		// JSP 에서 넘어온 multipart 파라메터를 requestModel 에 저장
+		if(multiReq != null){
+			System.out.println("----- MultipartRequest getParameterNames -----");
+			
+			// 파라메터를 저장
+			Enumeration<String> multipartParamsNames = multiReq.getParameterNames();
+			while (multipartParamsNames.hasMoreElements()){
+			    String name = (String)multipartParamsNames.nextElement();
+			    System.out.println(name + " : " + multiReq.getParameter(name));
+			    
+			    reqModel.put(name, multiReq.getParameter(name));
+			}
+			
+			// 이미지를 저장
+			reqModel.put("imagePath", imagePath);//이미지 경로 저장
+			Enumeration<String> multipartFileNames = multiReq.getFileNames();
+			while (multipartFileNames.hasMoreElements()){
+			    String name = (String)multipartFileNames.nextElement();
+			    System.out.println(name + " : " + multiReq.getFile(name));
+			    
+			    String file_name = multiReq.getFilesystemName(name); //업로드 파일명
+				
+				//이미지 중복 처리 안함!
+			    //reqModel.put(name, multiReq.getFile(file_name)); 맵에 파일 저장 한다면
+			    reqModel.put(name, file_name);//파일 이름만 저장
+				try {
+					ThumbImage.createThumbImage(imagePath, file_name, 100, 100);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			System.out.println("---------------------------------------");
 		}
-		System.out.println("-----------------------------");
 		
 		
 		// request 객체의 정보를 requestModel 에 저장
@@ -153,5 +223,5 @@ public class MovieServlet extends HttpServlet {
 		
 		doGet(request, response);
 	}
-
+	
 }

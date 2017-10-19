@@ -1,11 +1,14 @@
 package com.movie03.controller.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import com.movie03.dao.AdminDAO;
 import com.movie03.dto.TheaterVO;
+
+import util.ThumbImage;
 
 /**
  * 영화관 관리 AC
@@ -27,8 +30,13 @@ public class AdminTheaterAction implements Action{
 			if(cmd.equals("UPDATE")){//정보 수정
 	 			System.out.println("정보 수정 >>");
 	 			//정보 수정
-	 			//theaterMgrUpdate
 	 			
+	 			System.out.println("TheaterTNAME :" + reqModel.get("TheaterTNAME"));
+	 			System.out.println("TheaterTLOCAL :" + reqModel.get("TheaterTLOCAL"));
+	 			System.out.println("TheaterTDESC :" + reqModel.get("TheaterTDESC"));
+	 			System.out.println("TheaterTIMAGE :" + reqModel.get("TheaterTIMAGE"));
+	 			
+				url = "../admin/theaterMgrView.jsp";
 			}
 			
 		}else{ //영화관 정보 가져오기
