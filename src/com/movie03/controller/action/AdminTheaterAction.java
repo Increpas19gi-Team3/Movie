@@ -20,45 +20,73 @@ public class AdminTheaterAction implements Action{
 	@Override
 	public String execute(Map<String, Object> reqModel, Map<String, Object> respModel) throws IOException {
 		
+		AdminDAO adminDAO = AdminDAO.getInstance();
 		String url = "";
 		
-		String cmd = (String)reqModel.get("AdminTheater");
-		System.out.println("AdminTheaterAction cmd = " +cmd);
+		String cmd = (String)reqModel.get("CmdMgr");
+		System.out.println("AdminTheaterAction CmdMgr = " +cmd);
 		
+		String reqTNAME = "";
+		String reqTLOCAL = "";
+		String reqTDESC = "";
+		String reqTIMAGE = "";
+		
+		if((String)reqModel.get("TheaterTNAME") != null) reqTNAME = (String)reqModel.get("TheaterTNAME");
+		if((String)reqModel.get("TheaterTLOCAL") != null) reqTLOCAL = (String)reqModel.get("TheaterTLOCAL"); 
+		if((String)reqModel.get("TheaterTDESC") != null) reqTDESC = (String)reqModel.get("TheaterTDESC");
+		if((String)reqModel.get("TheaterTIMAGE") != null) reqTIMAGE = (String)reqModel.get("TheaterTIMAGE"); 
 		
 		if(cmd != null) {
-			if(cmd.equals("UPDATE")){//정보 수정
+			
+			if(cmd.equals("Theater_UPDATE_FORM")){//수정 폼으로 이동
+				List<TheaterVO> theaterList = adminDAO.selectTheater();
+				respModel.put("MgrViewTheater", theaterList);
+				
+				url = "../admin/theaterMgrForm.jsp"; 
+				
+			}else if(cmd.equals("Theater_UPDATE")){//정보 수정
 	 			System.out.println("정보 수정 >>");
-	 			//정보 수정
 	 			
-	 			System.out.println("TheaterTNAME :" + reqModel.get("TheaterTNAME"));
-	 			System.out.println("TheaterTLOCAL :" + reqModel.get("TheaterTLOCAL"));
-	 			System.out.println("TheaterTDESC :" + reqModel.get("TheaterTDESC"));
-	 			System.out.println("TheaterTIMAGE :" + reqModel.get("TheaterTIMAGE"));
+	 			TheaterVO tVO = new TheaterVO();
+	 			tVO.setTNAME(reqTNAME);
+	 			tVO.setTLOCAL(reqTLOCAL);
+	 			tVO.setTDESC(reqTDESC);
+	 			tVO.setTIMAGE(reqTIMAGE);
 	 			
-				url = "../admin/theaterMgrView.jsp";
+	 			adminDAO.updateTheater(tVO);
+	 			
+	 			url = "../admin/admin_Theater.do";
+				
+				
+			}else if(cmd.equals("Theater_INSERT")){//정보 수정
+	 			System.out.println("정보 등록 >>");
+				
+				TheaterVO tVO = new TheaterVO();
+	 			tVO.setTNAME(reqTNAME);
+	 			tVO.setTLOCAL(reqTLOCAL);
+	 			tVO.setTDESC(reqTDESC);
+	 			tVO.setTIMAGE(reqTIMAGE);
+	 			
+	 			adminDAO.insertTheater(tVO); // 영화관 정보 저장
+	 			
+	 			url = "../admin/admin_Theater.do";
 			}
 			
 		}else{ //영화관 정보 가져오기
-			AdminDAO adminDAO = AdminDAO.getInstance();
+			
 			List<TheaterVO> theaterList = adminDAO.selectTheater();
 			
 			if(theaterList.size() < 1){//영화관 정보가 없다면 영화관 정보 입력창으로 이동
-				url = "../admin/theaterMgrInsert.jsp"; 
+				
+				url = "../admin/theaterMgrForm.jsp"; 
 				
 			}else{//영화관 정보가 있다면 보여줌
-				respModel.put("Admin_Theater", theaterList);
+				
+				respModel.put("MgrViewTheater", theaterList);
 				url = "../admin/theaterMgrView.jsp";
 			}
 			
 			
-//			bDao.updateReadCount(num);//글 조회수 1 증가
-//			
-//			BoardVO bVo = bDao.selectOneBoardByNum(num);//글 읽어오기
-//			request.setAttribute("board", bVo);
-			
-			
-			System.out.println("AdminTheaterAction respModel(Admin_Theater) ="+ respModel.get("Admin_Theater"));
 			System.out.println("AdminTheaterAction url =" + url);
 		}
 		
