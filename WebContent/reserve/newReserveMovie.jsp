@@ -54,7 +54,7 @@
 					<th>좌석정보 : </th>
 					<td>
 					<br>
-						<input type="checkbox" name="seat"  value="A01">A01
+						<input type="checkbox" name="seat"  value="A01" disabled=false >A01
 						<input type="checkbox" name="seat"  value="A02">A02
 						<input type="checkbox" name="seat"  value="A03">A03
 						<input type="checkbox" name="seat"  value="A04">A04
