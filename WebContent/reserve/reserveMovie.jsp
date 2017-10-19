@@ -20,7 +20,10 @@
 				</tr>
 				<tr>
 					<th>상영날짜 : </th>
-					<td><input type="date" name="rday" value="zzz"></td>
+					<td>
+						<input type="date" name="rday" value="zzz">
+						<input type="button" value="선택" onclick="location.href='MovieServlet.do'"> 
+					</td>
 				</tr>
 				<tr>
 					<th>상영시간 : </th>
@@ -68,10 +71,10 @@
 				</tr>
 			</table>
 			<br>
-			<br> <input type="submit" value="등록"
-				onclick="return boardCheck()"> <input type="reset"
-				value="다시 작성"> <input type="button" value="목록"
-				onclick="location.href='BoardServlet?command=board_list'">
+			<br> 
+			<input type="submit" value="등록" onclick="return boardCheck()"> 
+			<input type="reset"  value="다시 작성"> 
+			<input type="button" value="목록" onclick="location.href='MovieServlet.do'">
 		</form>
 	</div>
 	

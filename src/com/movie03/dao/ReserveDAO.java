@@ -1,6 +1,7 @@
 package com.movie03.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import com.movie03.dto.MovieVO;
 import com.movie03.dto.ReserveVO;
+import com.movie03.dto.ScreenTurnVO;
 
 import oracle.net.aso.b;
 import util.DBManager;
@@ -53,6 +55,39 @@ public class ReserveDAO {
 				bVo.setSTARTDAY(rs.getString("STARTDAY"));
 				bVo.setSYNOPSIS(rs.getString("SYNOPSIS"));
 				bVo.setTITLE(rs.getString("TITLE"));
+				
+				list.add(bVo);//글목록에 글(VO) 추가
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, stmt, rs);
+		}
+		return list;
+	}
+	
+	
+	public List<ScreenTurnVO> selectTurnMovie(){
+		String sql = "select STTURN from screenturn where MCODE=? and to_char(stdate, 'YYYY/MM/DD')=?";
+		List<ScreenTurnVO> list = new ArrayList<ScreenTurnVO>();//목록
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			//뷰를 하고 싶은 글번호 세팅
+			pstmt.setString(1,  sdsfsdffsdfsdfsdfsdf);
+			pstmt.setString(2, );
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				ScreenTurnVO bVo = new ScreenTurnVO();//글(VO)
+				bVo.setMCode(rs.getString("MCODE"));
+				bVo.setSCode(rs.getString("SCODE"));
+				bVo.setSTdate(rs.getString("STDATE"));
+				bVo.setSTturn(rs.getString("STTURN"));
 				
 				list.add(bVo);//글목록에 글(VO) 추가
 			}
