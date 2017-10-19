@@ -1,14 +1,14 @@
 package com.movie03.dto;
 
 /**
- * 극장 정보 DB VO
+ * 영화관 정보 DB VO
  * @author 손가연
  *
  */
 public class TheaterVO {
 	
-	private String TCODE;   // 극장 코드 T01
-	private String TNAME;   // 극장이름
+	private String TCODE;   // 영화관 코드 T01
+	private String TNAME;   // 영화관이름
 	private String TLOCAL;  // 위치
 	private String TDESC;	// 소개
 	private String TIMAGE;	// 사진 img

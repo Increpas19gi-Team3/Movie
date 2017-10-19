@@ -10,7 +10,7 @@ public class AdminAction implements Action{
 
 		// 관리자 화면을 보여주기만 함.
 		System.out.println("관리자 모드 화면창");
-		String url = "../admin/admin.jsp";
+		String url = "../admin/adminMain.jsp";
 		
 		return url;
 	}
