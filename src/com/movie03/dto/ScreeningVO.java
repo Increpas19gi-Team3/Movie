@@ -11,7 +11,7 @@ public class ScreeningVO {
 	private String TCODE;   // 극장코드 T01
 	private String SNAME;   // 상영관 이름
 	private int SSEATCNT;   // 좌석수
-	private String SSEATINFO; // 좌석정보
+	private String SSEATINFO; // 정보
 	private String STURN;  	// 회차 1, 2, 3회차
 	private String STIME;	// 시간 12, 16, 20시
 	
