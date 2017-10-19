@@ -1,9 +1,11 @@
 package com.movie03.controller.action;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import com.movie03.dao.AdminDAO;
+import com.movie03.dto.TheaterVO;
 
 /**
  * 영화관 관리 AC
@@ -18,24 +20,29 @@ public class AdminTheaterAction implements Action{
 		String url = "";
 		
 		String cmd = (String)reqModel.get("AdminTheater");
-		System.out.println("cmd = " +cmd);
+		System.out.println("AdminTheaterAction cmd = " +cmd);
 		
 		
 		if(cmd != null) {
-			
-			if(cmd.equals("Update")){//정보 수정
+			if(cmd.equals("UPDATE")){//정보 수정
 	 			System.out.println("정보 수정 >>");
+	 			//정보 수정
+	 			//theaterMgrUpdate
 	 			
-			}else if(cmd.equals("Insert")){//정보 등록
-	 			System.out.println("정보 등록 >>");
 			}
 			
 		}else{ //영화관 정보 가져오기
 			AdminDAO adminDAO = AdminDAO.getInstance();
+			List<TheaterVO> theaterList = adminDAO.selectTheater();
 			
-			respModel.put("CmdAdmin_Theater", adminDAO.selectTheater());
+			if(theaterList.size() < 1){//영화관 정보가 없다면 영화관 정보 입력창으로 이동
+				url = "../admin/theaterMgrInsert.jsp"; 
+				
+			}else{//영화관 정보가 있다면 보여줌
+				respModel.put("Admin_Theater", theaterList);
+				url = "../admin/theaterMgrView.jsp";
+			}
 			
-			System.out.println("respModel : CmdAdmin:Theater ="+ respModel.get("CmdAdmin_Theater"));
 			
 //			bDao.updateReadCount(num);//글 조회수 1 증가
 //			
@@ -43,9 +50,8 @@ public class AdminTheaterAction implements Action{
 //			request.setAttribute("board", bVo);
 			
 			
-			
-			System.out.println("극장 정보 관리 모드 화면창");
-			url = "../admin/admin_Theater.jsp";
+			System.out.println("AdminTheaterAction respModel(Admin_Theater) ="+ respModel.get("Admin_Theater"));
+			System.out.println("AdminTheaterAction url =" + url);
 		}
 		
 		return url;

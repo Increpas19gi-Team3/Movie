@@ -31,7 +31,7 @@
         		<li><a>${sessionScope.MNAME}님 어서오세요.</a></li>
         		
         		<c:if test="${sessionScope.MADMIN == 0}">
-        			<li><a href="../admin/admin.jsp">[관리자 화면]</a></li>
+        			<li><a href="../admin/admin.do">[관리자 화면]</a></li>
         		</c:if>
         		
         		<li><a href="../member/logout.jsp">로그아웃</a></li>
