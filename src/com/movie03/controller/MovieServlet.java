@@ -21,16 +21,14 @@ import com.movie03.dto.BoardVO;
 /**
  * Servlet implementation class BoardServlet
  */
-//     /web-study-11/board/reply_add.do
-//      /web-study-1/board/boardReplyList2.jsp
-//    슬래시로 시작하는 경우 *.확장자 패턴 X
 
 @WebServlet("*.do")
 public class MovieServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	Map<String, Object> reqModel = null;
-	Map<String, Object> respModel  = null;
+//	전역변수로 쓸 것인지 확인 필요함.	
+//	Map<String, Object> reqModel = null;
+//	Map<String, Object> respModel  = null;
 	
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,14 +39,17 @@ public class MovieServlet extends HttpServlet {
 	}
 
 	
-	@Override
-	public void init() throws ServletException {
-		// TODO Auto-generated method stub
-		//super.init();
-		
-		reqModel = new HashMap<String, Object>();
-		respModel  = new HashMap<String, Object>();
-	}
+	/**
+	 * 전역변수로 쓸 것인지 확인 필요함.
+	 */
+//	@Override
+//	public void init() throws ServletException {
+//		// TODO Auto-generated method stub
+//		//super.init();
+//		
+//		reqModel = new HashMap<String, Object>();
+//		respModel  = new HashMap<String, Object>();
+//	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -58,6 +59,11 @@ public class MovieServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("▶▶▶▶▶ doGet");
+
+		//지역변수로 Map 사용
+		Map<String, Object> reqModel = new HashMap<String, Object>();
+		Map<String, Object> respModel  = new HashMap<String, Object>();
+		
 		
 		
 		/* 파라메터, request 객체 를 전부 reqModel에 저장하는 로직 Start */
