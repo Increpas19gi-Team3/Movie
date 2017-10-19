@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.movie03.controller.action.Action;
-import com.movie03.controller.action.Action2;
-import com.movie03.controller.action.BoardReplyAction2;
-import com.movie03.dto.BoardVO;
 
 /**
  * Servlet implementation class BoardServlet
@@ -69,7 +66,7 @@ public class MovieServlet extends HttpServlet {
 		/* 파라메터, request 객체 를 전부 reqModel에 저장하는 로직 Start */
 		// JSP 에서 넘어온 파라메터를 requestModel 에 저장
 		System.out.println("----- getParameterNames -----");
-		Enumeration params = request.getParameterNames();
+		Enumeration<String> params = request.getParameterNames();
 		while (params.hasMoreElements()){
 		    String name = (String)params.nextElement();
 		    System.out.println(name + " : " + request.getParameter(name));
@@ -104,7 +101,7 @@ public class MovieServlet extends HttpServlet {
 
 		
 		System.out.println("***** 저장된 reqModel 출력 *****");
-		Set keys = reqModel.keySet();
+		Set<String> keys = reqModel.keySet();
 		for (Object key : keys) {
 			System.out.println(key + " : " + reqModel.get(key));
 		}
@@ -150,7 +147,7 @@ public class MovieServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		//request.setCharacterEncoding("UTF-8");
+		//request.setCharacterEncoding("UTF-8"); //filter 에서 인코딩 작업을 함
 		
 		System.out.println("▶▶▶▶▶ doPost");
 		
