@@ -60,6 +60,29 @@ public class ActionFactory {
 		}
 		
 		// 회원관리
+		else if(uri.contains("/member/join.do")){// 회원가입
+			action=new MemjoinAction();
+		}
+		else if(uri.contains("/member/modify.do")){// 수정
+			action=new MemUpdateAction();
+		}
+		else if(uri.contains("/member/login.do")){// 로그인
+			action=new MemLoginAction();
+		}
+		else if(uri.contains("/member/logout.do")){// 로그아웃
+			action=new MemLoginAction();
+		}
+
+		else if(uri.contains("/member/leave.do")){// 탈퇴
+			action=new MemLoginAction();
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		// 예약 관리
 		else if(uri.contains("/Movie/MovieServlet.do")){
