@@ -6,6 +6,7 @@ import com.movie03.controller.action.Action2;
 import com.movie03.controller.action.AdminAction;
 import com.movie03.controller.action.AdminMovieAction;
 import com.movie03.controller.action.AdminReserveAction;
+import com.movie03.controller.action.AdminScreenSetAction;
 import com.movie03.controller.action.AdminScreeningAction;
 import com.movie03.controller.action.AdminTheaterAction;
 //import com.movie03.controller.action.BoardCheckPassAction;
@@ -54,6 +55,9 @@ public class ActionFactory {
 			
 		}else if(uri.contains("/admin/admin_Movie.do")){// 영화 목록 관리
 			action=new AdminMovieAction();
+			
+		}else if(uri.contains("/admin/admin_ScreenSet.do")){// 상영 영화 관리
+			action=new AdminScreenSetAction();
 			
 		}else if(uri.contains("/admin/admin_Reserve.do")){// 예약 관리
 			action=new AdminReserveAction();

@@ -20,7 +20,8 @@
       </div>
       <div class="menu">
         <ul>
-          <li><a href="../admin/admin_Movie.do">영화 관리</a></li>
+          <li><a href="../admin/admin_Movie.do">영화 등록 관리</a></li>
+          <li><a href="../admin/admin_ScreenSet.do">상영 영화 관리</a></li>
           <li><a href="../admin/admin_Reserve.do">예약 정보 관리</a></li>
           <li><a href="../admin/admin_Theater.do">극장 정보 관리</a></li>
           <li><a href="../admin/admin_Screening.do">상영관 정보 관리</a></li>
