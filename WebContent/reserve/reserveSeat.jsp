@@ -17,9 +17,26 @@
 			pageContext.setAttribute("mVo", mVo);
 		%>
 		<form name="frm" method="post" action="/Movie/Reserve.do">
-			<h4>좌석정보</h4>
+
 			<table>
+			<tr>
+					<th>영화제목 : </th>
+					<td><input type="text" name="title" value="<%=request.getParameter("title")%>" readonly="readonly"></td>
+				</tr>
 				<tr>
+					<th>상영관 : </th>
+					<td><input type="text" name="screan" value="1관" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>상영날짜 : </th>
+					<td><input type="text" name="rday" value="<%=request.getParameter("rday")%>" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>상영회차 : </th>
+					<td><input type="text" name=rtime value="<%=request.getParameter("rtime")%>" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<th>좌석정보 : </th>
 					<td>
 						
 						<c:forEach var="list" items="${mVo}">

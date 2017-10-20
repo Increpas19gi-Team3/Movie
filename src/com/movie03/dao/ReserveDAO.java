@@ -185,4 +185,49 @@ public class ReserveDAO {
 		}
 		return list;
 	}
+	
+	/***
+	 * 예매 정보 insert
+	 * @param turn
+	 * @param date
+	 * @return
+	 */
+	/*public String insertReserve(String seat){
+		String sql = "select * from seat where sturn=? and to_char(sdate, 'YYYY-MM-DD')=?";
+		String res=null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		System.out.println("seat : " + seat);
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, RCODE);
+			pstmt.setString(2, MID);
+			pstmt.setString(3, MCODE);
+			pstmt.setString(4, SCODE);
+			pstmt.setString(5, RDAY);
+			pstmt.setString(6, RTURN);
+			pstmt.setString(7, RTIME);
+			pstmt.setString(8, RSEAT);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				ReserveVO bVo = new ReserveVO();//글(VO)
+				bVo.setMCODE(rs.getString("MCODE"));
+				
+				System.out.println("TEST >>> " + bVo.getSSEAT() + "," + bVo.getSSTATE()  );
+				list.add(bVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	}*/
 }
