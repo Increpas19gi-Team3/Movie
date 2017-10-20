@@ -17,7 +17,7 @@
 			pageContext.setAttribute("mVo", mVo);
 		%>
 		<form name="frm" method="post" action="/Movie/Reserve.do">
-
+			<input type="hidden" name="id" value="<%=session.getAttribute("MID")%>">
 			<table>
 			<tr>
 					<th>영화제목 : </th>

@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.Session;
+
 import com.movie03.dto.MovieVO;
 import com.movie03.dto.ReserveVO;
 import com.movie03.dto.ScreenTurnVO;
@@ -185,6 +187,40 @@ public class ReserveDAO {
 		}
 		return list;
 	}
+	/***
+	 * 좌석 정보 조회
+	 * @param turn
+	 * @param date
+	 * @return
+	 */
+	public String selectReserveCode(){
+		String sql = "select max(RCODE) from reserve";
+		String rcode = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				rcode = rs.getString("RCODE");
+			}
+			
+			if(rcode.isEmpty())
+				rcode="R01";
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return rcode;
+	}
 	
 	/***
 	 * 예매 정보 insert
@@ -192,36 +228,54 @@ public class ReserveDAO {
 	 * @param date
 	 * @return
 	 */
-	/*public String insertReserve(String seat){
-		String sql = "select * from seat where sturn=? and to_char(sdate, 'YYYY-MM-DD')=?";
-		String res=null;
+	 public List<ReserveVO> insertReserve(String code, String screan, String rday, String rturn, String seat, String mid, String rcode){
+		String sql = "insert into reserve values (?,?,?,?,?,?,?,?)";
+		List<ReserveVO> list = new ArrayList<ReserveVO>();//목록
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		System.out.println("seat : " + seat);
 		
+		String rtime = null;
+		if(rturn == "1")
+			rtime = "12시";
+		else if(rturn == "2")
+			rtime = "16시";
+		else if(rturn == "3")
+			rtime = "20시";
+		else
+			rtime = "0시";
+		
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
 
-			pstmt.setString(1, RCODE);
-			pstmt.setString(2, MID);
-			pstmt.setString(3, MCODE);
-			pstmt.setString(4, SCODE);
-			pstmt.setString(5, RDAY);
-			pstmt.setString(6, RTURN);
-			pstmt.setString(7, RTIME);
-			pstmt.setString(8, RSEAT);
+			pstmt.setString(1, rcode);
+			pstmt.setString(2, mid);
+			pstmt.setString(3, code);
+			pstmt.setString(4, "S01");
+			pstmt.setString(5, rday);
+			pstmt.setString(6, rturn);
+			pstmt.setString(7, rtime);
+			pstmt.setString(8, seat);
 			
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
 				ReserveVO bVo = new ReserveVO();//글(VO)
-				bVo.setMCODE(rs.getString("MCODE"));
 				
-				System.out.println("TEST >>> " + bVo.getSSEAT() + "," + bVo.getSSTATE()  );
+				bVo.setMCODE(rs.getString("MCODE"));
+				bVo.setMID(rs.getString("MID"));
+				bVo.setRCODE(rs.getString("RCODE"));
+				bVo.setRDAY(rs.getString("RDAY"));
+				bVo.setRSEAT(rs.getString("RSEAT"));
+				bVo.setRTIME(rs.getString("RTIME"));
+				bVo.setRTURN(rs.getString("RTURN"));
+				bVo.setSCODE(rs.getString("SCODE"));
+				
 				list.add(bVo);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -229,5 +283,5 @@ public class ReserveDAO {
 			DBManager.close(conn, pstmt, rs);
 		}
 		return list;
-	}*/
+	}
 }
