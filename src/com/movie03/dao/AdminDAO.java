@@ -10,6 +10,7 @@ import java.sql.Statement;
 
 import util.DBManager;
 
+import com.movie03.dto.MovieVO;
 import com.movie03.dto.ScreeningVO;
 import com.movie03.dto.TheaterVO;
 
@@ -218,5 +219,84 @@ public class AdminDAO {
 		}
 	}
 
+	
+	/**
+	 * 영화 목록 가져오기
+	 * @param whereColumn - 검색 종류(TITLE, DIRECTOR, ACTOR, GENRE) 
+	 * @param word - 검색어
+	 * @param sort - 정렬
+	 * @return
+	 */
+	public List<MovieVO> selectMovieList(String whereColumn, String word, String sort){
+		List<MovieVO> list = new ArrayList<MovieVO>();
+		
+		String sqlWhere = "";
+		String sqlOrderBy = "ORDER BY TITLE ASC";
+		String sql = "SELECT * FROM MOVIE ";
+		
+		// where 절 생성
+		System.out.println("whereColumn equlas:" + (whereColumn.equals("")));
+		System.out.println("whereColumn length:" + (whereColumn.length()));
+		if(!whereColumn.equals("")){
+			//sqlWhere = "WHERE ? LIKE '%?%' ";
+			sqlWhere = "WHERE "+ whereColumn +" LIKE '%"+ word +"%' ";
+		}
+		
+		// sort 절 생성
+		if(sort.equals("ASC")){
+			sqlOrderBy = "ORDER BY TITLE DESC";
+		}else{
+			sqlOrderBy = "ORDER BY TITLE ASC";
+		}
+		
+		//최종 SQL
+		sql = sql + sqlWhere + sqlOrderBy;
+		System.out.println("selectMovieList sql:" + sql);
+		
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		
+		try{
+			
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			
+			if(!whereColumn.equals("")){
+				prepStmt.setString(1, whereColumn);
+				prepStmt.setString(2, word);
+			}
+			rs = prepStmt.executeQuery();
+			
+			
+			while(rs.next()){
+				MovieVO mVO = new MovieVO();
+				mVO.setMCODE(rs.getString("MCODE")); 
+				mVO.setTITLE(rs.getString("TITLE"));
+				mVO.setPRICE(rs.getInt("PRICE"));
+				mVO.setDIRECTOR(rs.getString("DIRECTOR"));
+				mVO.setACTOR(rs.getString("ACTOR"));
+				mVO.setOPENDAY(rs.getString("OPENDAY"));
+				mVO.setGENRE(rs.getString("GENRE"));   
+				mVO.setPOSTER(rs.getString("POSTER"));
+				mVO.setSYNOPSIS(rs.getString("SYNOPSIS"));
+				mVO.setSTARTDAY(rs.getString("STARTDAY"));
+				mVO.setENDDAY(rs.getString("ENDDAY"));
+				mVO.setAPPRAISAL(rs.getString("APPRAISAL"));
+				list.add(mVO);
+			}
+			
+			System.out.println(">>>>>>>>>>>>>>>> 여기까지 이상 없음");
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			System.out.println(">>>>>>>>>>>>>>>> finally 시작");
+			DBManager.close(conn, prepStmt, rs);
+			System.out.println(">>>>>>>>>>>>>>>> finally 끝");
+		}
+		
+		return list;
+	}
 	
 }

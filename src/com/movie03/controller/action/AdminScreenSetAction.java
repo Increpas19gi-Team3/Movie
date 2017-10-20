@@ -17,7 +17,7 @@ public class AdminScreenSetAction implements Action{
 		
 		// 관리자 화면을 보여주기만 함.
 		System.out.println("상영 영화 관리 모드 화면창");
-		String url = "../admin/admin_Movie.jsp";
+		String url = "../admin/screenSetMgrList.jsp";
 		
 		return url;
 	}
