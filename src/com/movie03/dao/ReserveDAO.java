@@ -53,7 +53,6 @@ public class ReserveDAO {
 				bVo.setDIRECTOR(rs.getString("DIRECTOR"));
 				bVo.setENDDAY(rs.getString("ENDDAY"));
 				bVo.setGENRE(rs.getString("GENRE"));
-				bVo.setMCOMMENT(rs.getString("MCOMMENT"));
 				bVo.setOPENDAY(rs.getString("OPENDAY"));
 				bVo.setPOSTER(rs.getString("POSTER"));
 				bVo.setPRICE(rs.getInt("PRICE"));
