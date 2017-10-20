@@ -20,8 +20,8 @@
 	2. 어떻게 상세-페이지로 이동 시킬것인가?
 	 : 영화제목을 클릭시 상세페이지로 이동시킴
 	 -->
+	 
 <!-- 글-목록을 요청영역에서 가져옴  -->
-
 <%
 	HashMap<String, Object> respModel = (HashMap<String, Object>) request.getAttribute("respModel");
 
@@ -51,8 +51,8 @@
 				<c:forEach var="movie" items="${mVo}">
 					<tr class="#">
 						<td>${movie.MCODE}</td>
-						<!-- 영화제목 클릭시 상세보기에 관한 페이지 이동 -->
-						<td><a href="#">${movie.TITLE}</td>
+						<!-- 영화제목 클릭시 상세보기에 관한 페이지 이동 -->						
+						<td><a href="../movie/movie.do?DetailMovie=${DetailMovie}">${movie.TITLE}</td>
 						<td>${movie.DIRECTOR}</td>
 						<td>${movie.ACTOR}</td>
 						<td>${movie.GENRE}</td>

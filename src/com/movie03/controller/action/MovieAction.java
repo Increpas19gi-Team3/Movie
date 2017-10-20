@@ -8,8 +8,7 @@ import com.movie03.dao.MovieDAO;
 import com.movie03.dto.MovieVO;
 
 /**
- * 영화 관리 AC
- * 
+ * 영화 관리 AC  
  * @author 손가연
  *
  */
@@ -19,7 +18,8 @@ public class MovieAction implements Action {
 	public String execute(Map<String, Object> reqModel, Map<String, Object> respModel) throws IOException {
 
 		String url = ""; // 선언
-
+		System.out.println("MovieAction-execute : "+ url);
+		
 		// 요청 받은 검색어
 		// 검색에 관한 - CmdMovie
 		System.out.println("CmdMovie : " + reqModel.get("CmdMovie"));
@@ -28,12 +28,16 @@ public class MovieAction implements Action {
 		// 제목 정렬에 관한(내림, 오름) - OrderBy
 		System.out.println("OrderBy : " + reqModel.get("OrderBy"));
 		String OrderBy = (String) reqModel.get("OrderBy");
+		
+		// 상세보기에 관한 - DetailMovie
+		System.out.println("DetailMovie : " + reqModel.get("DetailMovie"));
+		String DetailMovie = (String) reqModel.get("DetailMovie");
 
 		// List<MovieVO> list 선언
 		List<MovieVO> list = null;
-
-		// 이걸 왜 이렇게 복잡하게 만들었을까?
-		// 그냥 if, else로만 쓰면 안될까?
+		
+		// 처음 실행시 null임 그래서 'ASC' 
+		// 두번쨰 클릭시 저장된 값이 'ASC'이기 때문에 'DESC'로 바뀌게 됨
 		if (OrderBy == null) { // 정렬에 관한 값이 없다면 오름차순으로 정리
 			OrderBy = "ASC";
 		} else { // 정렬에 관한 값이 있다면 내림차순(DESC)
@@ -47,6 +51,7 @@ public class MovieAction implements Action {
 		// 요청 받은 검색어
 		// 검색에 관한 - CmdMovie
 		if (Cmd != null) { // 뭔가 검색어를 입력 받았다면
+			// MovieList.jsp-<input type="hidden" name="CmdMovie" value="Search"> 
 			if (Cmd.equals("Search")) {
 				// 요청 request = get
 				// select_word : 선택박스(제목, 감독, 배우, 장르)
@@ -69,7 +74,7 @@ public class MovieAction implements Action {
 			MovieDAO mDAO = MovieDAO.getInstance();
 			// MovieDAO - MovieChoose(String choose)
 			// 오름차순으로 전체 검색 SQL문 실행
-			list = mDAO.MovieChoose(OrderBy);
+			list = mDAO.MovieArray(OrderBy);
 			// response - put
 			respModel.put("MovieList", list);
 			respModel.put("OrderBy", OrderBy);
@@ -79,11 +84,11 @@ public class MovieAction implements Action {
 
 		// 검색일때
 
-		// 상세보기 일때
+		// 상세보기 일때 (DetailMovie)
 
 		// 관리자 화면을 보여주기만 함.
 		System.out.println("영화 모드 화면창");
-		System.out.println("url = " + url);
+		System.out.println("url = "+ url);
 		return url;
 	}
 }
