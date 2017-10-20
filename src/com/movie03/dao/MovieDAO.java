@@ -38,17 +38,10 @@ public class MovieDAO {
 	 */
 	public List<MovieVO> MovieArray(String array) {
 
-		String sql = "select * from Movie order by title";
+		String sql = "select * from Movie order by title  "+ array;
 
-		if (array.equals("")) { // 정렬에 관한 값이 없다면 오름차순으로 정리
-			sql += "ASC";
-		} else { // 정렬에 관한 값이 있다면 내림차순(DESC)
-			if (array.equals("ASC")) {
-				sql += "DESC";
-			} else {
-				sql += "ASC";
-			}
-		}
+		//sql += array;
+		
 		// console-창에 보여주기 위한 실행문
 		System.out.println("(MovieArray)sql = " + sql);
 

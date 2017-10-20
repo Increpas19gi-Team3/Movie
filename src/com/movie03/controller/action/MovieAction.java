@@ -17,36 +17,38 @@ public class MovieAction implements Action {
 	@Override
 	public String execute(Map<String, Object> reqModel, Map<String, Object> respModel) throws IOException {
 
-		String url = ""; // 선언
-		System.out.println("MovieAction-execute : "+ url);
+		System.out.println("MovieAction >>>>>>>>>>>>>>");
 		
-		// 요청 받은 검색어
-		// 검색에 관한 - CmdMovie
+		String url = "../movie/MovieList.jsp"; // 선언
+		// MovieList.java에서 
+		String Cmd = ""; // 요청 받은 검색어: 검색에 관한 - CmdMovie
+		String OrderBy = "DESC"; // 제목 정렬에 관한(내림, 오름) - OrderBy
+		String DetailMovie = ""; // 상세보기에 관한 - DetailMovie
+		
+		System.out.println("MovieAction-execute : "+ url);		
+		
 		System.out.println("CmdMovie : " + reqModel.get("CmdMovie"));
-		String Cmd = (String) reqModel.get("CmdMovie");
-
-		// 제목 정렬에 관한(내림, 오름) - OrderBy
-		System.out.println("OrderBy : " + reqModel.get("OrderBy"));
-		String OrderBy = (String) reqModel.get("OrderBy");
+		Cmd = (String) reqModel.get("CmdMovie");
 		
-		// 상세보기에 관한 - DetailMovie
+		System.out.println("OrderBy : " + reqModel.get("OrderBy"));
+		if((String) reqModel.get("OrderBy") != null) OrderBy = (String) reqModel.get("OrderBy"); 
+		
+		OrderBy = (String) reqModel.get("OrderBy");		
+		
 		System.out.println("DetailMovie : " + reqModel.get("DetailMovie"));
-		String DetailMovie = (String) reqModel.get("DetailMovie");
-
-		// List<MovieVO> list 선언
-		List<MovieVO> list = null;
+		DetailMovie = (String) reqModel.get("DetailMovie");
+		
+		List<MovieVO> list = null; // List<MovieVO> list 선언
 		
 		// 처음 실행시 null임 그래서 'ASC' 
 		// 두번쨰 클릭시 저장된 값이 'ASC'이기 때문에 'DESC'로 바뀌게 됨
-		if (OrderBy == null) { // 정렬에 관한 값이 없다면 오름차순으로 정리
+		
+		if (OrderBy.equals("DESC")) { // DESC 일때 ASC 로 변환
 			OrderBy = "ASC";
-		} else { // 정렬에 관한 값이 있다면 내림차순(DESC)
-			if (OrderBy.equals("ASC")) {
-				OrderBy = "DESC";
-			} else {
-				OrderBy = "ASC";
-			}
+		} else { // ASC 일때 DESC 로 변환
+			OrderBy = "DESC";
 		}
+		
 
 		// 요청 받은 검색어
 		// 검색에 관한 - CmdMovie
@@ -83,8 +85,11 @@ public class MovieAction implements Action {
 		}
 
 		// 검색일때
+		
 
 		// 상세보기 일때 (DetailMovie)
+		/*if()*/
+		
 
 		// 관리자 화면을 보여주기만 함.
 		System.out.println("영화 모드 화면창");

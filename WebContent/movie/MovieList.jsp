@@ -27,6 +27,9 @@
 
 	String OrderBy = (String) respModel.get("OrderBy");
 	pageContext.setAttribute("OrderBy", OrderBy);
+	
+	String DetailMovie = (String) respModel.get("DetailMovie");
+	pageContext.setAttribute("DetailMovie", DetailMovie);
 
 	List<MovieVO> mVo = (List<MovieVO>) respModel.get("MovieList");
 	pageContext.setAttribute("mVo", mVo);
@@ -39,7 +42,7 @@
 		<!-- 이부분의 input의 type="hidden" 속성을 잘 모르겠음 -->
 		<input type="hidden" name="CmdMovie" value="Search">
 		
-		<table class="#" border="1">
+		<table class="#" border="6">
 			<tr>
 				<th>번호(영화코드)</th>
 				<!-- 제목 클릭시 정렬에 관한 SQL문 실행 -->
