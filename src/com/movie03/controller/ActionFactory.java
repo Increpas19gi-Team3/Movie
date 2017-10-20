@@ -24,6 +24,7 @@ import com.movie03.controller.action.MovieAction;
 //import com.movie03.controller.action.BoardWriteFormAction;
 import com.movie03.controller.action.ReserveAction;
 import com.movie03.controller.action.ReserveMovieAction;
+import com.movie03.controller.action.ReserveSeatAction;
 
 public class ActionFactory {
 	private static ActionFactory instance = new ActionFactory();
@@ -77,6 +78,8 @@ public class ActionFactory {
 			action = new ReserveAction();
 		}else if(uri.contains("/Movie/reserveMovie.do")){
 			action = new ReserveMovieAction();
+		}else if(uri.contains("/Movie/reserveSeat.do")){
+			action = new ReserveSeatAction();
 		}
 		
 		// 영화 관리
