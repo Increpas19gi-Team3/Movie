@@ -7,6 +7,9 @@ import java.util.Map;
 import com.movie03.dao.AdminDAO;
 import com.movie03.dto.MovieVO;
 
+
+import com.movie03.dto.MovieVO_Date;
+
 /**
  * 영화 관리 AC 
  * @author 손가연
@@ -38,21 +41,42 @@ public class AdminMovieAction implements Action{
 		respModel.put("SearchWord", reqListWord);
 		respModel.put("Sort", reqListSort);
 		
-		
+		String reqMCODE = "";
+		if((String)reqModel.get("MCODE") != null) reqMCODE = (String)reqModel.get("MCODE");
 		
 		
 		if(cmd != null){
-			if(cmd.equals("Movie_LIST")){
-				System.out.println("리스트 출력-검색, 정렬");
+			if(cmd.equals("Movie_LIST")){// 리스트 화면
 				List<MovieVO> movieList = adminDAO.selectMovieList(reqListGubun, reqListWord, reqListSort);
 				
 				respModel.put("MgrListMovie", movieList);
-				respModel.put("CmdMgr", "Movie_LIST");
+				respModel.put("CmdMgr", cmd);
 				
 				url = "../admin/movieMgrList.jsp";
 				
-			}else if(cmd.equals("Movie_INSERT_FORM")){//Movie_INSERT_FORM
+			}if(cmd.equals("Movie_VIEW")){// 상세보기 화면
+				//MovieVO movieView = adminDAO.selectMovieView(reqMCODE);
+				MovieVO_Date movieView = adminDAO.selectMovieView_Date(reqMCODE);
 				
+				respModel.put("MgrViewMovie", movieView);
+				respModel.put("CmdMgr", cmd);
+				
+				url = "../admin/movieMgrView.jsp";
+				
+			}else if(cmd.equals("Movie_INSERT_FORM")){//입력 폼으로 이동
+				System.out.println(">>>>>>>>>> 입력 폼으로 이동 작업 필요");
+				
+			}else if(cmd.equals("Movie_INSERT")){//입력 - DB
+				System.out.println(">>>>>>>>>> 입력 DB 작업 필요");
+				
+			}else if(cmd.equals("Movie_UPDATE_FORM")){//수정 폼으로 이동
+				System.out.println(">>>>>>>>>> 수정 폼으로 이동, 수정할 내용 화면에 출력 작업 필요");
+				
+			}else if(cmd.equals("Movie_UPDATE")){//수정 - DB
+				System.out.println(">>>>>>>>>> 수정 DB 작업 필요");
+				
+			}else if(cmd.equals("Movie_DELETE")){//삭제 - DB
+				System.out.println(">>>>>>>>>> 삭제 DB 작업 필요");
 				
 			}
 			

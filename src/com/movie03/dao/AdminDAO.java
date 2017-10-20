@@ -16,6 +16,9 @@ import com.movie03.dto.TheaterVO;
 
 import oracle.jdbc.proxy.annotation.Pre;
 
+
+import com.movie03.dto.MovieVO_Date;
+
 /**
  * 관리자용 DAO
  * @author 손가연
@@ -234,20 +237,14 @@ public class AdminDAO {
 		String sqlOrderBy = "ORDER BY TITLE ASC";
 		String sql = "SELECT * FROM MOVIE ";
 		
-		// where 절 생성
+		/*// where 절 생성
 		System.out.println("whereColumn equlas:" + (whereColumn.equals("")));
-		System.out.println("whereColumn length:" + (whereColumn.length()));
+		System.out.println("whereColumn length:" + (whereColumn.length()));*/
 		
 		if(whereColumn.length() > 0){
 			sqlWhere = "WHERE "+ whereColumn +" LIKE ? ";
 		}
 		
-		// sort 절 생성
-		/*if(sort.equals("ASC")){
-			sqlOrderBy = "ORDER BY TITLE DESC";
-		}else{
-			sqlOrderBy = "ORDER BY TITLE ASC";
-		}*/
 		sqlOrderBy = "ORDER BY TITLE " + sort;
 		
 		//최종 SQL
@@ -296,5 +293,96 @@ public class AdminDAO {
 		
 		return list;
 	}
+	
+	
+	
+	/**
+	 * 영화 상세보기
+	 * @param MCODE - 영화코드
+	 * @return MovieVO
+	 */
+	public MovieVO selectMovieView(String MCODE){
+		MovieVO mVO = new MovieVO();
+		
+		String sql = "SELECT * FROM MOVIE WHERE MCODE = ?";
+		System.out.println("selectMovieView sql:" + sql);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		
+		try{
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, MCODE);
+			rs = prepStmt.executeQuery();
+			
+			while(rs.next()){				
+				mVO.setMCODE(rs.getString("MCODE")); 
+				mVO.setTITLE(rs.getString("TITLE"));
+				mVO.setPRICE(rs.getInt("PRICE"));
+				mVO.setDIRECTOR(rs.getString("DIRECTOR"));
+				mVO.setACTOR(rs.getString("ACTOR"));
+				mVO.setOPENDAY(rs.getString("OPENDAY"));
+				mVO.setGENRE(rs.getString("GENRE"));   
+				mVO.setPOSTER(rs.getString("POSTER"));
+				mVO.setSYNOPSIS(rs.getString("SYNOPSIS"));
+				mVO.setSTARTDAY(rs.getString("STARTDAY"));				
+				mVO.setENDDAY(rs.getString("ENDDAY"));
+				mVO.setAPPRAISAL(rs.getString("APPRAISAL"));
+			}
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		
+		return mVO;
+	}
+	
+	
+	public MovieVO_Date selectMovieView_Date(String MCODE){
+		MovieVO_Date mVO = new MovieVO_Date();
+		
+		String sql = "SELECT * FROM MOVIE WHERE MCODE = ?";
+		System.out.println("selectMovieView sql:" + sql);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		
+		try{
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, MCODE);
+			rs = prepStmt.executeQuery();
+			
+			while(rs.next()){				
+				mVO.setMCODE(rs.getString("MCODE")); 
+				mVO.setTITLE(rs.getString("TITLE"));
+				mVO.setPRICE(rs.getInt("PRICE"));
+				mVO.setDIRECTOR(rs.getString("DIRECTOR"));
+				mVO.setACTOR(rs.getString("ACTOR"));
+				mVO.setOPENDAY(rs.getDate("OPENDAY"));
+				mVO.setGENRE(rs.getString("GENRE"));   
+				mVO.setPOSTER(rs.getString("POSTER"));
+				mVO.setSYNOPSIS(rs.getString("SYNOPSIS"));
+				//mVO.setSTARTDAY(rs.getString("STARTDAY"));
+				mVO.setSTARTDAY(rs.getDate("STARTDAY"));
+				mVO.setENDDAY(rs.getDate("ENDDAY"));
+				mVO.setAPPRAISAL(rs.getString("APPRAISAL"));
+			}
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		
+		return mVO;
+	}
+	
+	
 	
 }

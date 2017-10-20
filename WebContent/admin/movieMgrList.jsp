@@ -34,6 +34,10 @@
 	pageContext.setAttribute("Sort", Sort);
 	pageContext.setAttribute("TitleSort", TitleSort);	
 %>
+
+미구현 : 영화 정보 관리	- 등록버튼 
+
+
 	<div id="wrap" align="center">
 	
 		<form action="../admin/admin_Movie.do" method="post">
@@ -120,9 +124,6 @@
 		</form>
 		
 	</div>
-
-영화 정보 관리	- 리스트, 등록버튼, 검색, 정렬
-
 	
 
 <%@include file="/com/footer.jsp" %>
