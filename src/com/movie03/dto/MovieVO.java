@@ -17,8 +17,7 @@ public class MovieVO {
 	private String POSTER;  // 포스터 img
 	private String SYNOPSIS;// 시놉시스
 	private String STARTDAY;// 상영 시작일 
-	private String ENDDAY;  // 상영 종료일 
-	private String MCOMMENT;// 한줄평 
+	private String ENDDAY;  // 상영 종료일
 	private String APPRAISAL;// 평점 0~5
 	
 	public String getMCODE() {
@@ -87,12 +86,6 @@ public class MovieVO {
 	public void setENDDAY(String eNDDAY) {
 		ENDDAY = eNDDAY;
 	}
-	public String getMCOMMENT() {
-		return MCOMMENT;
-	}
-	public void setMCOMMENT(String mCOMMENT) {
-		MCOMMENT = mCOMMENT;
-	}
 	public String getAPPRAISAL() {
 		return APPRAISAL;
 	}
@@ -104,7 +97,7 @@ public class MovieVO {
 	public String toString() {
 		return "movieVO [MCODE=" + MCODE + ", TITLE=" + TITLE + ", PRICE=" + PRICE + ", DIRECTOR=" + DIRECTOR
 				+ ", ACTOR=" + ACTOR + ", OPENDAY=" + OPENDAY + ", GENRE=" + GENRE + ", POSTER=" + POSTER
-				+ ", SYNOPSIS=" + SYNOPSIS + ", STARTDAY=" + STARTDAY + ", ENDDAY=" + ENDDAY + ", MCOMMENT=" + MCOMMENT
+				+ ", SYNOPSIS=" + SYNOPSIS + ", STARTDAY=" + STARTDAY + ", ENDDAY=" + ENDDAY 
 				+ ", APPRAISAL=" + APPRAISAL + "]";
 	}
 	

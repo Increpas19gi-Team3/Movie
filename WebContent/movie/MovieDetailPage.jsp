@@ -22,8 +22,7 @@
 			<th>장&nbsp;르</th>
 			<th>시놉시스</th>
 			<th>상영시작일</th>
-			<th>상영종료일</th>
-			<th>영화한줄평</th>
+			<th>상영종료일</th>			
 			<th>평&nbsp;점</th>
 		</tr>
 
@@ -46,8 +45,7 @@
 					<th>${movie.GENRE}</th>					
 					<th>${movie.SYNOPSIS}</th>
 					<th>${movie.STARTDAY}</th>
-					<th>${movie.ENDDAY}</th>
-					<th>${movie.MCOMMENT}</th>
+					<th>${movie.ENDDAY}</th>					
 					<th>${movie.APPRAISAL}</th>
 				</tr>
 			</c:forEach>
