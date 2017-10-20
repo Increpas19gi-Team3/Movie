@@ -27,7 +27,7 @@ public class AdminMovieAction implements Action{
 		//리스트 검색, 정렬 용도 변수
 		String reqListGubun = ""; //찾을 컬럼
 		String reqListWord = "";
-		String reqListSort = "";
+		String reqListSort = "ASC";
 		
 		if((String)reqModel.get("SearchGubun") != null) reqListGubun = (String)reqModel.get("SearchGubun");
 		if((String)reqModel.get("SearchWord") != null) reqListWord = (String)reqModel.get("SearchWord");
@@ -38,8 +38,6 @@ public class AdminMovieAction implements Action{
 		respModel.put("SearchWord", reqListWord);
 		respModel.put("Sort", reqListSort);
 		
-		
-		//if((String)reqModel.get("") != null)  = (String)reqModel.get("");
 		
 		
 		
@@ -57,9 +55,6 @@ public class AdminMovieAction implements Action{
 				
 				
 			}
-			
-			
-			
 			
 		}else{// 명령이 없으면 list만 보여주기
 			

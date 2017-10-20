@@ -13,17 +13,39 @@
 	String cmd = (String)respModel.get("CmdMgr");
 	pageContext.setAttribute("cmd", cmd);
 	
-	String SearchGubun = "";
-	if((String)respModel.get("SearchGubun") != null) SearchGubun = (String)respModel.get("SearchGubun");
-	String SearchWord = "";
-	if((String)respModel.get("SearchWord") != null) SearchWord = (String)respModel.get("SearchWord");
+	String SearchGubun = (String)respModel.get("SearchGubun");
+	String SearchWord = (String)respModel.get("SearchWord");
+	String Sort = (String)respModel.get("Sort");
 	
-	String Sort = "";
-	if((String)respModel.get("Sort") != null) Sort = (String)respModel.get("Sort");
+	pageContext.setAttribute("SearchGubun", SearchGubun);
+	pageContext.setAttribute("SearchWord", SearchWord);
+	pageContext.setAttribute("Sort", Sort);
 %>
+	${SearchGubun} <br/>
+	${SearchWord} <br/>
+	<%-- ${Sort} <br/> --%>
+	
+	<c:choose>
+		<c:when test="${not empty Sort}">
+			<c:choose>
+			<c:when test="${Sort == ASC }">
+				${Sort = DESC }
+			</c:when>
+			<c:otherwise>
+				${Sort = ASC }
+			</c:otherwise>
+			</c:choose>
+		</c:when>
+		<c:otherwise>
+			${Sort = ASC }
+		</c:otherwise>
+	</c:choose>
+	
+	
+	1 ${Sort } <br /> 2 ${Sort } <br />3 ${Sort } <br />4 ${Sort } <br />5 ${Sort } <br />
 
 
-	<div class = "">
+	<div id="wrap" align="center">
 	
 		<form action="../admin/admin_Movie.do" method="post">
 			<input type="hidden" name = "CmdMgr" value="Movie_INSERT_FORM">
@@ -35,7 +57,14 @@
 		<table border="1">
 			<tr>
 				<th>포스터</th>
-				<th>제목</th>
+				<th>
+					<a href="../admin/admin_Movie.do?SearchGubun=&SearchWord=&Sort=${Sort}"> 제목
+						<c:choose>
+						<c:when test="${Sort == ASC }"> ▲ </c:when>
+						<c:otherwise> ▼ </c:otherwise>
+						</c:choose>
+					</a>
+				</th>
 				<th>감독</th>
 				<th>배우</th>
 				<th>장르</th>
@@ -48,7 +77,10 @@
 				<c:forEach var="mVO" items="${mVO }">
 				<tr>
 					<td><img src="../image/sm_${mVO.POSTER }"></td>
-					<td><a href="../admin/admin_Movie.do?SearchGubun=&SearchWord=&Sort='ASC'">${mVO.TITLE }</a></td>
+					<td>
+						${mVO.TITLE }
+						
+					</td>
 					<td>${mVO.DIRECTOR }</td>
 					<td>${mVO.ACTOR }</td>
 					<td>${mVO.GENRE }</td>
@@ -61,7 +93,8 @@
 		</table>
 		
 		<form action="../admin/admin_Movie.do" method="post">
-			<select name="SearchGubun">
+			<select name="SearchGubun" >
+				<option value="">선택하세요.</option>
 				<option value="TITLE">제목</option>
 				<option value="DIRECTOR">감독</option>
 				<option value="ACTOR">배우</option>

@@ -237,17 +237,18 @@ public class AdminDAO {
 		// where 절 생성
 		System.out.println("whereColumn equlas:" + (whereColumn.equals("")));
 		System.out.println("whereColumn length:" + (whereColumn.length()));
-		if(!whereColumn.equals("")){
-			//sqlWhere = "WHERE ? LIKE '%?%' ";
-			sqlWhere = "WHERE "+ whereColumn +" LIKE '%"+ word +"%' ";
+		
+		if(whereColumn.length() > 0){
+			sqlWhere = "WHERE "+ whereColumn +" LIKE ? ";
 		}
 		
 		// sort 절 생성
-		if(sort.equals("ASC")){
+		/*if(sort.equals("ASC")){
 			sqlOrderBy = "ORDER BY TITLE DESC";
 		}else{
 			sqlOrderBy = "ORDER BY TITLE ASC";
-		}
+		}*/
+		sqlOrderBy = "ORDER BY TITLE " + sort;
 		
 		//최종 SQL
 		sql = sql + sqlWhere + sqlOrderBy;
@@ -263,10 +264,10 @@ public class AdminDAO {
 			conn = DBManager.getConnection();
 			prepStmt = conn.prepareStatement(sql);
 			
-			if(!whereColumn.equals("")){
-				prepStmt.setString(1, whereColumn);
-				prepStmt.setString(2, word);
+			if(whereColumn.length() > 0){
+				prepStmt.setString(1, "%" + word + "%");
 			}
+			
 			rs = prepStmt.executeQuery();
 			
 			
@@ -287,13 +288,10 @@ public class AdminDAO {
 				list.add(mVO);
 			}
 			
-			System.out.println(">>>>>>>>>>>>>>>> 여기까지 이상 없음");
 		}catch(Exception e){
 			e.getStackTrace();
 		}finally {
-			System.out.println(">>>>>>>>>>>>>>>> finally 시작");
 			DBManager.close(conn, prepStmt, rs);
-			System.out.println(">>>>>>>>>>>>>>>> finally 끝");
 		}
 		
 		return list;
