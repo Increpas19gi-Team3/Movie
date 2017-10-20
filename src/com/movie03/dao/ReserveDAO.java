@@ -223,8 +223,9 @@ public class ReserveDAO {
 	 * @return
 	 */
 	public String selectReserveCode(){
-		String sql = "select MAX(RCODE) from reserve";
+		String sql = "select MAX(RCODE) as max from reserve";
 		String rcode = null;
+		String imsicode = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -237,7 +238,21 @@ public class ReserveDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				System.out.println(rs.getString("MAX(RCODE)"));
+				System.out.println(rs.getString("MAX"));
+				if(rs.getString("MAX").isEmpty()){
+					rcode = "R01";
+				}
+				else{
+					imsicode = rs.getString("MAX");
+					rcode = imsicode.replace("R","");
+					System.out.println("test >>> " + rcode);
+					int a = Integer.valueOf(rcode);
+					a = a+1;
+					System.out.println("test >>> " + a);
+					rcode = "R" + String.valueOf(a);
+					System.out.println("test >>> " + rcode);
+				}
+				
 			}
 						
 		} catch (SQLException e) {
@@ -255,7 +270,7 @@ public class ReserveDAO {
 	 * @return
 	 */
 	 public List<ReserveVO> insertReserve(String code, String screan, String rday, String rturn, String seat, String mid, String rcode){
-		String sql = "insert into reserve values (?,?,?,?,?,?,?,?)";
+		String sql = "insert into reserve values (?,?,?,?,?,to_date(?, 'yyyyMMdd'),?,?)";
 		List<ReserveVO> list = new ArrayList<ReserveVO>();//목록
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -290,8 +305,11 @@ public class ReserveDAO {
 			
 			rs = pstmt.executeQuery();
 			
+			
 			while (rs.next()) {
 				ReserveVO bVo = new ReserveVO();//글(VO)
+				
+				updateSeat(seat, rday, rtime);
 				
 				bVo.setMCODE(rs.getString("MCODE"));
 				bVo.setMID(rs.getString("MID"));
@@ -302,9 +320,9 @@ public class ReserveDAO {
 				bVo.setRTURN(rs.getString("RTURN"));
 				bVo.setSCODE(rs.getString("SCODE"));
 				
-				list.add(bVo);
-				
+				list.add(bVo);	
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

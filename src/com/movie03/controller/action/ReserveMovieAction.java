@@ -8,6 +8,11 @@ import com.movie03.dao.ReserveDAO;
 import com.movie03.dto.MovieVO;
 import com.movie03.dto.ScreenTurnVO;
 
+/***
+ * 예매할 영화 코드 select action
+ * @author 2-16
+ *
+ */
 public class ReserveMovieAction implements Action{
 
 	@Override

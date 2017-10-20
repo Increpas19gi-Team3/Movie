@@ -9,6 +9,11 @@ import javax.servlet.RequestDispatcher;
 import com.movie03.dao.ReserveDAO;
 import com.movie03.dto.MovieVO;
 
+/***
+ * 예매할 수 있는 영화 리스트 action
+ * @author 2-16
+ *
+ */
 public class ReserveAction implements Action{
 
 
