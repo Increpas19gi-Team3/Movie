@@ -158,14 +158,14 @@ public class MovieServlet extends HttpServlet {
 		System.out.println("---------------------------------------");
 		
 		
-		// 세션 객체의 정보를 가져옴. 세션 데이터까지 requestModel에 넣을지는 회의 필요.
+		// 세션 객체의 정보를 requestModel 에 저장
 		System.out.println("----- request.getSession().getAttributeNames() -----");
 		Enumeration<String> reqSessionNames = request.getSession().getAttributeNames();
 		while (reqSessionNames.hasMoreElements()){
 		    String name = (String)reqSessionNames.nextElement();
 		    System.out.println(name + " : " + request.getSession().getAttribute(name));
 		    
-		    //reqModel.put(name, request.getSession().getAttribute(name));// 세션까지 저장할지는 고민중
+		    reqModel.put(name, request.getSession().getAttribute(name));
 		}
 		System.out.println("----------------------------------------------------");
 
