@@ -32,8 +32,7 @@ public class MovieAction implements Action {
 		
 		System.out.println("OrderBy : " + reqModel.get("OrderBy"));
 		if((String) reqModel.get("OrderBy") != null) OrderBy = (String) reqModel.get("OrderBy"); 
-		
-		OrderBy = (String) reqModel.get("OrderBy");		
+				
 		
 		System.out.println("DetailMovie : " + reqModel.get("DetailMovie"));
 		DetailMovie = (String) reqModel.get("DetailMovie");

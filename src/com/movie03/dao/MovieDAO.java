@@ -98,17 +98,16 @@ public class MovieDAO {
 
 		if (select_word.equals("")) { // 전체 검색
 		} else if (select_word.equals("title")) { // 제목 검색
-			sql += "where title like '%?%'";
+			sql += "where title like ?";
 		} else if (select_word.equals("director")) { // 감독 검색
-			sql += "where DIRECTOR like '%?%'";
+			sql += "where DIRECTOR like ?";
 		} else if (select_word.equals("actor")) { // 배우 검색
-			sql += "where ACTOR like '%?%'";
+			sql += "where ACTOR like ?";
 		} else if (select_word.equals("genre")) { // 장르 검색
-			sql += "where GENRE like '%?%'";
+			sql += "where GENRE like ?";
 		}
 
 		// console-창에 보여주기 위한 실행문
-		sql += search_text;
 		System.out.println("(MovieSelect)sql = " + sql);
 
 		List<MovieVO> list = new ArrayList<MovieVO>();
@@ -120,7 +119,7 @@ public class MovieDAO {
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, search_text);
+			pstmt.setString(1, "%"+search_text+"%");
 			rs = pstmt.executeQuery();
 
 			// SQL문 실행이 된다면 제목, 감독, 배우, 장르
