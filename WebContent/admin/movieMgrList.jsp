@@ -11,40 +11,29 @@
 	pageContext.setAttribute("mVO", mVO);
 	
 	String cmd = (String)respModel.get("CmdMgr");
-	pageContext.setAttribute("cmd", cmd);
+	if(cmd != null){
+		pageContext.setAttribute("CmdMgr", "Movie_LIST");
+	}else{
+		pageContext.setAttribute("CmdMgr", cmd);
+	}
+	
 	
 	String SearchGubun = (String)respModel.get("SearchGubun");
 	String SearchWord = (String)respModel.get("SearchWord");
 	String Sort = (String)respModel.get("Sort");
+	String TitleSort = "";
+	if(Sort != null){
+		if(Sort.equals("DESC")) TitleSort = "ASC";
+		else TitleSort = "DESC";
+	}else{
+		TitleSort = "ASC";
+	}
 	
 	pageContext.setAttribute("SearchGubun", SearchGubun);
 	pageContext.setAttribute("SearchWord", SearchWord);
 	pageContext.setAttribute("Sort", Sort);
+	pageContext.setAttribute("TitleSort", TitleSort);	
 %>
-	${SearchGubun} <br/>
-	${SearchWord} <br/>
-	<%-- ${Sort} <br/> --%>
-	
-	<c:choose>
-		<c:when test="${not empty Sort}">
-			<c:choose>
-			<c:when test="${Sort == ASC }">
-				${Sort = DESC }
-			</c:when>
-			<c:otherwise>
-				${Sort = ASC }
-			</c:otherwise>
-			</c:choose>
-		</c:when>
-		<c:otherwise>
-			${Sort = ASC }
-		</c:otherwise>
-	</c:choose>
-	
-	
-	1 ${Sort } <br /> 2 ${Sort } <br />3 ${Sort } <br />4 ${Sort } <br />5 ${Sort } <br />
-
-
 	<div id="wrap" align="center">
 	
 		<form action="../admin/admin_Movie.do" method="post">
@@ -58,12 +47,11 @@
 			<tr>
 				<th>포스터</th>
 				<th>
-					<a href="../admin/admin_Movie.do?SearchGubun=&SearchWord=&Sort=${Sort}"> 제목
-						<c:choose>
-						<c:when test="${Sort == ASC }"> ▲ </c:when>
-						<c:otherwise> ▼ </c:otherwise>
-						</c:choose>
-					</a>
+					<a href="../admin/admin_Movie.do?CmdMgr=Movie_LIST&SearchGubun=${SearchGubun}&SearchWord=${SearchWord}&Sort=${TitleSort}">제목</a>
+					<c:choose>
+						<c:when test="${TitleSort eq 'ASC' }">▼</c:when>
+						<c:otherwise>▲</c:otherwise>
+					</c:choose>
 				</th>
 				<th>감독</th>
 				<th>배우</th>
@@ -78,8 +66,7 @@
 				<tr>
 					<td><img src="../image/sm_${mVO.POSTER }"></td>
 					<td>
-						${mVO.TITLE }
-						
+						<a href="../admin/admin_Movie.do?CmdMgr=Movie_VIEW&SearchGubun=${SearchGubun}&SearchWord=${SearchWord}&Sort=${Sort}&MCODE=${mVO.MCODE}">${mVO.TITLE }</a>
 					</td>
 					<td>${mVO.DIRECTOR }</td>
 					<td>${mVO.ACTOR }</td>
@@ -93,14 +80,42 @@
 		</table>
 		
 		<form action="../admin/admin_Movie.do" method="post">
+			<input type="hidden" name="CmdMgr" value="Movie_LIST">
+			<input type="hidden" name="Sort" value="${Sort}">
+		
 			<select name="SearchGubun" >
-				<option value="">선택하세요.</option>
-				<option value="TITLE">제목</option>
-				<option value="DIRECTOR">감독</option>
-				<option value="ACTOR">배우</option>
-				<option value="GENRE">장르</option> 
+				<%-- 검색조건 없이 검색어만 입력시 처리를 미구현 -> 해당 버그를 발생 시키지 않기 위해 해당 내용 주석처리함. 
+				<c:if test="${fn:length(SearchWord) eq 0}">
+					<option value="" selected="selected">선택하세요.</option>
+				</c:if> --%>
+				
+				<c:choose>
+					<c:when test="${SearchGubun eq 'TITLE' && fn:length(SearchWord) > 0}"><option value="TITLE" selected="selected">제목</option></c:when>
+					<c:otherwise><option value="TITLE">제목</option></c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${SearchGubun eq 'DIRECTOR' && fn:length(SearchWord) > 0}"><option value="DIRECTOR" selected="selected">감독</option></c:when>
+					<c:otherwise><option value="DIRECTOR">감독</option></c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${SearchGubun eq 'ACTOR' && fn:length(SearchWord) > 0}"><option value="ACTOR" selected="selected">배우</option></c:when>
+					<c:otherwise><option value="ACTOR">배우</option></c:otherwise>
+				</c:choose>
+				
+				<c:choose>
+					<c:when test="${SearchGubun eq 'GENRE' && fn:length(SearchWord) > 0}"><option value="GENRE" selected="selected">장르</option></c:when>
+					<c:otherwise><option value="GENRE">장르</option></c:otherwise>
+				</c:choose> 
+				
 			</select>
-			<input type="text" name="SearchWord" />
+			
+			<c:choose>
+				<c:when test="${not empty SearchWord }"><input type="text" name="SearchWord" value="${SearchWord }"/></c:when>
+				<c:otherwise><input type="text" name="SearchWord" /></c:otherwise>
+			</c:choose>
+			
 			<input type="submit" value="검색">
 		</form>
 		

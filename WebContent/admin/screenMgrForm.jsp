@@ -22,7 +22,7 @@
 	
 	<div class ="screen">
 		<div class = "logo">
-			상영관 정보 입력
+			상영관 정보
 			<hr>
 		</div>
 		
