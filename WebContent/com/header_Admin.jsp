@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> <%-- 글자수 비교 --%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> <%-- 문자 라이브러리 --%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%-- 시간, 숫자 포맷 라이브러리 --%>
 
 
 <!DOCTYPE html>
