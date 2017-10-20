@@ -11,6 +11,7 @@ import java.util.List;
 import com.movie03.dto.MovieVO;
 import com.movie03.dto.ReserveVO;
 import com.movie03.dto.ScreenTurnVO;
+import com.movie03.dto.SeatVO;
 
 import oracle.net.aso.b;
 import util.DBManager;
@@ -30,6 +31,10 @@ public class ReserveDAO {
 		return instance;
 	}	
 	
+	/***
+	 * 상영 중인 영화 리스트 조회
+	 * @return
+	 */
 	public List<MovieVO> selectMvList(){
 		String sql = "select * from movie where endday > sysdate";
 		List<MovieVO> list = new ArrayList<MovieVO>();//목록
@@ -66,7 +71,12 @@ public class ReserveDAO {
 		return list;
 	}
 	
-	
+	/***
+	 * 선택된 날에 해당 영화 상영 회차 조회
+	 * @param rday
+	 * @param mcode
+	 * @return
+	 */
 	public List<ScreenTurnVO> selectTurnMovie(String rday, String mcode){
 		String sql = "select * from screenturn where MCODE=? and to_char(stdate, 'YYYY-MM-DD')=?";
 		List<ScreenTurnVO> list = new ArrayList<ScreenTurnVO>();//목록
@@ -100,7 +110,11 @@ public class ReserveDAO {
 		return list;
 	}
 	
-	
+	/***
+	 * 선택된 영화 코드 조회
+	 * @param title
+	 * @return
+	 */
 	public String selectMovieCode(String title){
 		String sql = "select mcode from movie where title=?";
 		String mcode = null;
@@ -130,4 +144,46 @@ public class ReserveDAO {
 		return mcode;
 	}
 	
+	/***
+	 * 좌석 정보 조회
+	 * @param turn
+	 * @param date
+	 * @return
+	 */
+	public List<SeatVO> selectSeat(String turn, String date){
+		String sql = "select * from seat where sturn=? and to_char(sdate, 'YYYY-MM-DD')=?";
+		List<SeatVO> list = new ArrayList<SeatVO>();//목록
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		System.out.println("turn : " + turn);
+		System.out.println("date : " + date);
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, turn);
+			pstmt.setString(2, date);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				SeatVO bVo = new SeatVO();//글(VO)
+				bVo.setSDATE(rs.getString("SDATE"));
+				bVo.setSSEAT(rs.getString("SSEAT"));
+				bVo.setSSTATE(rs.getString("SSTATE"));
+				bVo.setSTURN(rs.getString("STURN"));
+				
+				/*System.out.println("TEST >>> " + bVo.getSSEAT() + "," + bVo.getSSTATE()  );*/
+				list.add(bVo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	}
 }

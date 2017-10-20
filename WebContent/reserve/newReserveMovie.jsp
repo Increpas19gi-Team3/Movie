@@ -38,13 +38,13 @@
 						<c:forEach var="turn" items="${mVo}">
 							<c:choose>
     						<c:when test="${turn.STturn eq '1'}">
-   								<input type="radio" size="70" name="rtime" value="12"	checked="checked">12시
+   								<input type="radio" size="70" name="rtime" value="1"	checked="checked">12시
 							</c:when>
 							<c:when test="${turn.STturn eq '2'}">
-   								<input type="radio" size="70" name="rtime" value="16"	>16시
+   								<input type="radio" size="70" name="rtime" value="2"	>16시
 							</c:when>
 							<c:when test="${turn.STturn eq '3'}">
-   								<input type="radio" size="70" name="rtime" value="20"	>20시
+   								<input type="radio" size="70" name="rtime" value="3"	>20시
 							</c:when>
 							</c:choose>
 						</c:forEach>
