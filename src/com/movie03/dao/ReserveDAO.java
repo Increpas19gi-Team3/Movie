@@ -146,6 +146,35 @@ public class ReserveDAO {
 	}
 	
 	/***
+	 * 예매된 좌석 업데이트
+	 * @param title
+	 * @return
+	 */
+	public void updateSeat(String seat, String rday, String rtime){
+		String sql = "update seat set SSTATE='1' where SSEAT=? and to_char(sdate, 'YYYY-MM-DD')=?  and STURN=?";
+		String mcode = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, seat);
+			pstmt.setString(2, rday);
+			pstmt.setString(3, rtime);
+			
+			rs = pstmt.executeQuery();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+	}
+	
+	/***
 	 * 좌석 정보 조회
 	 * @param turn
 	 * @param date
@@ -194,7 +223,7 @@ public class ReserveDAO {
 	 * @return
 	 */
 	public String selectReserveCode(){
-		String sql = "select max(RCODE) from reserve";
+		String sql = "select MAX(RCODE) from reserve";
 		String rcode = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -208,12 +237,9 @@ public class ReserveDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				rcode = rs.getString("RCODE");
+				System.out.println(rs.getString("MAX(RCODE)"));
 			}
-			
-			if(rcode.isEmpty())
-				rcode="R01";
-			
+						
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -238,14 +264,16 @@ public class ReserveDAO {
 		System.out.println("seat : " + seat);
 		
 		String rtime = null;
-		if(rturn == "1")
+		if(rturn.equals("1"))
 			rtime = "12시";
-		else if(rturn == "2")
+		else if(rturn.equals("2"))
 			rtime = "16시";
-		else if(rturn == "3")
+		else if(rturn.equals("3"))
 			rtime = "20시";
 		else
 			rtime = "0시";
+		
+		System.out.println("test >>> " + rcode +"," +mid +"," +code +"," +rday +"," +rturn +"," +rtime +"," +seat);
 		
 		try {
 			conn = DBManager.getConnection();

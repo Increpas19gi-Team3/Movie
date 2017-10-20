@@ -21,12 +21,16 @@ public class ReserveResultAction implements Action{
 		String seat = (String)reqModel.get("seat");
 		String mid = (String)reqModel.get("id");
 		
-		String code = dao.selectMovieCode("title");
-		String rcode = dao.selectReserveCode();
+		String code = dao.selectMovieCode(title);
+		String rcode = "R01";
+		/*String rcode = dao.selectReserveCode();
+		System.out.println("rcode : " + rcode);*/
 		
 		/*System.out.println("turn : " + turn + "rday : " + rday);*/
 		List<ReserveVO> list = dao.insertReserve(code, screan, rday, rtime, seat, mid, rcode);
 		respModel.put("reserveList", list);
+		dao.updateSeat(seat, rday, rtime);
+		
 		
 		return url;
 	}
