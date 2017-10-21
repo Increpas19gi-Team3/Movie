@@ -44,9 +44,9 @@
         	<c:if test="${sessionScope.MNAME == null}">
         		<li><a href="../member/login.jsp">login</a></li>
 			</c:if>
-			
+
 			<li><a href="../member/myPage.jsp">my</a></li>
-			<li><a href="/reserve/reserveCon.do?">예매확인</a></li>
+			<li><a href="/Movie/reserveCon.do?userID=${sessionScope.MID}">예매확인</a></li>
         </ul>
       </div>
     </div>

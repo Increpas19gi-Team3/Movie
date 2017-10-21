@@ -84,7 +84,7 @@ public class ActionFactory {
 			action = new ReserveSeatAction();
 		}else if(uri.contains("/Movie/Reserve.do")){
 			action = new ReserveResultAction();
-		}else if(uri.contains("/reserve/reserveCon.do")){
+		}else if(uri.contains("/Movie/reserveCon.do")){
 			action = new ReserveConfirmAction();
 		}
 		

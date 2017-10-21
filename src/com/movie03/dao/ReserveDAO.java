@@ -362,5 +362,50 @@ public class ReserveDAO {
 			}
 			return list;
 		}
-	 
+
+		 /***
+		 * 예매 정보 조회(예매번호로 조회)
+		 * @param turn
+		 * @param date
+		 * @return
+		 */
+		public List<ReserveVO> selectReserveList(String userid){
+			String sql = "select * from reserve where mid=? order by rcode";
+			List<ReserveVO> list = new ArrayList<ReserveVO>();//목록
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, userid);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					ReserveVO bVo = new ReserveVO();//글(VO)
+					bVo.setMCODE(rs.getString("MCODE"));
+					bVo.setMID(rs.getString("MID"));
+					bVo.setRCODE(rs.getString("RCODE"));
+					bVo.setRDAY(rs.getString("RDAY"));
+					bVo.setRSEAT(rs.getString("RSEAT"));
+					bVo.setRTIME(rs.getString("RTIME"));
+					bVo.setRTURN(rs.getString("RTURN"));
+					bVo.setSCODE(rs.getString("SCODE"));
+					
+					list.add(bVo);
+					
+				}
+							
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(conn, pstmt, rs);
+			}
+			return list;
+		}
 }
