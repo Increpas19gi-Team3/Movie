@@ -32,7 +32,10 @@ public class ReserveResultAction implements Action{
 		
 		
 		/*System.out.println("turn : " + turn + "rday : " + rday);*/
-		List<ReserveVO> list = dao.insertReserve(code, screan, rday, rtime, seat, mid, rcode);
+		dao.insertReserve(code, screan, rday, rtime, seat, mid, rcode);
+		dao.updateSeat(seat, rday, rtime);
+		
+		List<ReserveVO> list = dao.selectReserve(rcode);
 		respModel.put("reserveList", list);
 			
 		return url;

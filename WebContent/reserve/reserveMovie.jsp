@@ -33,6 +33,8 @@
 			</table>
 			</form>
 	</div>
+	<br>
+	<br>
 	
 	
 <%@include file="/com/footer.jsp" %>

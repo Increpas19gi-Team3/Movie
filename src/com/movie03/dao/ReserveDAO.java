@@ -157,6 +157,8 @@ public class ReserveDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
+		System.out.println("test >>> " + seat+","+rday+","+rtime);
+		
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -166,7 +168,8 @@ public class ReserveDAO {
 			pstmt.setString(3, rtime);
 			
 			rs = pstmt.executeQuery();
-
+			
+			conn.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -238,19 +241,21 @@ public class ReserveDAO {
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				System.out.println(rs.getString("MAX"));
+				
 				if(rs.getString("MAX").isEmpty()){
 					rcode = "R01";
 				}
 				else{
 					imsicode = rs.getString("MAX");
 					rcode = imsicode.replace("R","");
-					System.out.println("test >>> " + rcode);
+					
 					int a = Integer.valueOf(rcode);
 					a = a+1;
-					System.out.println("test >>> " + a);
-					rcode = "R" + String.valueOf(a);
-					System.out.println("test >>> " + rcode);
+					
+					if(a<10)
+						rcode = "R0" + String.valueOf(a);
+					else
+						rcode = "R" + String.valueOf(a);
 				}
 				
 			}
@@ -269,9 +274,9 @@ public class ReserveDAO {
 	 * @param date
 	 * @return
 	 */
-	 public List<ReserveVO> insertReserve(String code, String screan, String rday, String rturn, String seat, String mid, String rcode){
-		String sql = "insert into reserve values (?,?,?,?,?,to_date(?, 'yyyyMMdd'),?,?)";
-		List<ReserveVO> list = new ArrayList<ReserveVO>();//목록
+	 public void insertReserve(String code, String screan, String rday, String rturn, String seat, String mid, String rcode){
+		String sql = "insert into reserve values (?,?,?,?,to_date(?, 'yyyyMMdd'),?,?,?)";
+		//List<ReserveVO> list = new ArrayList<ReserveVO>();//목록
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -288,6 +293,7 @@ public class ReserveDAO {
 		else
 			rtime = "0시";
 		
+		rday = rday.replace("-","");
 		System.out.println("test >>> " + rcode +"," +mid +"," +code +"," +rday +"," +rturn +"," +rtime +"," +seat);
 		
 		try {
@@ -305,29 +311,56 @@ public class ReserveDAO {
 			
 			rs = pstmt.executeQuery();
 			
-			
-			while (rs.next()) {
-				ReserveVO bVo = new ReserveVO();//글(VO)
-				
-				updateSeat(seat, rday, rtime);
-				
-				bVo.setMCODE(rs.getString("MCODE"));
-				bVo.setMID(rs.getString("MID"));
-				bVo.setRCODE(rs.getString("RCODE"));
-				bVo.setRDAY(rs.getString("RDAY"));
-				bVo.setRSEAT(rs.getString("RSEAT"));
-				bVo.setRTIME(rs.getString("RTIME"));
-				bVo.setRTURN(rs.getString("RTURN"));
-				bVo.setSCODE(rs.getString("SCODE"));
-				
-				list.add(bVo);	
-			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
-		return list;
 	}
+	
+	 /***
+		 * 예매 정보 조회(예매번호로 조회)
+		 * @param turn
+		 * @param date
+		 * @return
+		 */
+		public List<ReserveVO> selectReserve(String rcode){
+			String sql = "select * from reserve where rcode=?";
+			List<ReserveVO> list = new ArrayList<ReserveVO>();//목록
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, rcode);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					ReserveVO bVo = new ReserveVO();//글(VO)
+					bVo.setMCODE(rs.getString("MCODE"));
+					bVo.setMID(rs.getString("MID"));
+					bVo.setRCODE(rs.getString("RCODE"));
+					bVo.setRDAY(rs.getString("RDAY"));
+					bVo.setRSEAT(rs.getString("RSEAT"));
+					bVo.setRTIME(rs.getString("RTIME"));
+					bVo.setRTURN(rs.getString("RTURN"));
+					bVo.setSCODE(rs.getString("SCODE"));
+					
+					list.add(bVo);
+					
+				}
+							
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(conn, pstmt, rs);
+			}
+			return list;
+		}
+	 
 }
