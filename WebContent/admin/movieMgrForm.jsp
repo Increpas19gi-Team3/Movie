@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.HashMap" %>
-<%--@ page import="com.movie03.dto.MovieVO" --%>
-<%@ page import="com.movie03.dto.MovieVO_Date" %>
+<%@ page import="com.movie03.dto.MovieVO" %>
+
 
 <%-- 정적 인클루드 --%>
 <%@include file="/com/header_Admin.jsp" %>
 <%
 	HashMap<String, Object> respModel = (HashMap<String, Object>)request.getAttribute("respModel");
-	//MovieVO mVO = (MovieVO)respModel.get("MgrViewMovie");
-	MovieVO_Date mVO = (MovieVO_Date)respModel.get("MgrViewMovie");
-	
+	MovieVO mVO = (MovieVO)respModel.get("MgrViewMovie");	
 	pageContext.setAttribute("mVO", mVO);
 	
 	String cmd = (String)respModel.get("CmdMgr");

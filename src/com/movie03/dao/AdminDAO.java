@@ -17,8 +17,6 @@ import com.movie03.dto.TheaterVO;
 import oracle.jdbc.proxy.annotation.Pre;
 
 
-import com.movie03.dto.MovieVO_Date;
-
 /**
  * 관리자용 DAO
  * @author 손가연
