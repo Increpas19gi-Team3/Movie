@@ -30,11 +30,14 @@ public class ReserveResultAction implements Action{
 		String rcode = dao.selectReserveCode();
 		System.out.println("rcode : " + rcode);
 		
+		String seatCK[] = seat.split(",");
+		
+		dao.insertReserve(code, screan, rday, rtime, seat, mid, rcode);
 		
 		/*System.out.println("turn : " + turn + "rday : " + rday);*/
-		dao.insertReserve(code, screan, rday, rtime, seat, mid, rcode);
-		dao.updateSeat(seat, rday, rtime);
-		
+		for(int i=0; i<seatCK.length; i++){
+			dao.updateSeat(seatCK[i], rday, rtime);
+		}
 		List<ReserveVO> list = dao.selectReserve(rcode);
 		respModel.put("reserveList", list);
 			

@@ -1,3 +1,4 @@
+<%@page import="com.sun.corba.se.spi.legacy.connection.GetEndPointInfoAgainException"%>
 <%@page import="com.movie03.dto.SeatVO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
@@ -7,7 +8,6 @@
 
 <%@include file="/com/header.jsp" %>
 
-
 <div id="wrap" align="center">
 		<h1>영화 예매</h1>
 		<br>
@@ -16,7 +16,7 @@
 			List<SeatVO> mVo = (List<SeatVO>)respModel.get("seatList");
 			pageContext.setAttribute("mVo", mVo);
 		%>
-		<form name="frm" method="post" action="/Movie/Reserve.do">
+		<form name="frm" method="post" action="/Movie/reserve/reserveSubmit.jsp">
 			<input type="hidden" name="id" value="<%=session.getAttribute("MID")%>">
 			<table>
 			<tr>
@@ -33,7 +33,7 @@
 				</tr>
 				<tr>
 					<th>상영회차 : </th>
-					<td><input type="text" name=rtime value="<%=request.getParameter("rtime")%>" readonly="readonly"></td>
+					<td><input type="text" name="rtime" value="<%=request.getParameter("rtime")%>" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<th>좌석정보 : </th>
@@ -298,13 +298,38 @@
    									</c:when>
    									</c:choose>	
 								</c:when>
-							</c:choose>
+							</c:choose> 
+							
+							
 						</c:forEach>
+						<%-- <c:forEach begin="1" end="5" step="1" var="j">
+    						<input type="checkbox" name="seat" value="A0${j}" >A0${j}
+						</c:forEach>
+						<br>
+						<c:forEach begin="1" end="5" step="1" var="j">
+    						<input type="checkbox" name="seat" value="B0${j}" >B0${j}
+						</c:forEach>
+						<br>
+						<c:forEach begin="1" end="5" step="1" var="j">
+							<input type="checkbox" name="seat" value="C0${j}" disabled="Check(${mVo});">C0${j}
+						</c:forEach>
+						<br>
+						<c:forEach begin="1" end="5" step="1" var="j">
+    						<input type="checkbox" name="seat" value="D0${j}" disabled="Check(${mVo});">D0${j}
+						</c:forEach>
+						<br>
+						<c:forEach begin="1" end="5" step="1" var="j">
+    						<input type="checkbox" name="seat" value="E0${j}" disabled="Check(${mVo});">E0${j}
+						</c:forEach>
+						<br> --%>
+						
 					</td>
 				</tr>
 			</table>
 			<br>
 			<br> 
+
+
 			<input type="submit" value="예매" > 
 			<input type="reset"  value="다시 작성"> 
 			<input type="button" value="목록" onclick="location.href='MovieServlet.do'">

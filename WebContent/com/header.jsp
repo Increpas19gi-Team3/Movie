@@ -46,6 +46,7 @@
 			</c:if>
 			
 			<li><a href="../member/myPage.jsp">my</a></li>
+			<li><a href="/reserve/reserveCon.do?">예매확인</a></li>
         </ul>
       </div>
     </div>

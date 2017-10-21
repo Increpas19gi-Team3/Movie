@@ -23,6 +23,7 @@ import com.movie03.controller.action.MovieAction;
 //import com.movie03.controller.action.BoardWriteAction;
 //import com.movie03.controller.action.BoardWriteFormAction;
 import com.movie03.controller.action.ReserveAction;
+import com.movie03.controller.action.ReserveConfirmAction;
 import com.movie03.controller.action.ReserveMovieAction;
 import com.movie03.controller.action.ReserveResultAction;
 import com.movie03.controller.action.ReserveSeatAction;
@@ -83,7 +84,12 @@ public class ActionFactory {
 			action = new ReserveSeatAction();
 		}else if(uri.contains("/Movie/Reserve.do")){
 			action = new ReserveResultAction();
+		}else if(uri.contains("/reserve/reserveCon.do")){
+			action = new ReserveConfirmAction();
 		}
+		
+		
+		
 		// 영화 관리
 		else if(uri.contains("/movie/movie.do")){
 			action = new MovieAction();
