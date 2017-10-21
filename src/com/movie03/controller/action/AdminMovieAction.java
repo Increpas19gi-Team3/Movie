@@ -8,8 +8,6 @@ import com.movie03.dao.AdminDAO;
 import com.movie03.dto.MovieVO;
 
 
-import com.movie03.dto.MovieVO_Date;
-
 /**
  * 영화 관리 AC 
  * @author 손가연
@@ -55,8 +53,7 @@ public class AdminMovieAction implements Action{
 				url = "../admin/movieMgrList.jsp";
 				
 			}if(cmd.equals("Movie_VIEW")){// 상세보기 화면
-				//MovieVO movieView = adminDAO.selectMovieView(reqMCODE);
-				MovieVO_Date movieView = adminDAO.selectMovieView_Date(reqMCODE);
+				MovieVO movieView = adminDAO.selectMovieView(reqMCODE);				
 				
 				respModel.put("MgrViewMovie", movieView);
 				respModel.put("CmdMgr", cmd);
