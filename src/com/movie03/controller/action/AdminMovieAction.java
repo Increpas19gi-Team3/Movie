@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.movie03.dao.AdminDAO;
+import com.movie03.dao.MovieDAO;
 import com.movie03.dto.MovieVO;
 
 
@@ -39,8 +40,16 @@ public class AdminMovieAction implements Action{
 		respModel.put("SearchWord", reqListWord);
 		respModel.put("Sort", reqListSort);
 		
-		String reqMCODE = "";
+		//상세보기, 수정, 삭제
+		String reqMCODE = ""; // 영화코드
 		if((String)reqModel.get("MCODE") != null) reqMCODE = (String)reqModel.get("MCODE");
+		
+		
+		
+		
+		//수정, 등록용 데이터
+		
+		
 		
 		
 		if(cmd != null){
@@ -61,29 +70,62 @@ public class AdminMovieAction implements Action{
 				url = "../admin/movieMgrView.jsp";
 				
 			}else if(cmd.equals("Movie_INSERT_FORM")){//입력 폼으로 이동
-				System.out.println(">>>>>>>>>> 입력 폼으로 이동 작업 필요");
+				
+				respModel.put("CmdMgr", "Movie_INSERT_FORM");
+				url = "../admin/movieMgrForm.jsp";				
 				
 			}else if(cmd.equals("Movie_INSERT")){//입력 - DB
-				System.out.println(">>>>>>>>>> 입력 DB 작업 필요");
+				
+				//DB 입력 쿼리
+				adminDAO.insertMovie(setData(reqModel));
+				
+				// 입력 후, 리스트로 보냄
+				List<MovieVO> movieList = adminDAO.selectMovieList(reqListGubun, reqListWord, reqListSort);
+				respModel.put("MgrListMovie", movieList);
+				
+				respModel.put("CmdMgr", "Movie_LIST");
+				url = "../admin/movieMgrList.jsp";
+				
 				
 			}else if(cmd.equals("Movie_UPDATE_FORM")){//수정 폼으로 이동
-				System.out.println(">>>>>>>>>> 수정 폼으로 이동, 수정할 내용 화면에 출력 작업 필요");
+				MovieVO movieView = adminDAO.selectMovieView(reqMCODE);				
+				respModel.put("MgrViewMovie", movieView);
+				
+				respModel.put("CmdMgr", "Movie_UPDATE_FORM");
+				url = "../admin/movieMgrForm.jsp";
 				
 			}else if(cmd.equals("Movie_UPDATE")){//수정 - DB
-				System.out.println(">>>>>>>>>> 수정 DB 작업 필요");
+				
+				//DB 수정 쿼리
+				adminDAO.updateMovie(setData(reqModel));
+								
+				// 수정 후, 상세보기로 보냄
+				MovieVO movieView = adminDAO.selectMovieView(reqMCODE);				
+				respModel.put("MgrViewMovie", movieView);
+				
+				respModel.put("CmdMgr", "Movie_VIEW");
+				url = "../admin/movieMgrView.jsp";
 				
 			}else if(cmd.equals("Movie_DELETE")){//삭제 - DB
-				System.out.println(">>>>>>>>>> 삭제 DB 작업 필요");
+				
+				//DB 작업
+				adminDAO.deleteMovie(reqMCODE);				
+				
+				// 삭제 후 리스트로 이동
+				List<MovieVO> movieList = adminDAO.selectMovieList(reqListGubun, reqListWord, reqListSort);
+				respModel.put("MgrListMovie", movieList);
+				
+				respModel.put("CmdMgr", "Movie_LIST");
+				url = "../admin/movieMgrList.jsp";
 				
 			}
 			
 		}else{// 명령이 없으면 list만 보여주기
 			
 			List<MovieVO> movieList = adminDAO.selectMovieList(reqListGubun, reqListWord, reqListSort);
-
 			respModel.put("MgrListMovie", movieList);
-			respModel.put("CmdMgr", "Movie_LIST");
 			
+			respModel.put("CmdMgr", "Movie_LIST");
 			url = "../admin/movieMgrList.jsp";
 			
 			
@@ -92,5 +134,55 @@ public class AdminMovieAction implements Action{
 		
 		return url;
 	}
+	
+	
+	
+	public MovieVO setData(Map<String, Object> reqModel){
+		MovieVO reqMVO = new MovieVO();
+		
+		String reqMCODE = ""; // 영화코드
+		String reqTITLE = "";
+		String reqPRICE = "";//int
+		String reqDIRECTOR = "";
+		String reqACTOR = "";
+		String reqOPENDAY = "";
+		String reqGENRE = "";
+		String reqPOSTER = "";
+		String reqSYNOPSIS = "";
+		String reqSTARTDAY = "";
+		String reqENDDAY = "";
+		String reqAPPRAISAL = "";
+		
+		if((String)reqModel.get("MCODE") != null) reqMCODE = (String)reqModel.get("MCODE");
+		
+		if((String)reqModel.get("mvoTITLE") != null) reqTITLE = (String)reqModel.get("mvoTITLE");
+		if((String)reqModel.get("mvoPRICE") != null) reqPRICE = (String)reqModel.get("mvoPRICE");//int
+		if((String)reqModel.get("mvoDIRECTOR") != null) reqDIRECTOR = (String)reqModel.get("mvoDIRECTOR");
+		if((String)reqModel.get("mvoACTOR") != null) reqACTOR = (String)reqModel.get("mvoACTOR");
+		if((String)reqModel.get("mvoOPENDAY") != null) reqOPENDAY = (String)reqModel.get("mvoOPENDAY");
+		if((String)reqModel.get("mvoGENRE") != null) reqGENRE = (String)reqModel.get("mvoGENRE");
+		if((String)reqModel.get("mvoPOSTER") != null) reqPOSTER = (String)reqModel.get("mvoPOSTER");
+		if((String)reqModel.get("mvoSYNOPSIS") != null) reqSYNOPSIS = (String)reqModel.get("mvoSYNOPSIS");
+		if((String)reqModel.get("mvoSTARTDAY") != null) reqSTARTDAY = (String)reqModel.get("mvoSTARTDAY");
+		if((String)reqModel.get("mvoENDDAY") != null) reqENDDAY = (String)reqModel.get("mvoENDDAY");
+		if((String)reqModel.get("mvoAPPRAISAL") != null) reqAPPRAISAL = (String)reqModel.get("mvoAPPRAISAL");
+		
+		
+		reqMVO.setMCODE(reqMCODE);
+		reqMVO.setTITLE(reqTITLE);
+		reqMVO.setPRICE(Integer.parseInt(reqPRICE));
+		reqMVO.setDIRECTOR(reqDIRECTOR);
+		reqMVO.setACTOR(reqACTOR);
+		reqMVO.setOPENDAY(reqOPENDAY);
+		reqMVO.setGENRE(reqGENRE);
+		reqMVO.setPOSTER(reqPOSTER);
+		reqMVO.setSYNOPSIS(reqSYNOPSIS);
+		reqMVO.setSTARTDAY(reqSTARTDAY);
+		reqMVO.setENDDAY(reqENDDAY);
+		reqMVO.setAPPRAISAL(reqAPPRAISAL);
+		
+		return reqMVO;
+	}
+	
 
 }

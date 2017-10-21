@@ -345,7 +345,111 @@ public class AdminDAO {
 	}
 	
 	
+	/**
+	 * 영화 정보 수정
+	 * @param MovieVO
+	 */
+	public void updateMovie(MovieVO mVO){
+		String sql = "UPDATE MOVIE SET "+
+					"TITLE = ?, PRICE = ?, DIRECTOR = ?, ACTOR = ?, OPENDAY = ?, GENRE = ?, "+
+					"POSTER = ?, SYNOPSIS = ?, STARTDAY = ?, ENDDAY = ?, APPRAISAL = ? "+
+					"WHERE MCODE = ?";
+		
+		System.out.println("updateMovie sql:" + sql);
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			
+			prepStmt.setString(1, mVO.getTITLE());
+			prepStmt.setInt(2, mVO.getPRICE());
+			prepStmt.setString(3, mVO.getDIRECTOR());
+			prepStmt.setString(4, mVO.getACTOR());
+			prepStmt.setString(5, mVO.getOPENDAY());
+			prepStmt.setString(6, mVO.getGENRE());
+			prepStmt.setString(7, mVO.getPOSTER());
+			prepStmt.setString(8, mVO.getSYNOPSIS());
+			prepStmt.setString(9, mVO.getSTARTDAY());
+			prepStmt.setString(10, mVO.getENDDAY());
+			prepStmt.setString(11, mVO.getAPPRAISAL());
+			prepStmt.setString(12, mVO.getMCODE());
+			prepStmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, prepStmt);
+		}
+	}
 	
+	
+	/**
+	 * 영화 삭제
+	 * @param MCODE - 영화 코드
+	 */
+	public void deleteMovie(String MCODE){
+		String sql = "DELETE FROM MOVIE WHERE MCODE = ?";
+		System.out.println("deleteMovie sql: "+ sql);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+				
+		try{
+			
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, MCODE);
+			prepStmt.executeQuery();
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt);
+		}
+		
+	}
+	
+	
+	/**
+	 * 영화 등록
+	 * @param MovieVO
+	 */
+	public void insertMovie(MovieVO mVO){
+		String sql = "INSERT INTO MOVIE VALUES("+
+					"(SELECT ('M'||LPAD(SUBSTR(MAX(MCODE), 2)+1, 2, '0')) AS MCODE FROM MOVIE), "+ //MCODE
+					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+		System.out.println("insertMovie sql:" + sql);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			
+			prepStmt.setString(1, mVO.getTITLE());
+			prepStmt.setInt(2, mVO.getPRICE());
+			prepStmt.setString(3, mVO.getDIRECTOR());
+			prepStmt.setString(4, mVO.getACTOR());
+			prepStmt.setString(5, mVO.getOPENDAY());
+			prepStmt.setString(6, mVO.getGENRE());
+			prepStmt.setString(7, mVO.getPOSTER());
+			prepStmt.setString(8, mVO.getSYNOPSIS());
+			prepStmt.setString(9, mVO.getSTARTDAY());
+			prepStmt.setString(10, mVO.getENDDAY());
+			prepStmt.setString(11, mVO.getAPPRAISAL());
+			prepStmt.executeQuery();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, prepStmt);
+		}
+		
+	}
 	
 	
 }

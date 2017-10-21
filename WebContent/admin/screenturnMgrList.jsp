@@ -35,6 +35,17 @@
 	pageContext.setAttribute("TitleSort", TitleSort);	
 %>
 
+
+	영화 회차 설정 페이지
+	
+	select mcode, title, openday, Startday, Endday from movie where sysdate <= Endday; -- 마감날짜가 남은 영화만 가져옴
+
+
+
+
+
+
+
 	<div id="wrap" align="center">
 	
 		<form action="../admin/admin_Movie.do" method="post">

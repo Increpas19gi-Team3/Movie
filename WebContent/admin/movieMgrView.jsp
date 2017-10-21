@@ -25,13 +25,10 @@
 	pageContext.setAttribute("SearchWord", SearchWord);
 	pageContext.setAttribute("Sort", Sort);
 %>
-수정버튼 : 상세보기:버튼 → 입력폼 → DB 수정 → 상세보기
-삭제버튼 : 상세보기: 버튼 → DB 삭제 → 리스트
-
 <p>
 
 	<div id="wrap" align="center">
-	<h1>상세 보기</h1>
+	<h1>상  세   보  기</h1>
 		<c:if test="${not empty mVO }">
 		<table style="width: 80%" border="1">
 			<tr>
@@ -78,11 +75,11 @@
 					</tr>
 					<tr>
 						<th>상영 시작일</th>
-						<td><fmt:formatDate value="${mVO.STARTDAY }" pattern="yyyy-MM-dd"/></td>
+						<td>${mVO.STARTDAY }</td>
 					</tr>
 					<tr>
 						<th>상영 종료일</th>
-						<td><fmt:formatDate value="${mVO.ENDDAY }" pattern="yyyy-MM-dd"/></td>
+						<td>${mVO.ENDDAY }</td>
 					</tr>
 					<tr>
 						<th>평 점</th>
