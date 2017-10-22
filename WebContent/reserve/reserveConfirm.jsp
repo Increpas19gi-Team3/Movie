@@ -58,7 +58,7 @@
 					<th>${movie.RDAY}</th>
 					<th>${movie.RTIME}</th> 
 					<th>${movie.RSEAT}</th>
-					<th><input type="button" value="취소하기" onclick="location.href='/Movie/reserve/reserveCancel.jsp?rcode=${movie.RCODE}&rday=${movie.RDAY}&turn=${movie.RTURN}&seat=${movie.RSEAT}&title=${title.value}'"></th>
+					<th><input type="button" value="취소하기" onclick="location.href='/Movie/reserve/reserveCancel.jsp?rcode=${movie.RCODE}&rday=${movie.RDAY}&turn=${movie.RTURN}&seat=${movie.RSEAT}&title=${title.value}&rtime=${movie.RTIME}'"></th>
 				</tr>
 				</c:if>
 				</c:forEach>

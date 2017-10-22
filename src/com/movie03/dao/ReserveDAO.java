@@ -442,4 +442,64 @@ public class ReserveDAO {
 			}
 			return title;
 		}
+		
+		
+		/***
+		 * 예매 내역 삭제 
+		 * @param title
+		 * @return
+		 */
+		public void deleteReserve(String rcode){
+			String sql = "delete from reserve where rcode=?";
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, rcode);
+				
+				rs = pstmt.executeQuery();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(conn, pstmt, rs);
+			}
+		}
+		
+		
+		/***
+		 * 예매 취소 좌석 업데이트
+		 * @param title
+		 * @return
+		 */
+		public void updateSeatCancel(String seat, String rday, String rtime){
+			String sql = "update seat set SSTATE='0' where SSEAT=? and to_char(sdate, 'YYYY-MM-DD')=?  and STURN=?";
+			String mcode = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			System.out.println("test >>> " + seat+","+rday+","+rtime);
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, seat);
+				pstmt.setString(2, rday);
+				pstmt.setString(3, rtime);
+				
+				rs = pstmt.executeQuery();
+				
+				conn.commit();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(conn, pstmt, rs);
+			}
+		}
 }

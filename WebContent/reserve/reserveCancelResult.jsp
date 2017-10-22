@@ -11,8 +11,8 @@
 
 <link rel="stylesheet" type="text/css" href="css/shopping.css">
 
-<div id="wrap" align="center">
-		<form name="frm" method="post" action="/Movie/reserveCancel.do">
+	<div id="wrap" align="center">
+		<form name="frm" method="post" action="/Movie/reserveCon.do?userID=${sessionScope.MID}">
 			<table>
 				<tr>
 					<th>예매번호 : </th>
@@ -44,10 +44,9 @@
 
 			</table>
 			<br>
-			<p align="center">취소하시겠습니까?</p>
+			<p align="center">취소 완료 됐습니다</p>
 			<br>
-			<input type="submit" value="확인" >  
-			<input type="button" value="취소" onclick="location.href='/Movie/reserveCon.do?userID=${sessionScope.MID}'">
+			<input type="submit" value="확인" >
 			<br>
 			</form>
 	</div>
