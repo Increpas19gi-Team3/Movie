@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%-- 정적 인클루드 --%>
-
-<%@include file="/com/header.jsp"%>
-
+	
 <%@page import="java.util.List"%>
 <%@page import="com.movie03.dto.MovieVO"%>
 <%@ page import="java.util.HashMap"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
+
+
+<%-- 정적 인클루드 --%>
+<%@include file="/com/header.jsp"%>
+
 
 <!--영화 리스트(검색, 정렬, 상세보기 링크)
 
@@ -23,7 +24,7 @@
 	 
 <!-- 글-목록을 요청영역에서 가져옴  -->
 <%
-	HashMap<String, Object> respModel = (HashMap<String, Object>) request.getAttribute("respModel");
+	HashMap<String, Object> respModel = (HashMap<String, Object>)request.getAttribute("respModel");	
 
 	String OrderBy = (String) respModel.get("OrderBy");
 	pageContext.setAttribute("OrderBy", OrderBy);
@@ -31,18 +32,19 @@
 	String DetailMovie = (String) respModel.get("DetailMovie");
 	pageContext.setAttribute("DetailMovie", DetailMovie);
 
+	/* 데이터베이스에서 정보가져오기 */
 	List<MovieVO> mVo = (List<MovieVO>) respModel.get("MovieList");
 	pageContext.setAttribute("mVo", mVo);
 %>
 
-<div id="#" align="center">
+<div id="wrap" align="center">
 	<h1>영화-리스트</h1>
 	<br>
 	<form name="#" method="post" action="../movie/movie.do">
 		<!-- 이부분의 input의 type="hidden" 속성을 잘 모르겠음 -->
 		<input type="hidden" name="CmdMovie" value="Search">
 		
-		<table class="#" border="6">
+		<table class="#" border="1">
 			<tr>
 				<th>번호(영화코드)</th>
 				<!-- 제목 클릭시 정렬에 관한 SQL문 실행 -->
