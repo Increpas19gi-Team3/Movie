@@ -44,7 +44,7 @@
 				<c:forEach var="ssVO" items="${ssVO }">
 				<tr>
 					<td>
-						<a href="../admin/admin_ScreenSet.do?CmdMgr=SSet_VIEW&SetDate=${ssVO.STdate }">
+						<a href="../admin/admin_ScreenSet.do?CmdMgr=SSet_VIEW&STdate=${ssVO.STdate }">
 						${ssVO.STdate }
 						</a>
 					</td>

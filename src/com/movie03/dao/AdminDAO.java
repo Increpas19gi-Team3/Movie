@@ -573,7 +573,6 @@ public class AdminDAO {
 				"ORDER BY ENDDAY ASC";
 		System.out.println("selectScreenSetMovie sql:" + sql);
 		
-		
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
@@ -594,6 +593,7 @@ public class AdminDAO {
 				mVO.setENDDAY(rs.getString("ENDDAY"));
 				list.add(mVO);
 				
+				System.out.println(">>>>>>>> mVO: "+ mVO.toString());
 			}
 			
 		}catch(Exception e){

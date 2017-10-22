@@ -12,7 +12,7 @@
 	pageContext.setAttribute("ssVO", ssVO);
 	
 	String cmd = (String)respModel.get("CmdMgr");
-	
+	pageContext.setAttribute("CmdMgr", cmd);
 %>
 
 
@@ -43,7 +43,7 @@
 				<td>${ssVO.MOpenday }</td>
 				<td>${ssVO.MStartday }</td>
 				<td>${ssVO.MEndday }</td>
-				<td><a href="../admin/admin_ScreenSet.do?CmdMgr=SSet_UPDATE_FORM&STdate=${ssVO.STdate }&STturn=${ssVO.STturn }">수정</a></td>
+				<td><a href="../admin/admin_ScreenSet.do?CmdMgr=SSet_UPDATE_FORM&STdate=${ssVO.STdate }&STturn=${ssVO.STturn }&MTitle=${ssVO.MTitle }">수정</a></td>
 				<td><a href="../admin/admin_ScreenSet.do?CmdMgr=SSet_DELETE&STdate=${ssVO.STdate }&STturn=${ssVO.STturn }">삭제</a></td>
 				
 			</tr> 
