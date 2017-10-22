@@ -11,10 +11,10 @@ import java.sql.Statement;
 import util.DBManager;
 
 import com.movie03.dto.MovieVO;
+import com.movie03.dto.ScreenSetVO;
+import com.movie03.dto.ScreenTurnVO;
 import com.movie03.dto.ScreeningVO;
 import com.movie03.dto.TheaterVO;
-
-import oracle.jdbc.proxy.annotation.Pre;
 
 
 /**
@@ -397,7 +397,6 @@ public class AdminDAO {
 		PreparedStatement prepStmt = null;
 				
 		try{
-			
 			conn = DBManager.getConnection();
 			prepStmt = conn.prepareStatement(sql);
 			prepStmt.setString(1, MCODE);
@@ -450,6 +449,191 @@ public class AdminDAO {
 		}
 		
 	}
+
+	
+	/**
+	 * 상영 영화 설정 목록
+	 * @return List<ScreenSetVO>
+	 */
+	public List<ScreenSetVO> selectScreenSetList(){
+		
+		List<ScreenSetVO> list = new ArrayList<ScreenSetVO>();
+		
+		String sql = "SELECT T.SCODE, T.MCODE, M.TITLE, T.STTURN, "+
+					"TO_CHAR(STDATE, 'YYYY-MM-DD') AS STDATE, TO_CHAR(M.OPENDAY, 'YYYY-MM-DD') AS OPENDAY, "+ 
+					"TO_CHAR(M.STARTDAY, 'YYYY-MM-DD') AS STARTDAY, TO_CHAR(M.ENDDAY, 'YYYY-MM-DD') AS ENDDAY "+
+					"FROM SCREENTURN T  INNER JOIN MOVIE M "+
+					"ON T.MCODE = M.MCODE "+
+					"ORDER BY T.STDATE DESC, T.STTURN ASC";
+		System.out.println("selectScreenSetList sql:" + sql);
+		
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try{
+			
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				
+				ScreenSetVO ssVO = new ScreenSetVO();				
+				ssVO.setSCode(rs.getString("SCODE"));
+				ssVO.setMCode(rs.getString("MCODE"));
+				ssVO.setMTitle(rs.getString("TITLE"));
+				ssVO.setSTturn(rs.getString("STTURN"));
+				ssVO.setSTdate(rs.getString("STDATE"));
+				ssVO.setMOpenday(rs.getString("OPENDAY"));
+				ssVO.setMStartday(rs.getString("STARTDAY"));
+				ssVO.setMEndday(rs.getString("ENDDAY"));
+				list.add(ssVO);
+				
+				//System.out.println("ADMIN > SSetList > ssVO: "+ ssVO.toString());
+			}
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		
+		return list;
+	}
 	
 	
+	/**
+	 * 상영 영화 설정 - 날짜에 맞는 영화목록들 가져오기
+	 * @param reqSetDate
+	 * @return
+	 */
+	public List<ScreenSetVO> selectScreenSetView(String reqSetDate){
+		
+		List<ScreenSetVO> list = new ArrayList<ScreenSetVO>();
+		
+		String sql = "SELECT T.SCODE, T.MCODE, M.TITLE, T.STTURN, "+
+					"TO_CHAR(STDATE, 'YYYY-MM-DD') AS STDATE, TO_CHAR(M.OPENDAY, 'YYYY-MM-DD') AS OPENDAY, "+ 
+					"TO_CHAR(M.STARTDAY, 'YYYY-MM-DD') AS STARTDAY, TO_CHAR(M.ENDDAY, 'YYYY-MM-DD') AS ENDDAY "+
+					"FROM SCREENTURN T  INNER JOIN MOVIE M "+
+					"ON T.MCODE = M.MCODE "+
+					"WHERE STDATE = ? "+
+					"ORDER BY T.STDATE DESC, T.STTURN ASC";
+		System.out.println("selectScreenSetView sql:" + sql);
+		
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try{
+			
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, reqSetDate);
+			rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				
+				ScreenSetVO ssVO = new ScreenSetVO();				
+				ssVO.setSCode(rs.getString("SCODE"));
+				ssVO.setMCode(rs.getString("MCODE"));
+				ssVO.setMTitle(rs.getString("TITLE"));
+				ssVO.setSTturn(rs.getString("STTURN"));
+				ssVO.setSTdate(rs.getString("STDATE"));
+				ssVO.setMOpenday(rs.getString("OPENDAY"));
+				ssVO.setMStartday(rs.getString("STARTDAY"));
+				ssVO.setMEndday(rs.getString("ENDDAY"));
+				list.add(ssVO);
+				
+			}
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		
+		return list;
+	}
+	
+	
+	/**
+	 * 상영 영화 설정 - 날짜에 맞는 영화목록들 가져오기
+	 * @param reqSetDate
+	 * @return List<MovieVO>
+	 */
+	public List<MovieVO> selectScreenSetMovie(String reqSetDate){
+		
+		List<MovieVO> list = new ArrayList<MovieVO>();
+		
+		String sql = "SELECT MCODE, TITLE, TO_CHAR(OPENDAY, 'YYYY-MM-DD') AS OPENDAY, "+
+					"TO_CHAR(STARTDAY, 'YYYY-MM-DD') AS STARTDAY, TO_CHAR(ENDDAY, 'YYYY-MM-DD') AS ENDDAY "+
+				"FROM MOVIE "+
+				"WHERE ? <= ENDDAY "+
+				"ORDER BY ENDDAY ASC";
+		System.out.println("selectScreenSetMovie sql:" + sql);
+		
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		try{
+			
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, reqSetDate);
+			rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				
+				MovieVO mVO = new MovieVO();
+				mVO.setMCODE(rs.getString("MCODE")); 
+				mVO.setTITLE(rs.getString("TITLE"));
+				mVO.setOPENDAY(rs.getString("OPENDAY"));
+				mVO.setSTARTDAY(rs.getString("STARTDAY"));				
+				mVO.setENDDAY(rs.getString("ENDDAY"));
+				list.add(mVO);
+				
+			}
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		
+		return list;
+	}
+	
+	
+	/**
+	 * 상영 영화 설정 삭제
+	 * @param reqSTdate - 설정 날짜
+	 * @param reqSTturn - 설정 회차
+	 */
+	public void deleteScreenSet(String reqSTdate, String reqSTturn){
+		 
+		String sql = "DELETE FROM SCREENTURN "+
+					"WHERE STDATE = ? AND STTURN = ?";
+		System.out.println("deleteScreenSet sql: "+ sql);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		
+		try{
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, reqSTdate);
+			prepStmt.setString(2, reqSTturn);
+			prepStmt.executeQuery();
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt);
+		}
+	}
+	
+	
+	//
 }

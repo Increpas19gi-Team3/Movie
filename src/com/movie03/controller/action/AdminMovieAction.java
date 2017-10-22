@@ -19,7 +19,7 @@ public class AdminMovieAction implements Action{
 	@Override
 	public String execute(Map<String, Object> reqModel, Map<String, Object> respModel) throws IOException {
 
-		System.out.println("영화 관리 모드 화면창");
+		//System.out.println("영화 관리 모드 화면창");
 		AdminDAO adminDAO = AdminDAO.getInstance();
 		String url = "../admin/movieMgrList.jsp";
 		
@@ -43,12 +43,6 @@ public class AdminMovieAction implements Action{
 		//상세보기, 수정, 삭제
 		String reqMCODE = ""; // 영화코드
 		if((String)reqModel.get("MCODE") != null) reqMCODE = (String)reqModel.get("MCODE");
-		
-		
-		
-		
-		//수정, 등록용 데이터
-		
 		
 		
 		
@@ -136,7 +130,11 @@ public class AdminMovieAction implements Action{
 	}
 	
 	
-	
+	/**
+	 * 수정, 등록용 받아온 데이터를 MovieVO에 맞게 셋팅
+	 * @param reqModel
+	 * @return MovieVO
+	 */
 	public MovieVO setData(Map<String, Object> reqModel){
 		MovieVO reqMVO = new MovieVO();
 		
