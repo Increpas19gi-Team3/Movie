@@ -22,6 +22,7 @@ import com.movie03.controller.action.MovieAction;
 //import com.movie03.controller.action.BoardWriteAction;
 //import com.movie03.controller.action.BoardWriteFormAction;
 import com.movie03.controller.action.ReserveAction;
+import com.movie03.controller.action.ReserveCancelAction;
 import com.movie03.controller.action.ReserveConfirmAction;
 import com.movie03.controller.action.ReserveMovieAction;
 import com.movie03.controller.action.ReserveResultAction;
@@ -77,6 +78,8 @@ public class ActionFactory {
 			action = new ReserveResultAction();
 		} else if (uri.contains("/Movie/reserveCon.do")) {
 			action = new ReserveConfirmAction();
+		} else if (uri.contains("/Movie/reserveCancel.do")) {
+			action = new ReserveCancelAction();
 		}
 
 		// 영화 관리

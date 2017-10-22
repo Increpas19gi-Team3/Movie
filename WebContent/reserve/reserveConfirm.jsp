@@ -12,6 +12,8 @@
 <link rel="stylesheet" type="text/css" href="css/shopping.css">
 	<div id="wrap" align="center">
 		<h1>영화 리스트</h1>
+		
+		
 		 <table border="1">
 			
 			<tr>
@@ -45,25 +47,24 @@
 			%>
 
 			<c:forEach var="movie" items="${mVo}">
+				<c:forEach var="title" items="${movieTitle}">
+				<c:if test="${title.key == movie.RCODE}">
 				<tr class="record">
 					<th>${movie.RCODE}</th>
 					<!-- <th>${movie.MCODE}</th> 영화코드로 영화제목 읽어오기 -->
-					
-					<c:forEach var="title" items="${movieTitle}">
-						<c:if test="${title.key == movie.RCODE}">
-							<th>${title.value}</th>
-						</c:if>
-					</c:forEach>
-		
+					<th>${title.value}</th>
 					<th>1관</th>
 					<th>${movie.RTURN}</th>
 					<th>${movie.RDAY}</th>
 					<th>${movie.RTIME}</th> 
 					<th>${movie.RSEAT}</th>
-					<th><input type="button" value="취소하기" ></th>
+					<th><input type="button" value="취소하기" onclick="location.href='/Movie/reserve/reserveCancel.jsp?rcode=${movie.RCODE}&rday=${movie.RDAY}&turn=${movie.RTURN}&seat=${movie.RSEAT}&title=${title.value}'"></th>
 				</tr>
+				</c:if>
+				</c:forEach>
 			</c:forEach>
 		</table>
+
 		<br><br> 
 	</div>
 	
