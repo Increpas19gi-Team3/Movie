@@ -370,7 +370,8 @@ public class ReserveDAO {
 		 * @return
 		 */
 		public List<ReserveVO> selectReserveList(String userid){
-			String sql = "select * from reserve where mid=? order by rcode";
+			String sql = "select mcode, mid, rcode, to_char(rday,'yyyy-MM-dd') as rdays, rseat, rtime, rturn, scode from reserve "
+					+ "where mid=? and to_char(RDAY, 'yyyyMMdd')>=to_char(sysdate, 'yyyyMMdd') order by rcode";
 			List<ReserveVO> list = new ArrayList<ReserveVO>();//목록
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -391,7 +392,7 @@ public class ReserveDAO {
 					bVo.setMCODE(rs.getString("MCODE"));
 					bVo.setMID(rs.getString("MID"));
 					bVo.setRCODE(rs.getString("RCODE"));
-					bVo.setRDAY(rs.getString("RDAY"));
+					bVo.setRDAY(rs.getString("RDAYS"));
 					bVo.setRSEAT(rs.getString("RSEAT"));
 					bVo.setRTIME(rs.getString("RTIME"));
 					bVo.setRTURN(rs.getString("RTURN"));
@@ -407,5 +408,38 @@ public class ReserveDAO {
 				DBManager.close(conn, pstmt, rs);
 			}
 			return list;
+		}
+		
+		/***
+		 * 예매 내역 영화 제목 select
+		 * @param title
+		 * @return
+		 */
+		public String selectMovieTitle(String mcode){
+			String sql = "select title from movie where mcode=?";
+			String title=null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			
+			try {
+				conn = DBManager.getConnection();
+				pstmt = conn.prepareStatement(sql);
+
+				pstmt.setString(1, mcode);
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					title = rs.getString("TITLE");
+					System.out.println("title : " + title);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DBManager.close(conn, pstmt, rs);
+			}
+			return title;
 		}
 }
