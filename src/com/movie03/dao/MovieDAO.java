@@ -158,16 +158,16 @@ public class MovieDAO {
 			sql += "order by title ";
 
 		} else if (select_word.equals("title")) { // 제목 검색
-			sql += "where title like '%?%' order by title ";
+			sql += "where title like ? order by title ";
 
 		} else if (select_word.equals("director")) { // 감독 검색
-			sql += "where DIRECTOR like '%?%' order by title ";
+			sql += "where DIRECTOR like ? order by title ";
 
 		} else if (select_word.equals("actor")) { // 배우 검색
-			sql += "where ACTOR like '%?%' order by title ";
+			sql += "where ACTOR like ? order by title ";
 
 		} else if (select_word.equals("genre")) { // 장르 검색
-			sql += "where GENRE like '%?%' order by title ";
+			sql += "where GENRE like ? order by title ";
 		}
 		// 추가로 오름, 내림차순
 		if (array.equals("")) { // 정렬에 관한 값이 없다면 오름차순으로 정리
@@ -192,7 +192,7 @@ public class MovieDAO {
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, search_text);
+			pstmt.setString(1, "%"+search_text+"%");
 			rs = pstmt.executeQuery();
 
 			// SQL문 실행이 된다면 
@@ -218,5 +218,59 @@ public class MovieDAO {
 			DBManager.close(conn, pstmt, rs);
 		}
 		return list;
-	}
-}
+	} // MovieAllSearch - End
+	
+	
+	/**	 
+	 * @param code
+	 * 출력된 영화목록-중 code(키값)값을 호출해서 
+	 * 상세정보를 출력하는 쿼리문
+	 * MovieList.jsp - 출력된 영화제목에 각각-링크 걸림
+	 * @return
+	 */
+	public List<MovieVO> SelectOneMovieByCode(String Mcode) {
+
+		String sql = "select * from Movie where Mcode like ?";	
+		
+		// console-창에 보여주기 위한 실행문
+		System.out.println("(SelectOneMovieByCode)sql = " + sql);
+		
+		List<MovieVO> list = new ArrayList<MovieVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+Mcode+"%");
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				MovieVO mVo = new MovieVO();
+
+				mVo.setMCODE(rs.getString("Mcode"));
+				mVo.setTITLE(rs.getString("title"));
+				mVo.setPRICE(rs.getInt("price"));
+				mVo.setDIRECTOR(rs.getString("director"));
+				mVo.setACTOR(rs.getString("actor"));
+				mVo.setOPENDAY(rs.getString("openDay"));
+				mVo.setGENRE(rs.getString("genre"));
+				mVo.setPOSTER(rs.getString("poster"));
+				mVo.setSYNOPSIS(rs.getString("synopsis"));
+				mVo.setSTARTDAY(rs.getString("startDay"));
+				mVo.setENDDAY(rs.getString("endDay"));
+				mVo.setAPPRAISAL(rs.getString("appraisal"));
+				list.add(mVo);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return list;
+	} // SelectOneMovieByCode(String code) - End
+
+} // class MovieDAO - End

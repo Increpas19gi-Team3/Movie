@@ -4,7 +4,8 @@
 <%@page import="java.util.List"%>
 
 <%@ page import="java.util.HashMap"%>
-<%@page import="com.movie03.dto.MovieVO"%>
+<%@ page import="com.movie03.dto.MovieVO"%>
+<%-- <%@page import="com.movie03.dto.MovieVO"%> --%>
 
 
 <%-- 정적 인클루드 --%>
@@ -13,7 +14,8 @@
 <!-- 글목록을 요청영역에서 가져옴  -->
 <%
 	HashMap<String, Object> respModel = (HashMap<String, Object>) request.getAttribute("respModel");
-	MovieVO mVo = (MovieVO) respModel.get("MgrViewMovie");	
+	MovieVO mVo = (MovieVO) respModel.get("list");
+	// List<MovieVO> mVo = (List<MovieVO>) respModel.get("MovieDetailPage");
 	pageContext.setAttribute("mVo", mVo);
 
 	String cmd = (String) respModel.get("CmdMgr");
@@ -65,7 +67,7 @@
 	<!-- 버튼(뒤로가기) 
 	 : 페이지를 영화-리스트 페이지로 넘어감  
 	 : 일단 onclick="MovieList.java"라고 씀 -->
-	<form action="../Movie/MovieList.do" method="post">
+	<form action="../movie/MovieList.do" method="post">
 		<input type="hidden" name="CmdMgr" value="MovieList"> 
 		<input type="submit" value="뒤로가기">
 	</form>

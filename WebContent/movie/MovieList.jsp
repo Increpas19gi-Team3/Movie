@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
+<%-- 정적 인클루드 --%>
+
+<%@include file="/com/header.jsp"%>
+
 <%@page import="java.util.List"%>
 <%@page import="com.movie03.dto.MovieVO"%>
 <%@ page import="java.util.HashMap"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
-
-
-<%-- 정적 인클루드 --%>
-<%@include file="/com/header.jsp"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!--영화 리스트(검색, 정렬, 상세보기 링크)
 
@@ -32,7 +31,6 @@
 	String DetailMovie = (String) respModel.get("DetailMovie");
 	pageContext.setAttribute("DetailMovie", DetailMovie);
 
-	/* 데이터베이스에서 정보가져오기 */
 	List<MovieVO> mVo = (List<MovieVO>) respModel.get("MovieList");
 	pageContext.setAttribute("mVo", mVo);
 %>
@@ -80,7 +78,7 @@
 		</select> 
 		
 		<input type="text" name="search_text"> 
-		<input type="submit" value="검색" onclick="#">
+		<input type="submit" value="검색" >
 	</form>
 </div>
 
