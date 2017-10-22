@@ -1,6 +1,5 @@
 package com.movie03.controller;
 
-
 import com.movie03.controller.action.Action;
 import com.movie03.controller.action.Action2;
 import com.movie03.controller.action.AdminAction;
@@ -27,6 +26,7 @@ import com.movie03.controller.action.ReserveConfirmAction;
 import com.movie03.controller.action.ReserveMovieAction;
 import com.movie03.controller.action.ReserveResultAction;
 import com.movie03.controller.action.ReserveSeatAction;
+import com.movie03.controller.action.TheaterAction;
 
 public class ActionFactory {
 	private static ActionFactory instance = new ActionFactory();
@@ -40,64 +40,60 @@ public class ActionFactory {
 	}
 
 	public Action getAction(String uri) {
-		///web-study-11/board/reply_add.do
+		/// web-study-11/board/reply_add.do
 		Action action = null;
 		System.out.println("ActionFactory :" + uri);
-		
-		//요청URI에 reply_add.do 커멘드가 포함되면  
-		
-		//Admin 관리화면
-		if(uri.contains("/admin/admin.do")){
-			action = new AdminAction(); 
-			
-		}else if(uri.contains("/admin/admin_Theater.do")){// 영화관 관리
-			action = new AdminTheaterAction(); 
-			
-		}else if(uri.contains("/admin/admin_Screening.do")){// 상영관 관리
-			action = new AdminScreeningAction(); 
-			
-		}else if(uri.contains("/admin/admin_Movie.do")){// 영화 목록 관리
-			action=new AdminMovieAction();
-			
-		}else if(uri.contains("/admin/admin_ScreenSet.do")){// 상영 영화 관리
-			action=new AdminScreenSetAction();
-			
-		}else if(uri.contains("/admin/admin_Reserve.do")){// 예약 관리
-			action=new AdminReserveAction();
+
+		// 요청URI에 reply_add.do 커멘드가 포함되면
+
+		// Admin 관리화면
+		if (uri.contains("/admin/admin.do")) {
+			action = new AdminAction();
+
+		} else if (uri.contains("/admin/admin_Theater.do")) {// 영화관 관리
+			action = new AdminTheaterAction();
+
+		} else if (uri.contains("/admin/admin_Screening.do")) {// 상영관 관리
+			action = new AdminScreeningAction();
+
+		} else if (uri.contains("/admin/admin_Movie.do")) {// 영화 목록 관리
+			action = new AdminMovieAction();
+
+		} else if (uri.contains("/admin/admin_ScreenSet.do")) {// 상영 영화 관리
+			action = new AdminScreenSetAction();
+
+		} else if (uri.contains("/admin/admin_Reserve.do")) {// 예약 관리
+			action = new AdminReserveAction();
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		// 예약 관리
-		else if(uri.contains("/Movie/MovieServlet.do")){
+		else if (uri.contains("/Movie/MovieServlet.do")) {
 			action = new ReserveAction();
-		}else if(uri.contains("/Movie/reserveMovie.do")){
+		} else if (uri.contains("/Movie/reserveMovie.do")) {
 			action = new ReserveMovieAction();
-		}else if(uri.contains("/Movie/reserveSeat.do")){
+		} else if (uri.contains("/Movie/reserveSeat.do")) {
 			action = new ReserveSeatAction();
-		}else if(uri.contains("/Movie/Reserve.do")){
+		} else if (uri.contains("/Movie/Reserve.do")) {
 			action = new ReserveResultAction();
-		}else if(uri.contains("/Movie/reserveCon.do")){
+		} else if (uri.contains("/Movie/reserveCon.do")) {
 			action = new ReserveConfirmAction();
 		}
-		
-		
-		
+
 		// 영화 관리
-		else if(uri.contains("/movie/movie.do")){
+		else if (uri.contains("/movie/movie.do")) {
 			action = new MovieAction();
-		}else if(uri.contains("/Movie/Reserve.do")){
+		} else if (uri.contains("/Movie/Reserve.do")) {
 			action = new ReserveResultAction();
 		}
-		
-		System.out.println("ActionFactory Action :"+ action);
+
+		// <=================================================================>
+
+		// Theater(극장) - 관리
+		else if (uri.contains("/theater/theater.do")) {
+			action = new TheaterAction();
+		}
+
+		System.out.println("ActionFactory Action :" + action);
 		return action;
 	}
 }
