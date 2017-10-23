@@ -21,7 +21,7 @@
 	
 	<div class="header">
       <div class="logo">
-        <a href="../index.jsp">영화 예매 사이트</a>
+        <a href="/Movie/index.jsp">영화 예매 사이트</a>
       </div>
       <div class="menu">
         <ul>
