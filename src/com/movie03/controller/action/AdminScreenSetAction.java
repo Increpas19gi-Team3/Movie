@@ -28,13 +28,12 @@ public class AdminScreenSetAction implements Action{
 		
 
 		//수정, 삭제
-		String reqSTturn = "";
 		String reqSTdate = "";
+		String reqSTturn = "";
 		String reqMTitle = "";
-		if((String)reqModel.get("STturn") != null) reqSTturn = (String)reqModel.get("STturn");
 		if((String)reqModel.get("STdate") != null) reqSTdate = (String)reqModel.get("STdate");
+		if((String)reqModel.get("STturn") != null) reqSTturn = (String)reqModel.get("STturn");
 		if((String)reqModel.get("MTitle") != null) reqMTitle = (String)reqModel.get("MTitle");
-		
 				
 		if(cmd != null){
 			//SSet_FORM
@@ -44,6 +43,7 @@ public class AdminScreenSetAction implements Action{
 				
 				respModel.put("CmdMgr", "SSet_LIST");
 				url = "../admin/screenSetMgrList.jsp";
+				
 				
 			}else if(cmd.equals("SSet_VIEW")){
 				
@@ -55,8 +55,63 @@ public class AdminScreenSetAction implements Action{
 				
 				
 			}else if(cmd.equals("SSet_INSERT_FORM")){
-				respModel.put("CmdMgr", cmd);
-				url = "../admin/screenSetMgrForm.jsp";
+				
+				String selDate="";
+				if((String)reqModel.get("selDate") != null ) selDate = (String)reqModel.get("selDate");
+				respModel.put("selDate", selDate);
+				
+				// 등록 폼 시작전 등록상태 확인
+				int rowCnt = adminDAO.selectScreenSetRCnt(selDate);
+				if(rowCnt == 3){//이미 3개가 등록되어 있다면 상세보기창으로
+					
+					List<ScreenSetVO> SSetView = adminDAO.selectScreenSetView(selDate);
+					respModel.put("MgrViewSSet", SSetView);
+					
+					respModel.put("CmdMgr", "SSet_VIEW");
+					url = "../admin/screenSetMgrView.jsp";
+					
+				
+				}else{//등록 함
+					System.out.println("2. 클릭한 날짜<"+ selDate +">에 맞춰서 영화 목록표를 가져옴");
+					
+					//등록가능한 회차 가져오기
+					List<String> STturnlist = adminDAO.selectScreenSetSTturn(selDate);
+					String[] STturnArr = {"0", "0", "0"};
+					for(int i=0; i<STturnlist.size(); i++){
+						STturnArr[i] = STturnlist.get(i);
+					}
+					respModel.put("STturnArr", STturnArr);
+					
+					List<MovieVO> SSetMovie = adminDAO.selectScreenSetMovie(selDate);
+					respModel.put("MgrViewSSetMovie", SSetMovie);
+					
+					respModel.put("CmdMgr", cmd);
+					url = "../admin/screenSetMgrForm.jsp";
+				}
+				
+			}else if(cmd.equals("SSet_INSERT")){
+				
+				
+				respModel.put("STturn", reqSTturn);
+				respModel.put("STdate", reqSTdate);
+				respModel.put("MTitle", reqMTitle);
+				
+				String selMCODE = ""; 
+				String selSTturn = "";
+				String selDate="";
+				if((String)reqModel.get("selMovie") != null ) selMCODE = (String)reqModel.get("selMovie"); 
+				if((String)reqModel.get("selSTturn") != null ) selSTturn = (String)reqModel.get("selSTturn"); 
+				if((String)reqModel.get("selDate") != null ) selDate = (String)reqModel.get("selDate"); 
+				
+				//등록 쿼리
+				adminDAO.insertScreenSet(selMCODE, selSTturn, selDate);
+								
+				List<ScreenSetVO> SSetView = adminDAO.selectScreenSetView(selDate);
+				respModel.put("MgrViewSSet", SSetView);
+				
+				respModel.put("CmdMgr", "SSet_VIEW");
+				url = "../admin/screenSetMgrView.jsp";
+				
 				
 			}else if(cmd.equals("SSet_UPDATE_FORM")){
 
@@ -71,6 +126,26 @@ public class AdminScreenSetAction implements Action{
 				respModel.put("CmdMgr", cmd);
 				url = "../admin/screenSetMgrForm.jsp";
 				
+			}else if(cmd.equals("SSet_UPDATE")){//수정 DB 작업
+
+				respModel.put("STturn", reqSTturn);
+				respModel.put("STdate", reqSTdate);
+				respModel.put("MTitle", reqMTitle);
+				
+				String selMCODE = ""; 
+				String selSTturn = "";
+				if((String)reqModel.get("selMovie") != null ) selMCODE = (String)reqModel.get("selMovie"); 
+				if((String)reqModel.get("selSTturn") != null ) selSTturn = (String)reqModel.get("selSTturn"); 
+				
+				// 업데이트 쿼리 실행
+				adminDAO.updateScreenSet(selMCODE, selSTturn, reqSTdate, reqSTturn);
+				
+				
+				List<ScreenSetVO> SSetView = adminDAO.selectScreenSetView(reqSTdate);
+				respModel.put("MgrViewSSet", SSetView);
+				
+				respModel.put("CmdMgr", "SSet_VIEW");
+				url = "../admin/screenSetMgrView.jsp";
 				
 				
 			}else if(cmd.equals("SSet_DELETE")){

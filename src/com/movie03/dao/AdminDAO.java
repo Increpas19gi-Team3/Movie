@@ -520,7 +520,7 @@ public class AdminDAO {
 					"WHERE STDATE = ? "+
 					"ORDER BY T.STDATE DESC, T.STTURN ASC";
 		System.out.println("selectScreenSetView sql:" + sql);
-		
+		System.out.println("reqSetDate="+reqSetDate);
 		
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
@@ -572,6 +572,7 @@ public class AdminDAO {
 				"WHERE ? <= ENDDAY "+
 				"ORDER BY ENDDAY ASC";
 		System.out.println("selectScreenSetMovie sql:" + sql);
+		System.out.println("reqSetDate="+reqSetDate);
 		
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
@@ -635,5 +636,150 @@ public class AdminDAO {
 	}
 	
 	
-	//
+	/**
+	 * 상영 영화 수정 
+	 * @param selMCODE - 영화 수정
+	 * @param selSTturn - 회차 수정
+	 * @param whereSTdate - 대상 날짜
+	 * @param whereSTturn - 대상 회차
+	 */
+	public void updateScreenSet(String selMCODE, String selSTturn
+			, String whereSTdate, String whereSTturn){
+		 
+		String sql = "UPDATE SCREENTURN SET MCODE =?, STTURN =? "+
+				"WHERE STDATE = ? AND STTURN = ?";
+		System.out.println("updateScreenSet sql: "+ sql);
+		System.out.println("selMCODE="+selMCODE+", selSTturn="+selSTturn+", whereSTdate="+whereSTdate+", whereSTturn="+whereSTturn);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		
+		try{
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			
+			prepStmt.setString(1, selMCODE);
+			prepStmt.setString(2, selSTturn);
+			prepStmt.setString(3, whereSTdate);
+			prepStmt.setString(4, whereSTturn);
+			prepStmt.executeQuery();
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt);
+		}
+	}
+	
+	
+	/**
+	 * 입력 날짜 상영영화가 이미 등록 되어 있는지 체크
+	 * @param selDate
+	 * @return
+	 */
+	public int selectScreenSetRCnt(String selDate){
+		int rowCnt = 0;
+		
+		String sql = "SELECT COUNT(MCODE) AS RCNT FROM SCREENTURN "+
+					"WHERE STDATE = ?";
+		System.out.println("selectScreenSetRCnt sql:"+sql);
+		System.out.println("selDate="+selDate);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, selDate);
+			rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				rowCnt = rs.getInt("RCNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		
+		return rowCnt;
+	}
+	
+	
+	/**
+	 * 입력 날짜 상영영화가 이미 등록 되어 있는지 체크
+	 * @param selDate
+	 * @return
+	 */
+	public ArrayList<String> selectScreenSetSTturn(String selDate){
+		ArrayList<String> list = new ArrayList<String>();
+		
+		String sql = "SELECT STTURN FROM SCREENTURN "+
+					"WHERE STDATE = ? "+
+					"ORDER BY STTURN ASC";
+		System.out.println("selectScreenSetSTturn sql:"+sql);
+		System.out.println("selDate="+selDate);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, selDate);
+			rs = prepStmt.executeQuery();
+			
+			while(rs.next()){
+				list.add(rs.getString("STTURN"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		
+		System.out.println("list = "+ list.toString());
+		
+		return list;
+	}
+	
+	
+	
+	
+	/**
+	 * 상영 영화 입력
+	 * @param selMCODE
+	 * @param selSTturn
+	 * @param selDate
+	 */
+	public void insertScreenSet(String selMCODE, String selSTturn
+			, String selDate){
+		 
+		String sql = "INSERT INTO SCREENTURN VALUES('S01', ?, ?, ?)";
+		System.out.println("insertScreenSet sql: "+ sql);
+		System.out.println("selMCODE="+selMCODE+", selSTturn="+selSTturn+", selDate="+selDate);
+		
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		
+		try{
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			
+			prepStmt.setString(1, selMCODE);
+			prepStmt.setString(2, selSTturn);
+			prepStmt.setString(3, selDate);
+			prepStmt.executeQuery();
+			
+		}catch(Exception e){
+			e.getStackTrace();
+		}finally {
+			DBManager.close(conn, prepStmt);
+		}
+	}
 }

@@ -23,8 +23,8 @@
 	<div id="wrap" align="center">
 	
 		<form action="../admin/admin_ScreenSet.do" method="post">
-			<input type="hidden" name = "CmdMgr" value="SSet_VIEW">
-			<input type="date" name="SetDate" value="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />">
+			<input type="hidden" name = "CmdMgr" value="SSet_INSERT_FORM">
+			<input type="date" name="selDate" value="<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" />">
 			<input type="submit" value="영화 설정">
 		</form>
 		

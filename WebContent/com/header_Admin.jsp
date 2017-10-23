@@ -10,8 +10,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<!-- <link rel="stylesheet" href="../css/style.css?v=2">
-	<link rel="stylesheet" href="../css/admin.css?v=2"> -->
+	<link rel="stylesheet" href="../css/style.css?v=2">
+	<link rel="stylesheet" href="../css/admin.css?v=2">
 	<!-- <script type="text/javascript" src="script/product.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<title> Movie Reserve Site 03 </title>
@@ -26,7 +26,7 @@
         <ul>
           <li><a href="../admin/admin_Movie.do">영화 등록 관리</a></li>
           <li><a href="../admin/admin_ScreenSet.do">상영 영화 관리</a></li>
-          <li><a href="../admin/admin_Reserve.do">예약 정보 관리</a></li>
+          <!-- <li><a href="../admin/admin_Reserve.do">예약 정보 관리</a></li> -->
           <li><a href="../admin/admin_Theater.do">극장 정보 관리</a></li>
           <li><a href="../admin/admin_Screening.do">상영관 정보 관리</a></li>
         </ul>

@@ -39,7 +39,7 @@ a {
 	color: black; /* 글 색상 */
 }
 
-a:HOVER {
-	text-decoration: underline; /* 밑줄 */
-	color: green; /* 글 색상 */
-}
+/* a:HOVER {
+	text-decoration: underline; 밑줄
+	color: green; 글 색상
+} */
