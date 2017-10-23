@@ -37,7 +37,7 @@
 
 <div id="wrap" align="center">
 	<h1>영화-리스트</h1>
-	<br>
+	<br><br>
 	<form name="#" method="post" action="../movie/movie.do">
 		<!-- 이부분의 input의 type="hidden" 속성을 잘 모르겠음 -->
 		<input type="hidden" name="CmdMovie" value="Search">
@@ -55,7 +55,7 @@
 					<tr class="#">
 						<td>${movie.MCODE}</td>
 						<!-- 영화제목 클릭시 상세보기에 관한 페이지 이동 -->						
-						<td><a href="../movie/movie.do?DetailMovie=${DetailMovie}">${movie.TITLE}</td>
+						<td><a href="../movie/movie.do?DetailMovieNum=${movie.MCODE}">${movie.TITLE}</td>
 						<td>${movie.DIRECTOR}</td>
 						<td>${movie.ACTOR}</td>
 						<td>${movie.GENRE}</td>
@@ -65,8 +65,7 @@
 		</table>
 		<br> 
 		<br>
-		<!-- 검색기능 : 아직 구현안됨
-		 선택바 : 없음, 제목, 감독, 배우, 장르
+		<!-- 선택바 : 없음, 제목, 감독, 배우, 장르
 	 	 내용(text) : 검색내용이 없을 시 경고창으로 알림
 		 클릭버튼(value=검색) : 검색을 클릭시 검색 내용만 출력되게 만듬 -->		 
 		<select name="select_word">

@@ -32,16 +32,13 @@ public class MovieDAO {
 	/**
 	 * 실행 : 아직 구현안됨 영화 전체 검색 영화-리스트 ; MovieArray(String array) : 영화제목으로
 	 * 내림차순-정렬하는 SQL문 : array에 따라 null(입력값 없음) = ASC, ASC(입력값없음)=DESC '없음'은 테이블
-	 * 전체 출력 : 일단 모든 정보를 List에 담아 넣음
-	 * 
+	 * 전체 출력 : 일단 모든 정보를 List에 담아 넣음	 
 	 * @return List<MovieVO>
 	 */
 	public List<MovieVO> MovieArray(String array) {
 
-		String sql = "select * from Movie order by title  "+ array;
+		String sql = "select * from Movie order by title  " + array;	
 
-		//sql += array;
-		
 		// console-창에 보여주기 위한 실행문
 		System.out.println("(MovieArray)sql = " + sql);
 
@@ -84,14 +81,15 @@ public class MovieDAO {
 
 	/**
 	 * 영화검색 기능 화면(MovieList.jsp)에서 '선택박스(없음, 영화제목, 감독, 배우, 장르)'를 선택 후 '검색어'에 검색을
-	 * 하는 기능을 하는 메소드 아직 SQL문 실행 안했음 
+	 * 하는 기능을 하는 메소드 아직 SQL문 실행 안했음
+	 * 
 	 * @param gubun
 	 * @param 검색어
 	 */
 	public List<MovieVO> MovieSelect(String select_word, String search_text) {
 
 		MovieVO mVo = new MovieVO();
-		
+
 		// "MovieAction.java"에서 입력 받은 word(select_word), text(search_text)
 		// SQL문 실행
 		String sql = "select mcode, title, DIRECTOR, ACTOR, GENRE from movie ";
@@ -119,7 +117,7 @@ public class MovieDAO {
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+search_text+"%");
+			pstmt.setString(1, "%" + search_text + "%");
 			rs = pstmt.executeQuery();
 
 			// SQL문 실행이 된다면 제목, 감독, 배우, 장르
@@ -192,64 +190,11 @@ public class MovieDAO {
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+search_text+"%");
+			pstmt.setString(1, "%" + search_text + "%");
 			rs = pstmt.executeQuery();
 
-			// SQL문 실행이 된다면 
-			while (rs.next()) {				
-				mVo.setMCODE(rs.getString("Mcode"));
-				mVo.setTITLE(rs.getString("title"));
-				mVo.setPRICE(rs.getInt("price"));
-				mVo.setDIRECTOR(rs.getString("director"));
-				mVo.setACTOR(rs.getString("actor"));
-				mVo.setOPENDAY(rs.getString("openDay"));
-				mVo.setGENRE(rs.getString("genre"));
-				mVo.setPOSTER(rs.getString("poster"));
-				mVo.setSYNOPSIS(rs.getString("synopsis"));
-				mVo.setSTARTDAY(rs.getString("startDay"));
-				mVo.setENDDAY(rs.getString("endDay"));
-				mVo.setAPPRAISAL(rs.getString("appraisal"));
-				list.add(mVo);				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, pstmt, rs);
-		}
-		return list;
-	} // MovieAllSearch - End
-	
-	
-	/**	 
-	 * @param code
-	 * 출력된 영화목록-중 code(키값)값을 호출해서 
-	 * 상세정보를 출력하는 쿼리문
-	 * MovieList.jsp - 출력된 영화제목에 각각-링크 걸림
-	 * @return
-	 */
-	public List<MovieVO> SelectOneMovieByCode(String Mcode) {
-
-		String sql = "select * from Movie where Mcode like ?";	
-		
-		// console-창에 보여주기 위한 실행문
-		System.out.println("(SelectOneMovieByCode)sql = " + sql);
-		
-		List<MovieVO> list = new ArrayList<MovieVO>();
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBManager.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+Mcode+"%");
-			rs = pstmt.executeQuery();
-
+			// SQL문 실행이 된다면
 			while (rs.next()) {
-
-				MovieVO mVo = new MovieVO();
-
 				mVo.setMCODE(rs.getString("Mcode"));
 				mVo.setTITLE(rs.getString("title"));
 				mVo.setPRICE(rs.getInt("price"));
@@ -270,6 +215,63 @@ public class MovieDAO {
 		} finally {
 			DBManager.close(conn, pstmt, rs);
 		}
+		return list;
+	} // MovieAllSearch - End
+
+	/**
+	 * @param code
+	 * 출력된 영화목록-중 code(키값)값을 호출해서 상세정보를 출력하는 쿼리문 
+	 * MovieList.jsp - 출력된 영화제목이 각각-링크 걸림
+	 * @return
+	 */
+	public List<MovieVO> SelectOneMovieByCode(String Mcode) {
+
+		String sql = "select * from Movie where Mcode=?";
+		
+		List<MovieVO> list = new ArrayList<MovieVO>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Mcode);
+			rs = pstmt.executeQuery();
+
+			// console-창에 보여주기 위한 실행문
+			System.out.println("(SelectOneMovieByCode)sql = " + sql);			
+
+			while (rs.next()) {
+				
+				// 확인하기 위한 Console-창
+				System.out.println("SelectOneMovieByCode_while : 실행 중");
+				MovieVO mVo = new MovieVO();
+
+				mVo.setMCODE(rs.getString("Mcode"));
+				mVo.setTITLE(rs.getString("title"));
+				mVo.setPRICE(rs.getInt("price"));
+				mVo.setDIRECTOR(rs.getString("director"));
+				mVo.setACTOR(rs.getString("actor"));
+				mVo.setOPENDAY(rs.getString("openDay"));
+				mVo.setGENRE(rs.getString("genre"));
+				mVo.setPOSTER(rs.getString("poster"));
+				mVo.setSYNOPSIS(rs.getString("synopsis"));
+				mVo.setSTARTDAY(rs.getString("startDay"));
+				mVo.setENDDAY(rs.getString("endDay"));
+				mVo.setAPPRAISAL(rs.getString("appraisal"));
+				list.add(mVo);
+				// 확인하기 위한 Console-창
+				System.out.println("SelectOneMovieByCode_whil : 실행 끝");
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+
 		return list;
 	} // SelectOneMovieByCode(String code) - End
 

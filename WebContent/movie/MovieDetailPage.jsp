@@ -14,10 +14,14 @@
 <!-- 글목록을 요청영역에서 가져옴  -->
 <%
 	HashMap<String, Object> respModel = (HashMap<String, Object>) request.getAttribute("respModel");
-	MovieVO mVo = (MovieVO) respModel.get("list");
-	// List<MovieVO> mVo = (List<MovieVO>) respModel.get("MovieDetailPage");
+	// MovieVO mVo = (MovieVO) respModel.get("list");
+	
+	// MovieAction.java - Cmd(MovieList.jsp = CmdMovie) : 검색 받은 내용이 없다면 
+	// MovieAction.java - 상세보기페이지 실행(DetailMovieNum) : respModel.put("DetailMovieNum", list);
+	List<MovieVO> mVo = (List<MovieVO>) respModel.get("DetailMovieNum");
 	pageContext.setAttribute("mVo", mVo);
 
+	/* 뒤로가기 속성 */
 	String cmd = (String) respModel.get("CmdMgr");
 	if (cmd != null) {
 		pageContext.setAttribute("Cmd", "MovieList");
@@ -28,6 +32,7 @@
 
 <div id="#" align="center">
 	<h1>상영중인 영화 리스트</h1>
+	<br><br>
 	<table class="#">
 		<tr>
 			<th>영화 이미지</th>
@@ -65,12 +70,13 @@
 	<br> <br>
 
 	<!-- 버튼(뒤로가기) 
-	 : 페이지를 영화-리스트 페이지로 넘어감  
-	 : 일단 onclick="MovieList.java"라고 씀 -->
-	<form action="../movie/MovieList.do" method="post">
+	 : 페이지를 영화-리스트 페이지로 넘어감 -->
+	<!-- <form action="../movie/MovieList.do" method="post">
 		<input type="hidden" name="CmdMgr" value="MovieList"> 
 		<input type="submit" value="뒤로가기">
-	</form>
+	</form> -->
+	<!-- 수정된 부분 -->
+	<input type="button" value="뒤로가기" onclick="location.href='../movie/movie.do?'">
 </div>
 
 <%@include file="/com/footer.jsp"%>
