@@ -122,62 +122,36 @@
 			<tr>
 				<th>상영 회차</th>
 				<td>
-					<%--
-						 ${STturnArr[0]}, ${STturnArr[1] }, ${STturnArr[2] }
-					 \${STturnArr[0] eq '0' } = ${STturnArr[0] eq '0' }
-					\${STturnArr[1] eq '0' } = ${STturnArr[1] eq '0' }
-					\${STturnArr[2] eq '0' } = ${STturnArr[2] eq '0' } --%>
-				
-					<%-- <c:choose>
-						<c:when test="${not empty STturnArr }">
-							
-							<c:choose>
-								<c:when test="${STturnArr[0] eq '0' }">
-									<input type="radio" id="STturn_1" name="selSTturn" value="1" >
-									<label for="STturn_1">1 회</label> &nbsp;&nbsp;
-								</c:when>
-								<c:otherwise>
-									<input type="radio" id="STturn_1" name="selSTturn" value="1" disabled="disabled">
-									<label for="STturn_1">1 회</label> &nbsp;&nbsp;
-								</c:otherwise>
-								
-								
-								<c:when test="${STturnArr[1] eq '0' }">
-									<input type="radio" id="STturn_2" name="selSTturn" value="2" >
-									<label for="STturn_2">2 회</label> &nbsp;&nbsp;
-								</c:when>
-								<c:otherwise>
-									<input type="radio" id="STturn_2" name="selSTturn" value="2" disabled="disabled">
-									<label for="STturn_2">2 회</label> &nbsp;&nbsp;
-								</c:otherwise>
-								
-								
-								<c:when test="${STturnArr[2] eq '0' }">
-									<input type="radio" id="STturn_3" name="selSTturn" value="3">
-									<label for="STturn_3">3 회</label> &nbsp;&nbsp;
-								</c:when>
-								<c:otherwise>
-									<input type="radio" id="STturn_3" name="selSTturn" value="3" disabled="disabled">
-									<label for="STturn_3">3 회</label> &nbsp;&nbsp;
-								</c:otherwise>
-							</c:choose>
-							
-							
-						</c:when>
-						<c:otherwise> --%>
-						
-							<input type="radio" id="STturn_1" name="selSTturn" value="1">
+					<c:choose>
+						<c:when test="${STturnArr[0] eq '0' }">
+							<input type="radio" id="STturn_1" name="selSTturn" value="1" >
 							<label for="STturn_1">1 회</label> &nbsp;&nbsp;
-							
-							<input type="radio" id="STturn_2" name="selSTturn" value="2">
+						</c:when>
+						<c:otherwise>
+							<input type="radio" id="STturn_1" name="selSTturn" value="1" disabled="disabled">
+							<label for="STturn_1">1 회</label> &nbsp;&nbsp;
+						</c:otherwise>
+					</c:choose>	
+					<c:choose>	
+						<c:when test="${STturnArr[1] eq '0' }">
+							<input type="radio" id="STturn_2" name="selSTturn" value="2" >
 							<label for="STturn_2">2 회</label> &nbsp;&nbsp;
-							
+						</c:when>
+						<c:otherwise>
+							<input type="radio" id="STturn_2" name="selSTturn" value="2" disabled="disabled">
+							<label for="STturn_2">2 회</label> &nbsp;&nbsp;
+						</c:otherwise>
+					</c:choose>	
+					<c:choose>	
+						<c:when test="${STturnArr[2] eq '0' }">
 							<input type="radio" id="STturn_3" name="selSTturn" value="3">
 							<label for="STturn_3">3 회</label> &nbsp;&nbsp;
-						
-						<%-- </c:otherwise>					
-					</c:choose>  --%>
-				
+						</c:when>
+						<c:otherwise>
+							<input type="radio" id="STturn_3" name="selSTturn" value="3" disabled="disabled">
+							<label for="STturn_3">3 회</label> &nbsp;&nbsp;
+						</c:otherwise>
+					</c:choose>
 				</td>
 			</tr>
 			<tr>

@@ -19,6 +19,6 @@
 	해당 파일은 개발용 더미 입니다. <br />
 	로그인 한 것으로 인식하게 합니다.<br />
 	
-	<c:redirect url="com/main.jsp"></c:redirect>
+	<c:redirect url="com/main.jsp"></c:redirect>	
 </body>
 </html>

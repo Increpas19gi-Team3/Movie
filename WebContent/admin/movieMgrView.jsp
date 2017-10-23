@@ -32,13 +32,13 @@
 		<c:if test="${not empty mVO }">
 		<table style="width: 80%" border="1">
 			<tr>
-				<td>
+				<td style="width: 30%">
 					<c:choose>
 					<c:when test="${empty mVO.POSTER}">
-					<img src="images/noimage.png">
+						<img src="images/noimage.png">
 					</c:when>
 					<c:otherwise>
-					<img src="../image/${mVO.POSTER}" width="200" height="300">
+						<img src="../image/${mVO.POSTER}" width="200" height="300">
 					</c:otherwise>
 					</c:choose>
 				</td>

@@ -48,11 +48,12 @@
 			<tr>
 				<!-- <th>포스터</th> -->
 				<th>
-					<a href="../admin/admin_Movie.do?CmdMgr=Movie_LIST&SearchGubun=${SearchGubun}&SearchWord=${SearchWord}&Sort=${TitleSort}">제목</a>
+					<a href="../admin/admin_Movie.do?CmdMgr=Movie_LIST&SearchGubun=${SearchGubun}&SearchWord=${SearchWord}&Sort=${TitleSort}">제목
 					<c:choose>
 						<c:when test="${TitleSort eq 'ASC' }">▼</c:when>
 						<c:otherwise>▲</c:otherwise>
 					</c:choose>
+					</a>
 				</th>
 				<th>감독</th>
 				<th>배우</th>
