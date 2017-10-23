@@ -8,6 +8,7 @@
 </head>
 <body>
 <h3>요청파라미터 사용</h3>
+
 <!-- <a href="BoardServlet?command=board_reply">답글</a><br>
 <a href="BoardServlet2?command=board_reply">답글2</a>
 <a href="BoardServlet2?command=board_reply_del">답글2 삭제</a> -->
