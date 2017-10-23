@@ -56,7 +56,7 @@ Timage - 사진 -->
 	
 	<!-- 버튼(뒤로가기) 	
 	 : 메인-페이지(index 페이지로 넘어감) -->	 
-	 <input type="button" value="뒤로가기" onclick="index.java">
+	 <input type="button" value="뒤로가기" onclick="location.href='../movie/movie.do?'">
 </div>
 
 <%@include file="/com/footer.jsp"%>
