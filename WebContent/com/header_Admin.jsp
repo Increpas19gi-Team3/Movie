@@ -13,6 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="/css/shopping.css">
 	<link rel="stylesheet" href="../css/style.css?v=2">
 	<link rel="stylesheet" href="../css/admin.css?v=2">
+	<link rel="stylesheet" href="../css/reset.css?v=2">
 	<!-- <script type="text/javascript" src="script/product.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<title> Movie Reserve Site 03 </title>
