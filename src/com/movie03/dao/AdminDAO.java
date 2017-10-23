@@ -416,9 +416,16 @@ public class AdminDAO {
 	 * @param MovieVO
 	 */
 	public void insertMovie(MovieVO mVO){
-		String sql = "INSERT INTO MOVIE VALUES("+
+		/*String sql = "INSERT INTO MOVIE VALUES("+
 					"(SELECT ('M'||LPAD(SUBSTR(MAX(MCODE), 2)+1, 2, '0')) AS MCODE FROM MOVIE), "+ //MCODE
-					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";*/
+		
+		String sql = "INSERT INTO MOVIE VALUES("+
+				"(SELECT ('M'||LPAD(SUBSTR( "+
+					    "NVL(MAX(MCODE), '00') "+
+					    ", 2)+1, 2, '0')) AS MCODE FROM MOVIE "+
+					"), "+ 
+				"?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		System.out.println("insertMovie sql:" + sql);
 		
