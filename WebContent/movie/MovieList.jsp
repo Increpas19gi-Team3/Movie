@@ -68,7 +68,7 @@
 		<!-- 선택바 : 없음, 제목, 감독, 배우, 장르
 	 	 내용(text) : 검색내용이 없을 시 경고창으로 알림
 		 클릭버튼(value=검색) : 검색을 클릭시 검색 내용만 출력되게 만듬 -->		 
-		<select name="select_word">
+		<!-- <select name="select_word">
 			<option value="none">없음</option>
 			<option value="title">제목</option>
 			<option value="director">감독</option>
@@ -77,7 +77,7 @@
 		</select> 
 		
 		<input type="text" name="search_text"> 
-		<input type="submit" value="검색" >
+		<input type="submit" value="검색" > -->
 	</form>
 </div>
 

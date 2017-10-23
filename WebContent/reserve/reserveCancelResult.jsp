@@ -9,7 +9,7 @@
 
 <%@include file="/com/header.jsp" %>
 
-<link rel="stylesheet" type="text/css" href="css/shopping.css">
+
 
 	<div id="wrap" align="center">
 		<form name="frm" method="post" action="/Movie/reserveCon.do?userID=${sessionScope.MID}">

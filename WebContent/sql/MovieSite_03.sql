@@ -1,11 +1,12 @@
-/* È¸¿ø°ü¸®_Member */
+
+/* íšŒì›ê´€ë¦¬_Member */
 CREATE TABLE Member (
-	MID VARCHAR2(20) NOT NULL, /* ID */
-	Mpwd VARCHAR2(20), /* pwd */
-	Mname VARCHAR2(50), /* name */
-	Memail VARCHAR2(40), /* email */
-	Mtel VARCHAR2(13), /* tel */
-	Madmin CHAR(1) /* admin :0: °ü¸®ÀÚ, 1:»ç¿ëÀÚ */
+	MID VARCHAR2(20) NOT NULL, /* MID */
+	Mpwd VARCHAR2(20), /* Mpwd */
+	Mname VARCHAR2(50), /* Mname */
+	Memail VARCHAR2(40), /* Memail */
+	Mtel VARCHAR2(13), /* Mtel */
+	Madmin CHAR(1) /* Madmin - 0: ê´€ë¦¬ì, 1:ì‚¬ìš©ì */
 );
 
 
@@ -21,7 +22,7 @@ ALTER TABLE Member
 			MID
 		);
 
-/* ¿µÈ­_Movie */
+/* ì˜í™”_Movie */
 CREATE TABLE Movie (
 	MCode VARCHAR2(3) NOT NULL, /* MCode */
 	title VARCHAR2(50), /* title */
@@ -34,9 +35,10 @@ CREATE TABLE Movie (
 	synopsis VARCHAR2(3000), /* synopsis */
 	startDay DATE, /* startDay */
 	endDay DATE, /* endDay */
-	Mcomment VARCHAR2(200), /* comment */
-	appraisal CHAR(1) /* appraisal : 0~5 */
+	appraisal CHAR(1) /* appraisal - 0~5*/
 );
+
+
 
 
 CREATE UNIQUE INDEX PK_Movie
@@ -51,14 +53,15 @@ ALTER TABLE Movie
 			MCode
 		);
 
-/* ±ØÀå_Theater */
+/* ê·¹ì¥_Theater */
 CREATE TABLE Theater (
-	TCode VARCHAR2(3) NOT NULL, /* TCode : T01 */
-	Tname VARCHAR2(20), /* name */
-	Tlocal VARCHAR2(200), /* local */
-	Tdesc VARCHAR2(2000), /* desc */
-	Timage VARCHAR2(100) /* image */
+	TCode VARCHAR2(3) NOT NULL, /* TCode -T01 */
+	Tname VARCHAR2(20), /* Tname */
+	Tlocal VARCHAR2(200), /* Tlocal */
+	Tdesc VARCHAR2(2000), /* Tdesc */
+	Timage VARCHAR2(100) /* Timage */
 );
+
 
 
 CREATE UNIQUE INDEX PK_Theater
@@ -73,17 +76,21 @@ ALTER TABLE Theater
 			TCode
 		);
 
-/* ¿¹¾à_Reserve */
+
+/* ì˜ˆì•½_Reserve */
 CREATE TABLE Reserve (
 	RCode VARCHAR2(30) NOT NULL, /* RCode */
-	MID VARCHAR2(20), /* ID */
+	MID VARCHAR2(20), /* MID */
 	MCode VARCHAR2(3), /* MCode */
 	SCode VARCHAR2(3), /* SCode */
 	Rday DATE, /* Rday */
-	Rturn CHAR(1), /* Rturn : 1, 2, 3 */
-	Rtime DATE, /* Rtime : 12, 16, 20*/
-	RSeat VARCHAR2(3) /* Seat */
+	Rturn CHAR(1), /* Rturn */
+	Rtime VARCHAR2(5), /* Rtime : 12ì‹œ or 16ì‹œ or 20ì‹œ*/
+	RSeat VARCHAR2(100) /* RSeat */
 );
+
+
+
 
 CREATE UNIQUE INDEX PK_Reserve
 	ON Reserve (
@@ -97,15 +104,15 @@ ALTER TABLE Reserve
 			RCode
 		);
 
-/* »ó¿µ°ü_Screening */
+/* ìƒì˜ê´€_Screening */
 CREATE TABLE Screening (
-	SCode VARCHAR2(3) NOT NULL, /* SCode : S01*/
+	SCode VARCHAR2(3) NOT NULL, /* SCode - S01*/
 	TCode VARCHAR2(3), /* TCode */
 	SName VARCHAR2(20), /* SName */
-	SseatCnt NUMBER(4), /* seatCnt */
-	SseatInfo VARCHAR2(100), /* seatInfo : 25ÁÂ¼® */
-	Sturn VARCHAR2(50), /* turn  :1, 2, 3 È¸Â÷ */
-	Stime VARCHAR2(50) /* time : 12, 16, 20 ½Ã */
+	SseatCnt NUMBER(4), /* SseatCnt */
+	SseatInfo VARCHAR2(100), /* SseatInfo - '25ì¢Œì„'*/
+	Sturn VARCHAR2(50), /* Sturn - 1, 2, 3 íšŒì°¨*/
+	Stime VARCHAR2(50) /* Stime - 12, 16, 20 ì‹œ*/
 );
 
 
@@ -121,12 +128,22 @@ ALTER TABLE Screening
 			SCode
 		);
 
-/* ÁÂ¼® ÇöÈ²_Seat_25ÀÚ¸®*3È¸Â÷*3ÀÏ */
+/* ì¢Œì„ í˜„í™©_Seat_25ìë¦¬*3íšŒì°¨*3ì¼ */
 CREATE TABLE Seat (
-	Sseat CHAR(3), /* seat : A01 */
-	Sdate DATE, /* date */
-	Sturn CHAR(1), /* turn : 1, 2, 3 */
-	Sstate CHAR(1) /* state : 0:¿¹¾à°¡´É, 1:¿¹¾à¿Ï·á */
+	Sseat CHAR(3), /* Sseat */
+	Sdate DATE, /* Sdate */
+	Sturn CHAR(1), /* Sturn - 1, 2, 3*/
+	Sstate CHAR(1) /* Sstate - 0:ì˜ˆì•½ê°€ëŠ¥, 1:ì˜ˆì•½ì™„ë£Œ*/
+);
+
+
+
+/* ScreenTurn_ìƒì˜íšŒì°¨ */
+CREATE TABLE ScreenTurn (
+	SCode VARCHAR2(3), /* SCode */
+	MCode VARCHAR2(3), /* MCode */
+	STturn CHAR(1), /* STturn */
+	STdate DATE /* STdate */
 );
 
 
@@ -170,34 +187,333 @@ ALTER TABLE Screening
 			TCode
 		);
 
+ALTER TABLE ScreenTurn
+	ADD
+		CONSTRAINT FK_Screening_TO_ScreenTurn
+		FOREIGN KEY (
+			SCode
+		)
+		REFERENCES Screening (
+			SCode
+		);
+
+ALTER TABLE ScreenTurn
+	ADD
+		CONSTRAINT FK_Movie_TO_ScreenTurn
+		FOREIGN KEY (
+			MCode
+		)
+		REFERENCES Movie (
+			MCode
+		);
 
 
---------------- µ¥ÀÌÅÍ »ğÀÔ
--- ±ØÀå Á¤º¸
+
+
+--------------- ë°ì´í„° ì‚½ì…
+-- ê·¹ì¥ ì •ë³´
 INSERT INTO THEATER VALUES(
-    'T01', '¿ë»êCGV', '¼­¿ïÆ¯º°½Ã ¿ë»ê±¸ ÇÑ°­´ë·Î 23±æ', 
-    '´©Àû°ü¶÷°´ 2,500¸¸¸í! ´ëÇÑ¹Î±¹ ±¹¹Î Àı¹İÀÌ ÀÌ¿ëÇÑ CGV °ü¶÷°´ NO.1 ±ØÀå',
+    'T01', 'ìš©ì‚°CGV', 'ì„œìš¸íŠ¹ë³„ì‹œ ìš©ì‚°êµ¬ í•œê°•ëŒ€ë¡œ 23ê¸¸', 
+    'ëˆ„ì ê´€ëŒê° 2,500ë§Œëª…! ëŒ€í•œë¯¼êµ­ êµ­ë¯¼ ì ˆë°˜ì´ ì´ìš©í•œ CGV ê´€ëŒê° NO.1 ê·¹ì¥',
     'cvgImg.png');
 
 
--- È¸¿øÁ¤º¸ ÀÔ·Â
-INSERT INTO MEMBER VALUES('son', '1234', '¼Õ°¡¿¬', 'son@mail.com', '010-111-1111', '0');
-INSERT INTO MEMBER VALUES('han', '1234', 'ÇÑ¹ü¼®', 'han@mail.com', '010-222-1111', '1');
+-- íšŒì›ì •ë³´ ì…ë ¥
+INSERT INTO MEMBER VALUES('son', '1234', 'ì†ê°€ì—°', 'son@mail.com', '010-111-1111', '0');
+INSERT INTO MEMBER VALUES('han', '1234', 'í•œë²”ì„', 'han@mail.com', '010-222-1111', '1');
 
--- »ó¿µ°ü Á¤º¸ 
-INSERT INTO SCREENING VALUES('S01', 'T01', 'IMAX', '25', 'µà¾ó ÇÁ·ÎÁ§ÅÍ·Î ½Ç¹ö½ºÅ©¸°¿¡ ¼ÛÃâÇÏ¿© ¹à°í ¼±¸íÇÑ È­Áú Á¦°ø',
-'1,2,3', '12, 16, 20')
-
-
--- ÁÂ¼® Á¤º¸
-INSERT INTO SEAT VALUES('A01', sysdate, '1', '0')
+-- ìƒì˜ê´€ ì •ë³´ 
+INSERT INTO SCREENING VALUES('S01', 'T01', 'IMAX', '25', 'ë“€ì–¼ í”„ë¡œì í„°ë¡œ ì‹¤ë²„ìŠ¤í¬ë¦°ì— ì†¡ì¶œí•˜ì—¬ ë°ê³  ì„ ëª…í•œ í™”ì§ˆ ì œê³µ','1,2,3', '12, 16, 20');
 
 
--- ¿µÈ­ Á¤º¸
-INSERT INTO MOVIE VALUES('A01', 
-'º£¸¦¸°',  10000, '·ù½Â¿Ï', 'ÇÏÁ¤¿ì', SYSDATE,
-'Action', 'movie1.jpg',
-'°Å´ëÇÑ ±¹Á¦Àû À½¸ğ°¡ ¼û°ÜÁø ¿î¸íÀÇ µµ½Ã º£¸¦¸°.
- ±× °÷¿¡ »óÁÖÇÏ´Â ±¹Á¤¿ø ¿ä¿ø Á¤Áø¼ö´Â ºÒ¹ı¹«±â°Å·¡Àå¼Ò¸¦ °¨ÂûÇÏ´ø Áß ±¹ÀûºÒ¸í, Áö¹®¸¶Àú °¨ÁöµÇÁö ¾Ê´Â ÀÏ¸í ¡®°í½ºÆ®¡¯ ºñ¹Ğ¿ä¿ø Ç¥Á¾¼ºÀÇ Á¸Àç¸¦ ¾Ë°Ô µÈ´Ù. ±×ÀÇ Á¤Ã¼¸¦ ¹àÇô³»±â À§ÇØ µÚ¸¦ ÂÑ´ø Á¤Áø¼ö´Â ±× ¹èÈÄ¿¡ ¼û°ÜÁø ¾öÃ»³­ ±¹Á¦Àû À½¸ğ¸¦ ¾Ë°Ô µÇ¸é¼­ °ÈÀâÀ» ¼ö ¾ø´Â À§±â¿¡ ºüÁø´Ù.
- ÇÑÆí Ç¥Á¾¼ºÀ» Á¦°ÅÇÏ°í º£¸¦¸°À» Àå¾ÇÇÏ±â À§ÇØ ÆÄ°ßµÈ µ¿¸í¼ö´Â ±×ÀÇ ¾Æ³» ¿¬Á¤Èñ¸¦ ¹İ¿ªÀÚ·Î ¸ô¾Æ°¡¸ç ÀÌ¸¦ ºô¹Ì·Î ¼ûÅëÀ» Á¶ÀÌ°í, Ç¥Á¾¼ºÀÇ ¸ğµç °Í¿¡ À§ÇùÀ» °¡ÇÑ´Ù. Ç¥Á¾¼ºÀº µ¿¸í¼öÀÇ Çù¹Ú ¼Ó¿¡¼­ ¿¬Á¤ÈñÀÇ ¹«ÁË¸¦ Áõ¸íÇÏ±â À§ÇØ¼­ ±×³à¸¦ ¹ÌÇàÇÏ°Ô µÇÁö¸¸, ¿¹»óÄ¡ ¸øÇÑ ¾Æ³»ÀÇ ºñ¹ĞÀ» ¾Ë°Ô µÇ¸é¼­ È¥¶õ¿¡ ÈÛ½ÎÀÌ°Ô µÇ´Âµ¥...',
- sysdate, '2017-10-20', '', '3');
+
+-- ì˜ˆë§¤ ë‚´ì—­ ë“±ë¡
+insert into reserve values('R01', 'han', 'M01', 'S01', sysdate, '1', '12ì‹œ', 'A01');
+
+
+-- ì˜í™” ì •ë³´
+INSERT INTO MOVIE VALUES('M01', 'ë‚¨í•œì‚°ì„±',  8000, 'í™©ë™í˜', 'ê¹€ìœ¤ì„', SYSDATE,'ì—­ì‚¬', 'TheaterImg.png',
+'ê±°ëŒ€í•œ êµ­ì œì  ìŒëª¨ê°€ ìˆ¨ê²¨ì§„ ìš´ëª…ì˜ ë„ì‹œ ë² ë¥¼ë¦°. ê·¸ ê³³ì— ìƒì£¼í•˜ëŠ” êµ­ì •ì› ìš”ì› ì •ì§„ìˆ˜ëŠ” ë¶ˆë²•ë¬´ê¸°ê±°ë˜ì¥ì†Œë¥¼ ê°ì°°í•˜ë˜ ì¤‘ êµ­ì ë¶ˆëª…, ì§€ë¬¸ë§ˆì € ê°ì§€ë˜ì§€ ì•ŠëŠ” ì¼ëª… â€˜ê³ ìŠ¤íŠ¸â€™ ë¹„ë°€ìš”ì› í‘œì¢…ì„±ì˜ ì¡´ì¬ë¥¼ ì•Œê²Œ ëœë‹¤. ê·¸ì˜ ì •ì²´ë¥¼ ë°í˜€ë‚´ê¸° ìœ„í•´ ë’¤ë¥¼ ì«“ë˜ ì •ì§„ìˆ˜ëŠ” ê·¸ ë°°í›„ì— ìˆ¨ê²¨ì§„ ì—„ì²­ë‚œ êµ­ì œì  ìŒëª¨ë¥¼ ì•Œê²Œ ë˜ë©´ì„œ ê±·ì¡ì„ ìˆ˜ ì—†ëŠ” ìœ„ê¸°ì— ë¹ ì§„ë‹¤.
+ í•œí¸ í‘œì¢…ì„±ì„ ì œê±°í•˜ê³  ë² ë¥¼ë¦°ì„ ì¥ì•…í•˜ê¸° ìœ„í•´ íŒŒê²¬ëœ ë™ëª…ìˆ˜ëŠ” ê·¸ì˜ ì•„ë‚´ ì—°ì •í¬ë¥¼ ë°˜ì—­ìë¡œ ëª°ì•„ê°€ë©° ì´ë¥¼ ë¹Œë¯¸ë¡œ ìˆ¨í†µì„ ì¡°ì´ê³ , í‘œì¢…ì„±ì˜ ëª¨ë“  ê²ƒì— ìœ„í˜‘ì„ ê°€í•œë‹¤. í‘œì¢…ì„±ì€ ë™ëª…ìˆ˜ì˜ í˜‘ë°• ì†ì—ì„œ ì—°ì •í¬ì˜ ë¬´ì£„ë¥¼ ì¦ëª…í•˜ê¸° ìœ„í•´ì„œ ê·¸ë…€ë¥¼ ë¯¸í–‰í•˜ê²Œ ë˜ì§€ë§Œ, ì˜ˆìƒì¹˜ ëª»í•œ ì•„ë‚´ì˜ ë¹„ë°€ì„ ì•Œê²Œ ë˜ë©´ì„œ í˜¼ë€ì— íœ©ì‹¸ì´ê²Œ ë˜ëŠ”ë°...',
+ SYSDATE, '2017-11-15', '3');
+
+INSERT INTO MOVIE VALUES('M02', 
+'ëŒ€ì¥ ê¹€ì°½ìˆ˜',  10000, 'ì´ì›íƒœ', 'ì¡°ì§„ì›…', SYSDATE,
+'ë“œë¼ë§ˆ', 'TheaterImg.png',
+'ëŒ€ì¥ ê¹€ì°½ìˆ˜ ê¹€ì°½ìˆ˜ ê¹€ì°½ìˆ˜',
+ SYSDATE, '2017-11-20', '3');
+ 
+ INSERT INTO MOVIE VALUES('M03', 
+'ë²”ì£„ë„ì‹œ',  12000, 'ê°•ìœ¤ì„±', 'ë§ˆë™ì„', SYSDATE,
+'ì•¡ì…˜', 'TheaterImg.png',
+'ë²”ì£„ë„ì‹œë²”ì£„ë„ì‹œë²”ì£„ë„ì‹œë²”ì£„ë„ì‹œë²”ì£„ë„ì‹œë²”ì£„ë„ì‹œ',
+ SYSDATE, '2017-10-22', '3');
+ 
+ INSERT INTO MOVIE VALUES('M04', 
+'ë¶€ì‚°í–‰',  15000, 'í™ê¸¸ë™', 'ê³µìœ ', SYSDATE,
+'ê³µí¬', 'TheaterImg.png',
+'ë¶€ì‚°í–‰ ì¢€ë¹„ë¶€ì‚°í–‰ ì¢€ë¹„ë¶€ì‚°í–‰ ì¢€ë¹„ë¶€ì‚°í–‰ ì¢€ë¹„ë¶€ì‚°í–‰ ì¢€ë¹„ë¶€ì‚°í–‰ ì¢€ë¹„',
+ SYSDATE, '2017-10-21', '3');
+ 
+ 
+ INSERT INTO MOVIE VALUES('M05', 
+'ë² ë¥¼ë¦°',  10000, 'ë¥˜ìŠ¹ì™„', 'í•˜ì •ìš°', SYSDATE,
+'ì•¡ì…˜', 'TheaterImg.png',
+'ê±°ëŒ€í•œ êµ­ì œì  ìŒëª¨ê°€ ìˆ¨ê²¨ì§„ ìš´ëª…ì˜ ë„ì‹œ ë² ë¥¼ë¦°.
+ ê·¸ ê³³ì— ìƒì£¼í•˜ëŠ” êµ­ì •ì› ìš”ì› ì •ì§„ìˆ˜ëŠ” ë¶ˆë²•ë¬´ê¸°ê±°ë˜ì¥ì†Œë¥¼ ê°ì°°í•˜ë˜ ì¤‘ êµ­ì ë¶ˆëª…, ì§€ë¬¸ë§ˆì € ê°ì§€ë˜ì§€ ì•ŠëŠ” ì¼ëª… â€˜ê³ ìŠ¤íŠ¸â€™ ë¹„ë°€ìš”ì› í‘œì¢…ì„±ì˜ ì¡´ì¬ë¥¼ ì•Œê²Œ ëœë‹¤. ê·¸ì˜ ì •ì²´ë¥¼ ë°í˜€ë‚´ê¸° ìœ„í•´ ë’¤ë¥¼ ì«“ë˜ ì •ì§„ìˆ˜ëŠ” ê·¸ ë°°í›„ì— ìˆ¨ê²¨ì§„ ì—„ì²­ë‚œ êµ­ì œì  ìŒëª¨ë¥¼ ì•Œê²Œ ë˜ë©´ì„œ ê±·ì¡ì„ ìˆ˜ ì—†ëŠ” ìœ„ê¸°ì— ë¹ ì§„ë‹¤.
+ í•œí¸ í‘œì¢…ì„±ì„ ì œê±°í•˜ê³  ë² ë¥¼ë¦°ì„ ì¥ì•…í•˜ê¸° ìœ„í•´ íŒŒê²¬ëœ ë™ëª…ìˆ˜ëŠ” ê·¸ì˜ ì•„ë‚´ ì—°ì •í¬ë¥¼ ë°˜ì—­ìë¡œ ëª°ì•„ê°€ë©° ì´ë¥¼ ë¹Œë¯¸ë¡œ ìˆ¨í†µì„ ì¡°ì´ê³ , í‘œì¢…ì„±ì˜ ëª¨ë“  ê²ƒì— ìœ„í˜‘ì„ ê°€í•œë‹¤. í‘œì¢…ì„±ì€ ë™ëª…ìˆ˜ì˜ í˜‘ë°• ì†ì—ì„œ ì—°ì •í¬ì˜ ë¬´ì£„ë¥¼ ì¦ëª…í•˜ê¸° ìœ„í•´ì„œ ê·¸ë…€ë¥¼ ë¯¸í–‰í•˜ê²Œ ë˜ì§€ë§Œ, ì˜ˆìƒì¹˜ ëª»í•œ ì•„ë‚´ì˜ ë¹„ë°€ì„ ì•Œê²Œ ë˜ë©´ì„œ í˜¼ë€ì— íœ©ì‹¸ì´ê²Œ ë˜ëŠ”ë°...',
+ SYSDATE, '2017-10-20', '3');
+
+
+
+-- ìƒì˜ íšŒì°¨ ë“±ë¡
+insert into screenturn values('S01', 'M01', '1', sysdate);
+insert into screenturn values('S01', 'M02', '2', sysdate);
+insert into screenturn values('S01', 'M01', '3', sysdate);
+insert into screenturn values('S01', 'M01', '1', sysdate+1);
+insert into screenturn values('S01', 'M02', '2', sysdate+1);
+insert into screenturn values('S01', 'M01', '3', sysdate+1);
+insert into screenturn values('S01', 'M01', '1', sysdate+2);
+insert into screenturn values('S01', 'M02', '2', sysdate+2);
+insert into screenturn values('S01', 'M01', '3', sysdate+2);
+
+-- ì˜ˆë§¤ ë‚´ì—­ ë“±ë¡
+insert into reserve values('R01', 'han', 'M01', 'S01', sysdate, '1', '12ì‹œ', 'A01');
+
+
+---- ì˜ˆì•½ ì¢Œì„ ê´€ë ¨ ì¿¼ë¦¬
+
+
+
+insert into seat VALUEs ('A01', sysdate, '1', '1');
+insert into seat VALUEs ('A02', sysdate, '1', '0');
+insert into seat VALUEs ('A03', sysdate, '1', '0');
+insert into seat VALUEs ('A04', sysdate, '1', '0');
+insert into seat VALUEs ('A05', sysdate, '1', '0');
+insert into seat VALUEs ('B01', sysdate, '1', '0');
+insert into seat VALUEs ('B02', sysdate, '1', '0');
+insert into seat VALUEs ('B03', sysdate, '1', '0');
+insert into seat VALUEs ('B04', sysdate, '1', '0');
+insert into seat VALUEs ('B05', sysdate, '1', '0');
+insert into seat VALUEs ('C01', sysdate, '1', '0');
+insert into seat VALUEs ('C02', sysdate, '1', '0');
+insert into seat VALUEs ('C03', sysdate, '1', '0');
+insert into seat VALUEs ('C04', sysdate, '1', '0');
+insert into seat VALUEs ('C05', sysdate, '1', '0');
+insert into seat VALUEs ('D01', sysdate, '1', '0');
+insert into seat VALUEs ('D02', sysdate, '1', '0');
+insert into seat VALUEs ('D03', sysdate, '1', '0');
+insert into seat VALUEs ('D04', sysdate, '1', '0');
+insert into seat VALUEs ('D05', sysdate, '1', '0');
+insert into seat VALUEs ('E01', sysdate, '1', '0');
+insert into seat VALUEs ('E02', sysdate, '1', '0');
+insert into seat VALUEs ('E03', sysdate, '1', '0');
+insert into seat VALUEs ('E04', sysdate, '1', '0');
+insert into seat VALUEs ('E05', sysdate, '1', '0');
+insert into seat VALUEs ('A01', sysdate, '2', '0');
+insert into seat VALUEs ('A02', sysdate, '2', '0');
+insert into seat VALUEs ('A03', sysdate, '2', '0');
+insert into seat VALUEs ('A04', sysdate, '2', '0');
+insert into seat VALUEs ('A05', sysdate, '2', '0');
+insert into seat VALUEs ('B01', sysdate, '2', '0');
+insert into seat VALUEs ('B02', sysdate, '2', '0');
+insert into seat VALUEs ('B03', sysdate, '2', '0');
+insert into seat VALUEs ('B04', sysdate, '2', '0');
+insert into seat VALUEs ('B05', sysdate, '2', '0');
+insert into seat VALUEs ('C01', sysdate, '2', '0');
+insert into seat VALUEs ('C02', sysdate, '2', '0');
+insert into seat VALUEs ('C03', sysdate, '2', '0');
+insert into seat VALUEs ('C04', sysdate, '2', '0');
+insert into seat VALUEs ('C05', sysdate, '2', '0');
+insert into seat VALUEs ('D01', sysdate, '2', '0');
+insert into seat VALUEs ('D02', sysdate, '2', '0');
+insert into seat VALUEs ('D03', sysdate, '2', '0');
+insert into seat VALUEs ('D04', sysdate, '2', '0');
+insert into seat VALUEs ('D05', sysdate, '2', '0');
+insert into seat VALUEs ('E01', sysdate, '2', '0');
+insert into seat VALUEs ('E02', sysdate, '2', '0');
+insert into seat VALUEs ('E03', sysdate, '2', '0');
+insert into seat VALUEs ('E04', sysdate, '2', '0');
+insert into seat VALUEs ('E05', sysdate, '2', '0');
+insert into seat VALUEs ('A01', sysdate, '3', '0');
+insert into seat VALUEs ('A02', sysdate, '3', '0');
+insert into seat VALUEs ('A03', sysdate, '3', '0');
+insert into seat VALUEs ('A04', sysdate, '3', '0');
+insert into seat VALUEs ('A05', sysdate, '3', '0');
+insert into seat VALUEs ('B01', sysdate, '3', '0');
+insert into seat VALUEs ('B02', sysdate, '3', '0');
+insert into seat VALUEs ('B03', sysdate, '3', '0');
+insert into seat VALUEs ('B04', sysdate, '3', '0');
+insert into seat VALUEs ('B05', sysdate, '3', '0');
+insert into seat VALUEs ('C01', sysdate, '3', '0');
+insert into seat VALUEs ('C02', sysdate, '3', '0');
+insert into seat VALUEs ('C03', sysdate, '3', '0');
+insert into seat VALUEs ('C04', sysdate, '3', '0');
+insert into seat VALUEs ('C05', sysdate, '3', '0');
+insert into seat VALUEs ('D01', sysdate, '3', '0');
+insert into seat VALUEs ('D02', sysdate, '3', '0');
+insert into seat VALUEs ('D03', sysdate, '3', '0');
+insert into seat VALUEs ('D04', sysdate, '3', '0');
+insert into seat VALUEs ('D05', sysdate, '3', '0');
+insert into seat VALUEs ('E01', sysdate, '3', '0');
+insert into seat VALUEs ('E02', sysdate, '3', '0');
+insert into seat VALUEs ('E03', sysdate, '3', '0');
+insert into seat VALUEs ('E04', sysdate, '3', '0');
+insert into seat VALUEs ('E05', sysdate, '3', '0');
+
+
+
+insert into seat VALUEs ('A01', sysdate+1, '1', '0');
+insert into seat VALUEs ('A02', sysdate+1, '1', '0');
+insert into seat VALUEs ('A03', sysdate+1, '1', '0');
+insert into seat VALUEs ('A04', sysdate+1, '1', '0');
+insert into seat VALUEs ('A05', sysdate+1, '1', '0');
+insert into seat VALUEs ('B01', sysdate+1, '1', '0');
+insert into seat VALUEs ('B02', sysdate+1, '1', '0');
+insert into seat VALUEs ('B03', sysdate+1, '1', '0');
+insert into seat VALUEs ('B04', sysdate+1, '1', '0');
+insert into seat VALUEs ('B05', sysdate+1, '1', '0');
+insert into seat VALUEs ('C01', sysdate+1, '1', '0');
+insert into seat VALUEs ('C02', sysdate+1, '1', '0');
+insert into seat VALUEs ('C03', sysdate+1, '1', '0');
+insert into seat VALUEs ('C04', sysdate+1, '1', '0');
+insert into seat VALUEs ('C05', sysdate+1, '1', '0');
+insert into seat VALUEs ('D01', sysdate+1, '1', '0');
+insert into seat VALUEs ('D02', sysdate+1, '1', '0');
+insert into seat VALUEs ('D03', sysdate+1, '1', '0');
+insert into seat VALUEs ('D04', sysdate+1, '1', '0');
+insert into seat VALUEs ('D05', sysdate+1, '1', '0');
+insert into seat VALUEs ('E01', sysdate+1, '1', '0');
+insert into seat VALUEs ('E02', sysdate+1, '1', '0');
+insert into seat VALUEs ('E03', sysdate+1, '1', '0');
+insert into seat VALUEs ('E04', sysdate+1, '1', '0');
+insert into seat VALUEs ('E05', sysdate+1, '1', '0');
+insert into seat VALUEs ('A01', sysdate+1, '2', '0');
+insert into seat VALUEs ('A02', sysdate+1, '2', '0');
+insert into seat VALUEs ('A03', sysdate+1, '2', '0');
+insert into seat VALUEs ('A04', sysdate+1, '2', '0');
+insert into seat VALUEs ('A05', sysdate+1, '2', '0');
+insert into seat VALUEs ('B01', sysdate+1, '2', '0');
+insert into seat VALUEs ('B02', sysdate+1, '2', '0');
+insert into seat VALUEs ('B03', sysdate+1, '2', '0');
+insert into seat VALUEs ('B04', sysdate+1, '2', '0');
+insert into seat VALUEs ('B05', sysdate+1, '2', '0');
+insert into seat VALUEs ('C01', sysdate+1, '2', '0');
+insert into seat VALUEs ('C02', sysdate+1, '2', '0');
+insert into seat VALUEs ('C03', sysdate+1, '2', '0');
+insert into seat VALUEs ('C04', sysdate+1, '2', '0');
+insert into seat VALUEs ('C05', sysdate+1, '2', '0');
+insert into seat VALUEs ('D01', sysdate+1, '2', '0');
+insert into seat VALUEs ('D02', sysdate+1, '2', '0');
+insert into seat VALUEs ('D03', sysdate+1, '2', '0');
+insert into seat VALUEs ('D04', sysdate+1, '2', '0');
+insert into seat VALUEs ('D05', sysdate+1, '2', '0');
+insert into seat VALUEs ('E01', sysdate+1, '2', '0');
+insert into seat VALUEs ('E02', sysdate+1, '2', '0');
+insert into seat VALUEs ('E03', sysdate+1, '2', '0');
+insert into seat VALUEs ('E04', sysdate+1, '2', '0');
+insert into seat VALUEs ('E05', sysdate+1, '2', '0');
+insert into seat VALUEs ('A01', sysdate+1, '3', '0');
+insert into seat VALUEs ('A02', sysdate+1, '3', '0');
+insert into seat VALUEs ('A03', sysdate+1, '3', '0');
+insert into seat VALUEs ('A04', sysdate+1, '3', '0');
+insert into seat VALUEs ('A05', sysdate+1, '3', '0');
+insert into seat VALUEs ('B01', sysdate+1, '3', '0');
+insert into seat VALUEs ('B02', sysdate+1, '3', '0');
+insert into seat VALUEs ('B03', sysdate+1, '3', '0');
+insert into seat VALUEs ('B04', sysdate+1, '3', '0');
+insert into seat VALUEs ('B05', sysdate+1, '3', '0');
+insert into seat VALUEs ('C01', sysdate+1, '3', '0');
+insert into seat VALUEs ('C02', sysdate+1, '3', '0');
+insert into seat VALUEs ('C03', sysdate+1, '3', '0');
+insert into seat VALUEs ('C04', sysdate+1, '3', '0');
+insert into seat VALUEs ('C05', sysdate+1, '3', '0');
+insert into seat VALUEs ('D01', sysdate+1, '3', '0');
+insert into seat VALUEs ('D02', sysdate+1, '3', '0');
+insert into seat VALUEs ('D03', sysdate+1, '3', '0');
+insert into seat VALUEs ('D04', sysdate+1, '3', '0');
+insert into seat VALUEs ('D05', sysdate+1, '3', '0');
+insert into seat VALUEs ('E01', sysdate+1, '3', '0');
+insert into seat VALUEs ('E02', sysdate+1, '3', '0');
+insert into seat VALUEs ('E03', sysdate+1, '3', '0');
+insert into seat VALUEs ('E04', sysdate+1, '3', '0');
+insert into seat VALUEs ('E05', sysdate+1, '3', '0');
+
+
+
+insert into seat VALUEs ('A01', sysdate+2, '1', '0');
+insert into seat VALUEs ('A02', sysdate+2, '1', '0');
+insert into seat VALUEs ('A03', sysdate+2, '1', '0');
+insert into seat VALUEs ('A04', sysdate+2, '1', '0');
+insert into seat VALUEs ('A05', sysdate+2, '1', '0');
+insert into seat VALUEs ('B01', sysdate+2, '1', '0');
+insert into seat VALUEs ('B02', sysdate+2, '1', '0');
+insert into seat VALUEs ('B03', sysdate+2, '1', '0');
+insert into seat VALUEs ('B04', sysdate+2, '1', '0');
+insert into seat VALUEs ('B05', sysdate+2, '1', '0');
+insert into seat VALUEs ('C01', sysdate+2, '1', '0');
+insert into seat VALUEs ('C02', sysdate+2, '1', '0');
+insert into seat VALUEs ('C03', sysdate+2, '1', '0');
+insert into seat VALUEs ('C04', sysdate+2, '1', '0');
+insert into seat VALUEs ('C05', sysdate+2, '1', '0');
+insert into seat VALUEs ('D01', sysdate+2, '1', '0');
+insert into seat VALUEs ('D02', sysdate+2, '1', '0');
+insert into seat VALUEs ('D03', sysdate+2, '1', '0');
+insert into seat VALUEs ('D04', sysdate+2, '1', '0');
+insert into seat VALUEs ('D05', sysdate+2, '1', '0');
+insert into seat VALUEs ('E01', sysdate+2, '1', '0');
+insert into seat VALUEs ('E02', sysdate+2, '1', '0');
+insert into seat VALUEs ('E03', sysdate+2, '1', '0');
+insert into seat VALUEs ('E04', sysdate+2, '1', '0');
+insert into seat VALUEs ('E05', sysdate+2, '1', '0');
+insert into seat VALUEs ('A01', sysdate+2, '2', '0');
+insert into seat VALUEs ('A02', sysdate+2, '2', '0');
+insert into seat VALUEs ('A03', sysdate+2, '2', '0');
+insert into seat VALUEs ('A04', sysdate+2, '2', '0');
+insert into seat VALUEs ('A05', sysdate+2, '2', '0');
+insert into seat VALUEs ('B01', sysdate+2, '2', '0');
+insert into seat VALUEs ('B02', sysdate+2, '2', '0');
+insert into seat VALUEs ('B03', sysdate+2, '2', '0');
+insert into seat VALUEs ('B04', sysdate+2, '2', '0');
+insert into seat VALUEs ('B05', sysdate+2, '2', '0');
+insert into seat VALUEs ('C01', sysdate+2, '2', '0');
+insert into seat VALUEs ('C02', sysdate+2, '2', '0');
+insert into seat VALUEs ('C03', sysdate+2, '2', '0');
+insert into seat VALUEs ('C04', sysdate+2, '2', '0');
+insert into seat VALUEs ('C05', sysdate+2, '2', '0');
+insert into seat VALUEs ('D01', sysdate+2, '2', '0');
+insert into seat VALUEs ('D02', sysdate+2, '2', '0');
+insert into seat VALUEs ('D03', sysdate+2, '2', '0');
+insert into seat VALUEs ('D04', sysdate+2, '2', '0');
+insert into seat VALUEs ('D05', sysdate+2, '2', '0');
+insert into seat VALUEs ('E01', sysdate+2, '2', '0');
+insert into seat VALUEs ('E02', sysdate+2, '2', '0');
+insert into seat VALUEs ('E03', sysdate+2, '2', '0');
+insert into seat VALUEs ('E04', sysdate+2, '2', '0');
+insert into seat VALUEs ('E05', sysdate+2, '2', '0');
+insert into seat VALUEs ('A01', sysdate+2, '3', '0');
+insert into seat VALUEs ('A02', sysdate+2, '3', '0');
+insert into seat VALUEs ('A03', sysdate+2, '3', '0');
+insert into seat VALUEs ('A04', sysdate+2, '3', '0');
+insert into seat VALUEs ('A05', sysdate+2, '3', '0');
+insert into seat VALUEs ('B01', sysdate+2, '3', '0');
+insert into seat VALUEs ('B02', sysdate+2, '3', '0');
+insert into seat VALUEs ('B03', sysdate+2, '3', '0');
+insert into seat VALUEs ('B04', sysdate+2, '3', '0');
+insert into seat VALUEs ('B05', sysdate+2, '3', '0');
+insert into seat VALUEs ('C01', sysdate+2, '3', '0');
+insert into seat VALUEs ('C02', sysdate+2, '3', '0');
+insert into seat VALUEs ('C03', sysdate+2, '3', '0');
+insert into seat VALUEs ('C04', sysdate+2, '3', '0');
+insert into seat VALUEs ('C05', sysdate+2, '3', '0');
+
+insert into seat VALUEs ('D01', sysdate+2, '3', '0');
+insert into seat VALUEs ('D02', sysdate+2, '3', '0');
+insert into seat VALUEs ('D03', sysdate+2, '3', '0');
+insert into seat VALUEs ('D04', sysdate+2, '3', '0');
+insert into seat VALUEs ('D05', sysdate+2, '3', '0');
+insert into seat VALUEs ('E01', sysdate+2, '3', '0');
+insert into seat VALUEs ('E02', sysdate+2, '3', '0');
+insert into seat VALUEs ('E03', sysdate+2, '3', '0');
+insert into seat VALUEs ('E04', sysdate+2, '3', '0');
+insert into seat VALUEs ('E05', sysdate+2, '3', '0');

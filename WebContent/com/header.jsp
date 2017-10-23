@@ -10,9 +10,10 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" href="../css/style.css?v=2">
+	
 	<!-- <script type="text/javascript" src="script/product.js"></script> -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 	<title> Movie Reserve Site 03 </title>
 </head>
 <body>
@@ -23,9 +24,9 @@
       </div>
       <div class="menu">
         <ul>
-          <li><a href="../movie/movie.do">영화</a></li>
+          <li><a href="/Movie/movie/movie.do">영화</a></li>
           <li><a href="/Movie/MovieServlet.do?command=reserve_list">예매</a></li>
-          <li><a href="../theater/theater.do">극장정보</a></li>
+          <li><a href="/Movie/theater/theater.do">극장정보</a></li>
         </ul>
       </div>
       

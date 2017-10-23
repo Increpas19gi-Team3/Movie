@@ -10,6 +10,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="/css/shopping.css">
 	<link rel="stylesheet" href="../css/style.css?v=2">
 	<link rel="stylesheet" href="../css/admin.css?v=2">
 	<!-- <script type="text/javascript" src="script/product.js"></script> -->

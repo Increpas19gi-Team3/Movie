@@ -6,7 +6,7 @@
 
     
 <%@include file="/com/header.jsp" %>
-<link rel="stylesheet" type="text/css" href="css/shopping.css">   
+   
 
 
 

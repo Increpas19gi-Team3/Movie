@@ -51,7 +51,7 @@
 
 		<c:forEach var="movie" items="${mVo}">
 			<tr class="#">
-				<th>${movie.POSTER}</th>
+				<th><img src="../image/${movie.POSTER}"></th>
 				<th>${movie.MCODE}</th>
 				<th>${movie.TITLE}</th>
 				<th>${movie.PRICE}</th>
