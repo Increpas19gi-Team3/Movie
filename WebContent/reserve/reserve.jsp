@@ -21,6 +21,7 @@
 				<th class="title">가격</th>
 				<th class="title">예매</th>
 			</tr>
+			
 			<!-- 글목록을 요청영역에서 가져옴  -->
 			<%
 				HashMap<String, Object> respModel = (HashMap<String, Object>)request.getAttribute("respModel");
@@ -32,8 +33,7 @@
 					System.out.println(mVo.get(i).getACTOR());
 					System.out.println(mVo.get(i).getPRICE());
 				} */
-			%>
-				
+			%>				
 			
 			<c:forEach var="movie" items="${mVo}">
 				<tr class="record">
