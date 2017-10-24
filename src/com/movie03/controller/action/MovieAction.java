@@ -41,7 +41,7 @@ public class MovieAction implements Action {
 
 		List<MovieVO> list = null;
 		
-		/* if-문은 잘써야 함 안그러면 괜히 다른 if-절이 같이 실행됨 고럼 이상한 출력물이 계속 뜨게됨 */
+		/* if-문은 잘써야 함 안그러면 괜히 다른 if-절이 같이 실행됨 그럼 이상한 출력물이 계속 뜨게됨 */
 
 		// 처음 실행시 null임 그래서 'ASC'
 		// 두번쨰 클릭시 저장된 값이 'ASC'이기 때문에 'DESC'로 바뀌게 됨

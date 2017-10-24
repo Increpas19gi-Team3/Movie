@@ -43,29 +43,29 @@ public class ActionFactory {
 	}
 
 	public Action getAction(String uri) {
-		/// web-study-11/board/reply_add.do
+		// "web-study-11/board/reply_add.do"
 		Action action = null;
 		System.out.println("ActionFactory :" + uri);
 
-		// 요청URI에 reply_add.do 커멘드가 포함되면
+		// 요청'URI'에 "reply_add.do" 커멘드가 포함되면
 
 		// Admin 관리화면
 		if (uri.contains("/admin/admin.do")) {
 			action = new AdminAction();
 
-		} else if (uri.contains("/admin/admin_Theater.do")) {// 영화관 관리
+		} else if (uri.contains("/admin/admin_Theater.do")) { // 영화관 관리
 			action = new AdminTheaterAction();
 
-		} else if (uri.contains("/admin/admin_Screening.do")) {// 상영관 관리
+		} else if (uri.contains("/admin/admin_Screening.do")) { // 상영관 관리
 			action = new AdminScreeningAction();
 
-		} else if (uri.contains("/admin/admin_Movie.do")) {// 영화 목록 관리
+		} else if (uri.contains("/admin/admin_Movie.do")) { // 영화 목록 관리
 			action = new AdminMovieAction();
 
-		} else if (uri.contains("/admin/admin_ScreenSet.do")) {// 상영 영화 관리
+		} else if (uri.contains("/admin/admin_ScreenSet.do")) { // 상영 영화 관리
 			action = new AdminScreenSetAction();
 
-		} else if (uri.contains("/admin/admin_Reserve.do")) {// 예약 관리
+		} else if (uri.contains("/admin/admin_Reserve.do")) { // 예약 관리
 			action = new AdminReserveAction();
 		}
 
@@ -97,21 +97,18 @@ public class ActionFactory {
 		else if (uri.contains("/theater/theater.do")) {
 			action = new TheaterAction();
 		}
-		//Login(로그인) - 로그인
+		// Login(로그인) - 로그인
 		else if (uri.contains("/member/member.do")) {
 			action = new MemberAction();
-		}//
+		} // ? 
 		else if (uri.contains("/member/join.do")) {
 			action = new JoinAction();
-		}
+		}		
 		
 		
-		
-
 		System.out.println("ActionFactory Action :" + action);
 		return action;
+	
 		
-	
-	
 	}
 }
