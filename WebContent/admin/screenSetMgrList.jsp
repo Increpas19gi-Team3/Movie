@@ -30,7 +30,7 @@
 		
 		<hr>
 	
-		<table border="1">
+		<table border="1" width="80%">
 			<tr>
 				<th>상영 일</th>
 				<th>상영 회차</th>

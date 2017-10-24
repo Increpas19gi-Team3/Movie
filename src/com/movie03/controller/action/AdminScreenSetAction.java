@@ -74,11 +74,18 @@ public class AdminScreenSetAction implements Action{
 				}else{//등록 함
 					System.out.println("2. 클릭한 날짜<"+ selDate +">에 맞춰서 영화 목록표를 가져옴");
 					
-					//등록가능한 회차 가져오기
+					//등록가능한 회차 가져오기 - 이미 등록되어있는 회차는 등록 못하도록 정보를 String[] 로 보냄
 					List<String> STturnlist = adminDAO.selectScreenSetSTturn(selDate);
 					String[] STturnArr = {"0", "0", "0"};
 					for(int i=0; i<STturnlist.size(); i++){
-						STturnArr[i] = STturnlist.get(i);
+						STturnArr[Integer.parseInt(STturnlist.get(i))-1] = STturnlist.get(i);
+						//상영관 설정 상태를 가져옴. 1,2,3 으로 값이
+						// 미설정 = 0
+						//String[0] = 1 관
+						//String[1] = 2 관
+						//String[2] = 3 관
+						// 주의) ArrayList는 없는 값은 가져오지 않음. 1,3관이 설정되어 있으면 →  ArrayList.size() = 2 로 리턴
+						// String[] 에 1관 = 1 / 2관 = 0 / 3관 = 3 으로 값을 설정함 
 					}
 					respModel.put("STturnArr", STturnArr);
 					

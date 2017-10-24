@@ -45,7 +45,7 @@
 		
 		<hr>
 	
-		<table border="1">
+		<table border="1" width="80%">
 			<tr>
 				<!-- <th>포스터</th> -->
 				<th>
