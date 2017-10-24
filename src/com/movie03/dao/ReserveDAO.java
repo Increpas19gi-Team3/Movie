@@ -38,7 +38,7 @@ public class ReserveDAO {
 	 * @return
 	 */
 	public List<MovieVO> selectMvList(){
-		String sql = "select * from movie where endday > sysdate";
+		String sql = "select * from movie where endday > sysdate and mcode in (select mcode from screenturn) ";
 		List<MovieVO> list = new ArrayList<MovieVO>();//목록
 		Connection conn = null;
 		Statement stmt = null;
