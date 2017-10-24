@@ -27,7 +27,7 @@ public class ActionFactory3 {
 	}
 
 	// AC 등록
-	/*public Action2 getAction(String uri) {
+	public Action2 getAction(String uri) {
 		///web-study-11/board/reply_add.do
 		Action2 action = null;
 		System.out.println("ActionFactory3 :" + uri);
@@ -46,5 +46,5 @@ public class ActionFactory3 {
 		
 		
 		return action;
-	}*/
+	}
 }
