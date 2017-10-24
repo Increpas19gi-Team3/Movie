@@ -19,5 +19,4 @@ public class AdminReserveAction implements Action{
 		
 		return url;
 	}
-
 }

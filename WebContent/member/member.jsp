@@ -16,5 +16,4 @@ member.jsp <br/>
       </div>
 
 
-
 <%@include file="/com/footer.jsp" %>

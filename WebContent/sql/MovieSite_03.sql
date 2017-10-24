@@ -283,8 +283,6 @@ insert into reserve values('R01', 'han', 'M01', 'S01', sysdate, '1', '12시', 'A
 
 ---- 예약 좌석 관련 쿼리
 
-
-
 insert into seat VALUEs ('A01', sysdate, '1', '1');
 insert into seat VALUEs ('A02', sysdate, '1', '0');
 insert into seat VALUEs ('A03', sysdate, '1', '0');

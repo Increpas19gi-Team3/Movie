@@ -3,8 +3,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="com.movie03.dto.MovieVO" %>
+
 <%-- 정적 인클루드 --%>
 <%@include file="/com/header_Admin.jsp" %>
+
 <%
 	HashMap<String, Object> respModel = (HashMap<String, Object>)request.getAttribute("respModel");
 	ArrayList<MovieVO> mVO = (ArrayList<MovieVO>)respModel.get("MgrListMovie");
@@ -15,8 +17,7 @@
 		pageContext.setAttribute("CmdMgr", "Movie_LIST");
 	}else{
 		pageContext.setAttribute("CmdMgr", cmd);
-	}
-	
+	}	
 	
 	String SearchGubun = (String)respModel.get("SearchGubun");
 	String SearchWord = (String)respModel.get("SearchWord");

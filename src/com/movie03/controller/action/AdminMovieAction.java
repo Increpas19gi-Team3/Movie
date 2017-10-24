@@ -163,8 +163,7 @@ public class AdminMovieAction implements Action{
 		if((String)reqModel.get("mvoSYNOPSIS") != null) reqSYNOPSIS = (String)reqModel.get("mvoSYNOPSIS");
 		if((String)reqModel.get("mvoSTARTDAY") != null) reqSTARTDAY = (String)reqModel.get("mvoSTARTDAY");
 		if((String)reqModel.get("mvoENDDAY") != null) reqENDDAY = (String)reqModel.get("mvoENDDAY");
-		if((String)reqModel.get("mvoAPPRAISAL") != null) reqAPPRAISAL = (String)reqModel.get("mvoAPPRAISAL");
-		
+		if((String)reqModel.get("mvoAPPRAISAL") != null) reqAPPRAISAL = (String)reqModel.get("mvoAPPRAISAL");		
 		
 		reqMVO.setMCODE(reqMCODE);
 		reqMVO.setTITLE(reqTITLE);
@@ -181,6 +180,4 @@ public class AdminMovieAction implements Action{
 		
 		return reqMVO;
 	}
-	
-
 }

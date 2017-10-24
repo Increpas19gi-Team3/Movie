@@ -12,10 +12,9 @@
 	pageContext.setAttribute("mVO", mVO);
 	
 	String cmd = (String)respModel.get("CmdMgr");
-	pageContext.setAttribute("CmdMgr", cmd);
+	pageContext.setAttribute("CmdMgr", cmd);	
 	
-	
-	// 리스트로 되돌아가기 위한 검색,정렬 조건들
+	// 리스트로 되돌아가기 위한 검색, 정렬 조건들
 	String SearchGubun = (String)respModel.get("SearchGubun");
 	String SearchWord = (String)respModel.get("SearchWord");
 	String Sort = (String)respModel.get("Sort");

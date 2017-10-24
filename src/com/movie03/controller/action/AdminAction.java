@@ -14,5 +14,4 @@ public class AdminAction implements Action{
 		
 		return url;
 	}
-
 }
