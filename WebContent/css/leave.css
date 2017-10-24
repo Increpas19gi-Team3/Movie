@@ -1,0 +1,107 @@
+@CHARSET "UTF-8";
+
+.timeline {
+	background-color: #EAEAEA; /* #1D1D1D; 검은색 배경 */
+	position: relative;
+	min-height: 210vh;   /* 100vh; */
+	margin: 0;
+	font-family: 'Droid Sans', sans-serif;
+	color: #1D1D1D;/* #fff; */
+}
+
+/* 현재 footer까지 그리는 문제가 있음. 수정필요 - 중앙선에 관한 속성*/
+.timeline:before {
+	content: '';
+	position: absolute; /* fixed; 고정 위치에서 절대 위치로 바꿈*/ 
+	top: 0px;
+	left: 50%;
+	bottom: 0px; /* 커서가 움직이는 위치까지 흰색줄을 그림 */
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	
+	/* -webkit-transform: translateX(-50%);
+	transform: translateX(-50%); */
+	
+	width: 4px; /* 중앙선에 관한 굵기 */
+	height: 1650px; /* 중앙선의 길이 position: absolute; 절대 위치로 바꾸고 선-길이를 임의의 주었음 */
+	background-color: #fff;
+}
+
+.timeline .entries {
+	width: calc(100% - 80px);
+	max-width: 800px;
+	margin: auto;
+	position: relative;
+	left: -5px;
+}
+
+.timeline .entries .entry {
+	width: calc(50% - 80px);
+	float: left;
+	padding: 20px;
+	clear: both;
+	text-align: right;
+}
+
+.timeline .entries.entry:not(:first-child){
+	margin-top:-60px;
+}
+
+.timeline .entries .entry .title {
+	font-size: 27px;
+	margin-bottom: 12px;
+	position: relative;
+}
+
+/* 중앙에 나오는 원모양에 대한 속성 */
+.timeline .entries .entry .title:before {
+	content: '';
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	border: 4px solid #ffffff;
+	background-color: #1D1D1D;
+	border-radius: 100%;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	right: -73px;
+	z-index: 1000;
+}
+
+.timeline .entries .entry .title.big:before {
+	width: 24px;
+	height: 24px;
+	-webkit-transform: translate(8px, -50%);
+	transform: translate(8px, -50%);
+}
+
+.timeline .entries .entry .body {
+	color: #8C8C8C;  /* #aaa; */
+}
+
+/* 글자 간격 */
+.timeline .entries .entry .body p {
+	line-height: 1.4em;
+}
+
+.timeline .entries .entry:nth-child(2n) {
+	text-align: left;
+	float: right;
+}
+
+/* 오른쪽 글자 크기 사이즈 */
+.timeline .entries .entry:nth-child(2n) .title {
+	font-size: 25px;
+}
+
+.timeline .entries .entry:nth-child(2n) .title:before {
+	left: -63px;
+}
+
+.timeline .entries .entry:nth-child(2n) .title.big:before {
+	width: 24px;
+	height: 24px;
+	-webkit-transform: translate(-8px, -50%);
+	transform: translate(-8px, -50%);
+}
