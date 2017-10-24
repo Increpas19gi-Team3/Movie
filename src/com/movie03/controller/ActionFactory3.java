@@ -40,6 +40,11 @@ public class ActionFactory3 {
 		}else if(uri.equals("reply_del.do")){
 			action=new BoardReplyDelAction2();
 		}
+		
+		String test = "AF 충돌 테스트 중!!!";
+		System.out.println(test);
+		
+		
 		return action;
 	}
 }
