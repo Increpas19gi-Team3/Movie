@@ -21,16 +21,6 @@ body{
   font-size: 14px;
 }
 
-table {
-    width: 80%;
-    border: 1px solid #444444;
-    border-collapse: collapse;
-  }
-th, td {
-  border: 1px solid #444444;
-  padding: 10px;
-}
-
 
 /* 헤더 관련 CSS */
 .header{
@@ -138,54 +128,3 @@ th, td {
   border-left: 1px solid #fff;
 }
 
-
-/* 영화관 정보*/
-.theater{
-  	padding: 50px 0;
-  	position: relative;
-  	overflow: hidden;
-}
-.theater .logo{
-  	text-align: center;
-	font-size: 32px;
-}
-.theater .theater_Info {
-	width: 80%;
-  	padding: 30px 200px 30px 50px;
-  	line-height: 20px;
-  	float: left;
-  	font-size: 20px;
-  	color: #666;
-  	border-left: 1px solid #fff;
-}
-
-.theater .theather_reg{
-  	text-align: center;
-	font-size: 20px;
-}
-
-
-/* 상영관 정보*/
-.screen{
-  	padding: 50px 0;
-  	position: relative;
-  	overflow: hidden;
-}
-.screen .logo{
-  	text-align: center;
-	font-size: 32px;
-}
-.screen .screen_Info {
-	width: 80%;
-  	padding: 30px 200px 30px 50px;
-  	line-height: 20px;
-  	float: left;
-  	font-size: 20px;
-  	color: #666;
-  	border-left: 1px solid #fff;
-}
-
-.screen .screen_reg{
-  	text-align: center;
-	font-size: 20px;
-}
