@@ -21,17 +21,17 @@
 	List<MovieVO> mVo = (List<MovieVO>) respModel.get("DetailMovieNum");
 	pageContext.setAttribute("mVo", mVo);
 
-	/* 뒤로가기 속성 */
-	String cmd = (String) respModel.get("CmdMgr");
+	/* 뒤로가기 속성
+	 String cmd = (String) respModel.get("CmdMgr");
 	if (cmd != null) {
 		pageContext.setAttribute("Cmd", "MovieList");
 	} else {
 		pageContext.setAttribute("CmdMgr", cmd);
-	}
+	} */
 %>
 
 <div id="#" align="center">
-	<h1>상영중인 영화 리스트</h1>
+	<h1>상영중인 영화 상세리스트</h1>
 	<br><br>
 	<table class="#">
 		<tr>
@@ -71,10 +71,10 @@
 
 	<!-- 버튼(뒤로가기) 
 	 : 페이지를 영화-리스트 페이지로 넘어감 -->
-	<!-- <form action="../movie/MovieList.do" method="post">
+	<form action="../movie/MovieList.do" method="post">
 		<input type="hidden" name="CmdMgr" value="MovieList"> 
 		<input type="submit" value="뒤로가기">
-	</form> -->
+	</form>
 	<!-- 수정된 부분 -->
 	<input type="button" value="뒤로가기" onclick="location.href='../movie/movie.do?'">
 </div>

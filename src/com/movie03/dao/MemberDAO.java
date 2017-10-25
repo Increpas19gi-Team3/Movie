@@ -15,7 +15,7 @@ import util.DBManager;
 /**
  * 회원관리 DAO
  * 
- * @author 한범석
+ * @author 손대성
  *
  */
 public class MemberDAO {
@@ -26,8 +26,50 @@ public class MemberDAO {
 
 	public static MemberDAO getInstance() {
 		return instance;
-	}
+	}	
+	
+	/**
+	 * 로그인
+	 *  - 아이디와 비번 그리고 관리자인지를 확인 후 로그인
+	 *  - 순서도 login.jsp -> ActionFactory(눈에 잘 안 보임) 
+	 *  - -> loginAction.java -> 현재페이지 
+	 * @param MID 회원ID
+	 * @param Mpwd 회원 비밀번호
+	 * @param Madmin 관리자 확인
+	 * @return 
+	 */
+	public void LoginConfirm (String MID,String Mpwd, String Madmin) {
+		
+		// 아이디와 관리자확인이 같은 것 중에서 비번 추출하기
+		// 이게 맞는지 SQL-문은 실행했지만(아무 이상없음) 맞는지 확신은 없음.
+		String sql = "SELECT Mpwd FROM MEMBER WHERE MID=? and Madmin=?";		
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
 
+			pstmt.setString(1, MID);
+			pstmt.setString(2, Mpwd);			
+			pstmt.setString(3, Madmin);
+			pstmt.executeQuery();
+			
+			rs = pstmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}		
+	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * 회원 가입

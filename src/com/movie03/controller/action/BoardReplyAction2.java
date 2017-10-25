@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.movie03.dao.BoardReplyDAO;
 
-//목적 : 서블릿 api가 없더라도 재사용이 가능하게 위해서
-//POJO(순수 자바클래스) 클래스로 변환
+// 목적 : 서블릿 api가 없더라도 재사용이 가능하게 위해서
+// POJO(순수 자바클래스) 클래스로 변환
 // 출력뷰로 직접 이동시키는 controller를 presenter라고 부름
 public class BoardReplyAction2 implements Action2{
     
