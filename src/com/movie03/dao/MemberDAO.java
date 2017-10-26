@@ -40,10 +40,10 @@ public class MemberDAO {
 	 * @param Madmin 관리자 확인
 	 * @return
 	 */
-	public List<MemberVO> LoginConfirm(String MID, String Mpwd, String Madmin) {
+	public List<MemberVO> LoginConfirm(String MID, String Mpwd) {
 
 		System.out.println("LoginConfirm - start");
-		System.out.println("MID: "+MID+", MPWD: "+Mpwd+", Madmin: "+Madmin);
+		System.out.println("MID: "+MID+", MPWD: "+Mpwd);
 		
 		// 'session'에 저장할 값이 책에서 나오는 것처럼
 		// return result(1, 0, -1)값으로 보내지 않고
@@ -52,11 +52,9 @@ public class MemberDAO {
 		List<MemberVO> loginlist = new ArrayList<MemberVO>();
 
 		// 아이디와 관리자확인이 같은 것 중에서 비번 추출하기
-		// 이게 맞는지 SQL-문은 실행했지만(아무 이상없음) 맞는지 확신은 없음.
-		String sql = // "SELECT Mpwd FROM MEMBER WHERE MID= ? and Madmin= ?"; 
-					"select MID, Mname, Madmin from member "+ 
-					"where MID=? and Mpwd=?"; 
-
+		// 아디디(MID) 값이 'key'값이기 때문에 괜히 관리자(Madmin)를 불러올 필요가 없음		
+		String sql = "SELECT * FROM MEMBER WHERE MID= ? and Mpwd= ?"; 
+					
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;		
@@ -66,44 +64,24 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, MID);			
 			pstmt.setString(2, Mpwd);
-			//pstmt.setString(2, Madmin);
-			rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();			
 			
-			System.out.println("SQL: "+sql);
-			System.out.println("1:" + MID);
-			System.out.println("2:" + Mpwd);
-			// System.out.println("2:" + Madmin);
-			System.out.println("rs: "+ rs.toString());
+			System.out.println("MID :" + MID);
+			System.out.println("MPWD :" + Mpwd);			
 			
 			// SQL-문이 실행된다면 비번이 뭔가 있고(!= null) 
 			// 데이터상의 비번과 입력받은 비번이 확인되면
 			// 아이디와 이름과 관리자여부만 loginlist에 넣어서 내보냄
-			if (rs.next()) {
-				/*MemberVO mVo = new MemberVO();
-				mVo.setMID(rs.getString("mid"));
-				mVo.setMNAME(rs.getString("mname"));
-				mVo.setMADMIN(rs.getString("madmin"));
-				loginlist.add(mVo);
-				
-				System.out.println(mVo.toString());*/
-				
-				System.out.println("rs.getString(Mpwd):"+rs.getString("Mpwd"));
-				System.out.println("rs.getString(Mpwd).equals(Mpwd):"+(rs.getString("Mpwd").equals(Mpwd)));
-				
-				if ((rs.getString("Mpwd") != null) && (rs.getString("Mpwd").equals(Mpwd))) {
-					System.out.println(">>>>>>>>> 여기까지 들어옴.");
+			while(rs.next()) {				
+				if ((rs.getString("MPWD") != null) && (rs.getString("MPWD").equals(Mpwd))) {
 					
-					System.out.println(rs.getString("mid"));
-					System.out.println(rs.getString("Mname"));
-					System.out.println(rs.getString("Madmin"));
-					
+					System.out.println("while >>>>>>>>> 실행중");
 					
 					MemberVO mVo = new MemberVO();
-					mVo.setMID(rs.getString("mid"));
+					mVo.setMID(rs.getString("MID"));
 					mVo.setMNAME(rs.getString("Mname"));
 					mVo.setMADMIN(rs.getString("Madmin"));
-					loginlist.add(mVo);
-					System.out.println("mVo:"+ mVo.toString());
+					loginlist.add(mVo);					
 				} else {
 					// console-창에 확인하기 위한 출력물
 					System.out.println("비밀번호 오류?");

@@ -25,7 +25,7 @@ public class loginAction implements Action {
 		System.out.println("로그인 보여주기");
 		// 내 정보-보기"로 넘기기('main'으로 넘기고 싶은데 'main'이 따로 없다;;)
 		String url = "";
-				
+
 		List<MemberVO> login2 = null;
 
 		String Login1 = (String) reqModel.get("Login");
@@ -34,45 +34,45 @@ public class loginAction implements Action {
 
 		String MID1 = null;
 		String Mpwd1 = null;
-		String Madmin1 = null;
 
-		/*
-		 * if ((String) reqModel.get("MID") != null) { MID1 = (String)
-		 * respModel.get("MID"); } else { System.out.println("ID: " + MID1); }
-		 * if ((String) reqModel.get("Mpwd") != null) { Mpwd1 = (String)
-		 * respModel.get("Mpwd"); } else { System.out.println("ID: " + Mpwd1); }
-		 * if ((String) reqModel.get("Madmin") != null) { Madmin1 = (String)
-		 * respModel.get("Madmin"); } else { System.out.println("ID: " +
-		 * Madmin1); }
-		 */
+		System.out.println("MID1: " + MID1);
+		System.out.println("Mpwd1: " + Mpwd1);
+
+		// 로그인을 하면 "../member/mypage.jsp" 경로로 들어옴
+		// 조건절을 만들어야 하는데 'login2'가 'null' 들어는 경우는 없고
+		// "" 빈공간으로 들어와서 "../member/mypage.jsp"로
+		// 들어오는 것 같음
+
+		// 관리자-선택 값이 들어가서 절대로 null 값이 나올리 없음;;
 
 		if (Login1 != null) {// Login에서 받은 정보 값이 있다면
-			
+
 			if (Login1.equals("loginValue")) {
-				
+
 				MID1 = (String) reqModel.get("MID");
 				Mpwd1 = (String) reqModel.get("Mpwd");
-				Madmin1 = (String) reqModel.get("Madmin");
+
+				System.out.println("MID1: " + MID1);
+				System.out.println("Mpwd1: " + Mpwd1);
+
+				MemberDAO Mdao = MemberDAO.getInstance(); 
+				// SQL문을 실행한후 받은 값들을									
+				login2 = Mdao.LoginConfirm(MID1, Mpwd1);
+				reqModel.put("login2", login2);
 				
-				System.out.println("MID1: "+MID1);
-				System.out.println("Mpwd1: "+Mpwd1);
-				System.out.println("Madmin1: "+Madmin1);
-				
-				MemberDAO Mdao = MemberDAO.getInstance();
-				// SQL문을 실행한후 받은 값들을
-				login2 = Mdao.LoginConfirm(MID1, Mpwd1, Madmin1);
-				respModel.put("login2", login2);
 				url = "../member/mypage.jsp";
-				
-			} else { // 화면에서 받은 정보가 없으면 다시 로그인 화면으로..
+
+			} else { 
+				// 화면에서 받은 정보가 없으면 다시 로그인 화면으로..
+				// 근데 'null'이 나올리 없음..
 				url = "../member/login.jsp";
 			}
-			
+
 		} // if문 - End
-		
+
 		System.out.println("loginAction - End ");
 		return url;
-		
+
 	} // execute - End
-	
+
 } // class loginAction - End
