@@ -34,7 +34,7 @@ public class MembershipAction implements Action {
 	else
 		Madmin=1;*/
 	
-	dao.insertMember(MID, Mpwd, Mname, Memail, Mtel, Madmin);
+	// dao.insertMember(MID, Mpwd, Mname, Memail, Mtel, Madmin);
 	
 return url;
 }

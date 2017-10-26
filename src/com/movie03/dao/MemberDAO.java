@@ -9,81 +9,128 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.movie03.dto.MemberVO;
+import com.movie03.dto.MovieVO;
 
 import util.DBManager;
 
 /**
- * 회원관리 DAO
- * 
- * @author 손대성
- *
+ * 회원관리 DAO  
+ * @author 손대성 
  */
 public class MemberDAO {
 	public MemberDAO() {
 	}
 
 	private static MemberDAO instance = new MemberDAO();
-
+	
 	public static MemberDAO getInstance() {
 		return instance;
-	}	
-	
+	}
+
 	/**
 	 * 로그인
-	 *  - 아이디와 비번 그리고 관리자인지를 확인 후 로그인
-	 *  - 순서도 login.jsp -> ActionFactory(눈에 잘 안 보임) 
-	 *  - -> loginAction.java -> 현재페이지 
+	 * - 아이디와 비번 그리고 관리자인지를 확인 후 로그인
+	 * - 순서도 login.jsp -> ActionFactory(눈에 잘 안 보임)
+	 * -> loginAction.java -> 현재페이지
+	 * 
+	 * SQL-문에 실행이 안되서 고민중..
+	 * 
 	 * @param MID 회원ID
 	 * @param Mpwd 회원 비밀번호
 	 * @param Madmin 관리자 확인
-	 * @return 
+	 * @return
 	 */
-	public void LoginConfirm (String MID,String Mpwd, String Madmin) {
+	public List<MemberVO> LoginConfirm(String MID, String Mpwd, String Madmin) {
+
+		System.out.println("LoginConfirm - start");
+		System.out.println("MID: "+MID+", MPWD: "+Mpwd+", Madmin: "+Madmin);
 		
+		// 'session'에 저장할 값이 책에서 나오는 것처럼
+		// return result(1, 0, -1)값으로 보내지 않고
+		// 아이디, 이름, 관리자확인 여부만 'session'에 저장할 것이기 때문에
+		// 'List'로 내보내기 위해 아래 문장을 씀
+		List<MemberVO> loginlist = new ArrayList<MemberVO>();
+
 		// 아이디와 관리자확인이 같은 것 중에서 비번 추출하기
 		// 이게 맞는지 SQL-문은 실행했지만(아무 이상없음) 맞는지 확신은 없음.
-		String sql = "SELECT Mpwd FROM MEMBER WHERE MID=? and Madmin=?";		
-		
+		String sql = // "SELECT Mpwd FROM MEMBER WHERE MID= ? and Madmin= ?"; 
+					"select MID, Mname, Madmin from member "+ 
+					"where MID=? and Mpwd=?"; 
+
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		ResultSet rs = null;		
 		
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-
-			pstmt.setString(1, MID);
-			pstmt.setString(2, Mpwd);			
-			pstmt.setString(3, Madmin);
-			pstmt.executeQuery();
-			
+			pstmt.setString(1, MID);			
+			pstmt.setString(2, Mpwd);
+			//pstmt.setString(2, Madmin);
 			rs = pstmt.executeQuery();
+			
+			System.out.println("SQL: "+sql);
+			System.out.println("1:" + MID);
+			System.out.println("2:" + Mpwd);
+			// System.out.println("2:" + Madmin);
+			System.out.println("rs: "+ rs.toString());
+			
+			// SQL-문이 실행된다면 비번이 뭔가 있고(!= null) 
+			// 데이터상의 비번과 입력받은 비번이 확인되면
+			// 아이디와 이름과 관리자여부만 loginlist에 넣어서 내보냄
+			if (rs.next()) {
+				/*MemberVO mVo = new MemberVO();
+				mVo.setMID(rs.getString("mid"));
+				mVo.setMNAME(rs.getString("mname"));
+				mVo.setMADMIN(rs.getString("madmin"));
+				loginlist.add(mVo);
+				
+				System.out.println(mVo.toString());*/
+				
+				System.out.println("rs.getString(Mpwd):"+rs.getString("Mpwd"));
+				System.out.println("rs.getString(Mpwd).equals(Mpwd):"+(rs.getString("Mpwd").equals(Mpwd)));
+				
+				if ((rs.getString("Mpwd") != null) && (rs.getString("Mpwd").equals(Mpwd))) {
+					System.out.println(">>>>>>>>> 여기까지 들어옴.");
+					
+					System.out.println(rs.getString("mid"));
+					System.out.println(rs.getString("Mname"));
+					System.out.println(rs.getString("Madmin"));
+					
+					
+					MemberVO mVo = new MemberVO();
+					mVo.setMID(rs.getString("mid"));
+					mVo.setMNAME(rs.getString("Mname"));
+					mVo.setMADMIN(rs.getString("Madmin"));
+					loginlist.add(mVo);
+					System.out.println("mVo:"+ mVo.toString());
+				} else {
+					// console-창에 확인하기 위한 출력물
+					System.out.println("비밀번호 오류?");
+				} 
+			}
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, pstmt, rs);
-		}		
-	}
-	
-	
-	
-	
-	
-	
+		}
+		return loginlist;
+	} // LoginConfirm - End
+
 	/**
 	 * 회원 가입
 	 * 
 	 * @param memberVO
-	 */
-	public void insertMember(String MID,String MPWD,String MNAME,String MEMAIL,String MTEL, int MADMIN) {
+	 *//*
+	public void insertMember(String MID, String MPWD, String MNAME, String MEMAIL, String MTEL, int MADMIN) {
 
 		String sql = "INSERT INTO MEMBER VALUES(?, ?, ?, ?, ?, ?)";
 
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-		
+
 		try {
 			conn = DBManager.getConnection();
 			prepStmt = conn.prepareStatement(sql);
@@ -95,7 +142,7 @@ public class MemberDAO {
 			prepStmt.setString(5, MTEL);
 			prepStmt.setInt(6, MADMIN);
 			prepStmt.executeQuery();
-			
+
 			rs = prepStmt.executeQuery();
 		} catch (SQLException e) {
 			// TODO: handle exception
@@ -105,11 +152,11 @@ public class MemberDAO {
 		}
 	}
 
-	/**
+	*//**
 	 * 내 정보 보기
 	 * 
 	 * @return List<MemberVO>
-	 */
+	 *//*
 	public List<MemberVO> selectMember() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
 
@@ -143,11 +190,11 @@ public class MemberDAO {
 		return list;
 	}
 
-	/**
+	*//**
 	 * 내 정보 수정
 	 * 
 	 * @param memberVO
-	 */
+	 *//*
 	public void upadtemymember(MemberVO mVO) {
 
 		System.out.println("updatemymember :" + mVO.toString());
@@ -177,11 +224,11 @@ public class MemberDAO {
 		}
 	}
 
-	/**
+	*//**
 	 * 회원 탈퇴
 	 * 
 	 * @return List<MemberVO>
-	 */
+	 *//*
 	public void deletemember(MemberVO mVO) {
 
 		String sql = "DELETE FROM MEMBER WHERE MID =?";
@@ -200,31 +247,32 @@ public class MemberDAO {
 			DBManager.close(conn, prepStmt);
 		}
 	}
-	/**
+
+	*//**
 	 * 아이디 찾기
 	 * 
 	 * @param memberVO
-	 */
-public String find_ID(String MNAME, String MTEL, String MEMAIL) {
-		
-		String MID=  "";
-		String sql = "SELECT MID FROM MEMBER WHERE MNAME = ?, MTEL = ?, MEMAIL =?"; 
-		
+	 *//*
+	public String find_ID(String MNAME, String MTEL, String MEMAIL) {
+
+		String MID = "";
+		String sql = "SELECT MID FROM MEMBER WHERE MNAME = ?, MTEL = ?, MEMAIL =?";
+
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 
-		try{
+		try {
 			conn = DBManager.getConnection();
 			prepStmt = conn.prepareStatement(sql);
 			prepStmt.setString(1, MNAME);
 			prepStmt.setString(2, MTEL);
 			prepStmt.setString(3, MEMAIL);
 			rs = prepStmt.executeQuery();
-			while(rs.next()){
-			    MID=rs.getString("MID");
-			   }
-			} catch (SQLException e){
+			while (rs.next()) {
+				MID = rs.getString("MID");
+			}
+		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		} finally {
@@ -232,75 +280,76 @@ public String find_ID(String MNAME, String MTEL, String MEMAIL) {
 		}
 		return MID;
 	}
-/**
- * 비밀번호 찾기
- * 
- * @param memberVO
- */
-public String find_PWD(String MID, String MTEL, String MEMAIL) {
-	
-	String MPWD=  "";
-	String sql = "SELECT MID FROM MEMBER WHERE MID = ?, MTEL = ?, MEMAIL =?"; 
-	
-	Connection conn = null;
-	PreparedStatement prepStmt = null;
-	ResultSet rs = null;
 
-	try{
-		conn = DBManager.getConnection();
-		prepStmt = conn.prepareStatement(sql);
-		prepStmt.setString(1, MID);
-		prepStmt.setString(2, MTEL);
-		prepStmt.setString(3, MEMAIL);
-		rs = prepStmt.executeQuery();
-		while(rs.next()){
-		    MPWD=rs.getString("MPWD");
-		   }
-		} catch (SQLException e){
-		// TODO: handle exception
-		e.printStackTrace();
-	} finally {
-		DBManager.close(conn, prepStmt);
-	}
-	return MPWD;
-}
+	*//**
+	 * 비밀번호 찾기
+	 * 
+	 * @param memberVO
+	 *//*
+	public String find_PWD(String MID, String MTEL, String MEMAIL) {
 
-/**
- * 아이디 중복
- * 
- * @return List<MemberVO>
- */
-public MemberVO Overap_ID(String MID, String MPWD) {
+		String MPWD = "";
+		String sql = "SELECT MID FROM MEMBER WHERE MID = ?, MTEL = ?, MEMAIL =?";
 
-	String sql = "SELECT * FROM MEMBER WHERE MID = ?";
-	MemberVO mVO = null;
-	Connection conn = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
 
-	try {
-		conn = DBManager.getConnection();
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1,  MID);
-		pstmt.setString(2,  MPWD);
-		rs = pstmt.executeQuery(sql);
-
-		if (rs.next()) {
-			mVO = new MemberVO();
-			mVO.setMID(rs.getString("MID"));
-			mVO.setMID(rs.getString("MPWD"));
-			mVO.setMID(rs.getString("MNAME"));
-			mVO.setMID(rs.getString("MEMAIL"));
-			mVO.setMID(rs.getString("MTEL"));
-			mVO.setMID(rs.getString("MADMIN"));
-		
+		try {
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, MID);
+			prepStmt.setString(2, MTEL);
+			prepStmt.setString(3, MEMAIL);
+			rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				MPWD = rs.getString("MPWD");
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, prepStmt);
 		}
-	} catch (SQLException e) {
-		// TODO: handle exception
-		e.printStackTrace();
-	} finally {
-		DBManager.close(conn, pstmt, rs);
+		return MPWD;
 	}
-	return mVO;
-}
+
+	*//**
+	 * 아이디 중복
+	 * 
+	 * @return List<MemberVO>
+	 *//*
+	public MemberVO Overap_ID(String MID, String MPWD) {
+
+		String sql = "SELECT * FROM MEMBER WHERE MID = ?";
+		MemberVO mVO = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, MID);
+			pstmt.setString(2, MPWD);
+			rs = pstmt.executeQuery(sql);
+
+			if (rs.next()) {
+				mVO = new MemberVO();
+				mVO.setMID(rs.getString("MID"));
+				mVO.setMID(rs.getString("MPWD"));
+				mVO.setMID(rs.getString("MNAME"));
+				mVO.setMID(rs.getString("MEMAIL"));
+				mVO.setMID(rs.getString("MTEL"));
+				mVO.setMID(rs.getString("MADMIN"));
+
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
+		}
+		return mVO;
+	}*/
 }

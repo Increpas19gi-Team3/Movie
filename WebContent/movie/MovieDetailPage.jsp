@@ -71,10 +71,11 @@
 
 	<!-- 버튼(뒤로가기) 
 	 : 페이지를 영화-리스트 페이지로 넘어감 -->
-	<form action="../movie/MovieList.do" method="post">
+	<!-- <form action="../movie/MovieList.do" method="post">
 		<input type="hidden" name="CmdMgr" value="MovieList"> 
 		<input type="submit" value="뒤로가기">
-	</form>
+	</form> -->
+	
 	<!-- 수정된 부분 -->
 	<input type="button" value="뒤로가기" onclick="location.href='../movie/movie.do?'">
 </div>

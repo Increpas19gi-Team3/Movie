@@ -1,14 +1,14 @@
 <%-- 내 정보 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	pageEncoding="UTF-8"%>
+	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ page import="com.movie03.dto.MemberVO"%> --%>
 
-<%@ page import="com.movie03.dto.MemberVO"%>
-   
 <%-- 정적 인클루드 --%>
 <%@include file="/com/header.jsp"%>
-
-<div class = "MemberDAO.java" align="center">
+'MYPAGE'입니다.
+<!-- <div class = "MemberDAO.java" align="center">
 <h2>내 정보</h2>
 <form action="" method="post">
  <div class="log">
@@ -28,4 +28,6 @@
         </div>
         
 </form>
-</div>
+</div> -->
+
+<%@include file="/com/footer.jsp"%>
