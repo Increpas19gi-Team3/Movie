@@ -4,10 +4,14 @@
 	pageEncoding="UTF-8"%>
 <%
 	// 'session' 내용 완전 제거
-	session.invalidate();
-
+	// //* 주석은 session에 저장된 내용을 있는지 확인하기 위한 기능들
+	//* HashMap<String, Object> respModel 
+	//* = (HashMap<String, Object>)request.getAttribute("respModel");
+	//* System.out.println("request : " + respModel);	
+	session.invalidate();	
+	//* response.sendRedirect("../movie/movie.do");
 %>
-<!-- 이렇게 써도 되나????? -->
+
 <script type="text/javascript">
 	alert("로그아웃 되셨습니다.");
 	location.href = "login.jsp"; /* alert의 확인 버튼을 누르면 login.jsp 로 이동 */

@@ -7,13 +7,15 @@
 
 <%
 	// 이게 중요함 내가 보낼때 2번 포장해서?(1번은 ArrayList안에 list로 덮어서) 보냄
-	// login.jsp -> loginAction.java 
+	// 입력 순서도
+	// 1. login.jsp -> 2. loginAction.java 
 	// -> MemberDAO.java : ArrayList<MemberVO>() - loginlist 1차
 	// 우선 입력받은 파라미터를 ArrayList로 덮고 
-	// -> loginAction.java : List( ArrayList<MemberVO>() ) - login2 2차
+	// -> 3. loginAction.java : List( ArrayList<MemberVO>() ) - login2 2차
 	// ArrayList를 list로 덮어서 보냄..? 이라고 하면 이해할라나?
 	HashMap<String, Object> respModel = (HashMap<String, Object>)request.getAttribute("respModel");
 	ArrayList<MemberVO> list = (ArrayList<MemberVO>)respModel.get("login2");
+	
 	MemberVO mVo = list.get(0);
 	
 	// console-창에 출력
@@ -25,9 +27,11 @@
 	session.setAttribute("MID", mVo.getMID());
 	session.setAttribute("MNAME", mVo.getMNAME());
 	session.setAttribute("MADMIN", mVo.getMADMIN());
+	// session에 저장하는 구간
 	
-	//MovieVO mVo = (MovieVO)respModel.get("login2");
-	//pageContext.setAttribute("mVo", mVo);
+	//=====================================================================
+	
+	
 %>
 <%-- <%@ page import="com.movie03.dto.MemberVO"%> --%>
 
