@@ -53,7 +53,7 @@ public class MemberDAO {
 
 		// 아이디와 관리자확인이 같은 것 중에서 비번 추출하기
 		// 아디디(MID) 값이 'key'값이기 때문에 괜히 관리자(Madmin)를 불러올 필요가 없음		
-		String sql = "SELECT * FROM MEMBER WHERE MID= ? and Mpwd= ?"; 
+		String sql = "SELECT MID, Mname, Madmin FROM MEMBER WHERE MID= ? and Mpwd= ?"; //MID : PK
 					
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -73,7 +73,7 @@ public class MemberDAO {
 			// 데이터상의 비번과 입력받은 비번이 확인되면
 			// 아이디와 이름과 관리자여부만 loginlist에 넣어서 내보냄
 			while(rs.next()) {				
-				if ((rs.getString("MPWD") != null) && (rs.getString("MPWD").equals(Mpwd))) {
+//				if ((rs.getString("MPWD") != null) && (rs.getString("MPWD").equals(Mpwd))) {
 					
 					System.out.println("while >>>>>>>>> 실행중");
 					
@@ -82,11 +82,11 @@ public class MemberDAO {
 					mVo.setMNAME(rs.getString("Mname"));
 					mVo.setMADMIN(rs.getString("Madmin"));
 					loginlist.add(mVo);					
-				} else {
+//				} else {
 					// console-창에 확인하기 위한 출력물
-					System.out.println("비밀번호 오류?");
+//					System.out.println("비밀번호 오류?");
 				} 
-			}
+//			}
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();

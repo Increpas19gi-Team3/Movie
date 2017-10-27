@@ -58,10 +58,16 @@ public class loginAction implements Action {
 				MemberDAO Mdao = MemberDAO.getInstance(); 
 				// SQL문을 실행한후 받은 값들을									
 				login2 = Mdao.LoginConfirm(MID1, Mpwd1);
-				reqModel.put("login2", login2);
 				
-				url = "../member/mypage.jsp";
-
+				
+				if(login2.size() == 1){//로그인 성공					
+					respModel.put("login2", login2);
+					url = "../member/mypage.jsp";
+					
+				}else{//로그인 실패
+					url = "../member/login.jsp";
+				}
+				System.out.println("loginAction url:"+url);
 			} else { 
 				// 화면에서 받은 정보가 없으면 다시 로그인 화면으로..
 				// 근데 'null'이 나올리 없음..

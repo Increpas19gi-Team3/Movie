@@ -27,9 +27,12 @@
 		<div class="row">
 			<table>
 				<tr>
-					<td><input type="radio" style="margin-top: 10px" name="Madmin"
-						value="0">관리자 <input type="radio" style="margin-top: 10px"
-						name="Madmin" value="1" checked="checked">일반인</td>
+					<td>
+					<input type="radio" style="margin-top: 10px" 
+					name="Madmin" value="0">관리자 
+					<input type="radio" style="margin-top: 10px"
+					name="Madmin" value="1" checked="checked">일반인
+					</td>
 				</tr>
 			</table>
 		</div>

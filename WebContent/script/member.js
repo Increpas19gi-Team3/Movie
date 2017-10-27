@@ -1,16 +1,17 @@
 function loginCheck() {
 	// MID의 길이 값이 0이면 출력되는 문
 	if (document.loginValue.MID.value.length == 0) {
-		alert("아이디를 써주세요");
-		Login.loginValue.focus();
+		alert("아이디를 써주세요");		
+		loginValue.MID.focus();
 		return false;
 	}
 	// 암호를 입력하시 않았을때 나오는 출력문
 	if (document.loginValue.Mpwd.value == "") {
 		alert("암호는 반드시 입력하셔야 합니다.");
-		Login.loginValue.focus();
+		loginValue.Mpwd.focus();
 		return false;
 	}
+	
 // 사용가능
 //===================================================================
 
