@@ -45,7 +45,7 @@ public class loginAction implements Action {
 
 		// 관리자-선택 값이 들어가서 절대로 null 값이 나올리 없음;;
 
-		if (Login1 != null) {// Login에서 받은 정보 값이 있다면
+		if (Login1 != null) { // Login에서 받은 정보 값이 있다면
 
 			if (Login1.equals("loginValue")) {
 
@@ -60,7 +60,7 @@ public class loginAction implements Action {
 				login2 = Mdao.LoginConfirm(MID1, Mpwd1);
 				
 				
-				if(login2.size() == 1){//로그인 성공					
+				if(login2.size() == 1){ // 로그인 성공					
 					respModel.put("login2", login2);
 					url = "../member/mypage.jsp";
 					

@@ -31,9 +31,7 @@ public class MemberDAO {
 	 * 로그인
 	 * - 아이디와 비번 그리고 관리자인지를 확인 후 로그인
 	 * - 순서도 login.jsp -> ActionFactory(눈에 잘 안 보임)
-	 * -> loginAction.java -> 현재페이지
-	 * 
-	 * SQL-문에 실행이 안되서 고민중..
+	 * -> loginAction.java -> 현재페이지 
 	 * 
 	 * @param MID 회원ID
 	 * @param Mpwd 회원 비밀번호
@@ -94,14 +92,15 @@ public class MemberDAO {
 			DBManager.close(conn, pstmt, rs);
 		}
 		return loginlist;
-	} // LoginConfirm - End
+	} // LoginConfirm - End 
+	
 
 	/**
 	 * 회원 가입
 	 * 
 	 * @param memberVO
-	 *//*
-	public void insertMember(String MID, String MPWD, String MNAME, String MEMAIL, String MTEL, int MADMIN) {
+	 */
+	public void InsertMember(String MID, String MPWD, String MNAME, String MEMAIL, String MTEL, String MADMIN) {
 
 		String sql = "INSERT INTO MEMBER VALUES(?, ?, ?, ?, ?, ?)";
 
@@ -118,10 +117,11 @@ public class MemberDAO {
 			prepStmt.setString(3, MNAME);
 			prepStmt.setString(4, MEMAIL);
 			prepStmt.setString(5, MTEL);
-			prepStmt.setInt(6, MADMIN);
+			prepStmt.setString(6, MADMIN);
 			prepStmt.executeQuery();
 
 			rs = prepStmt.executeQuery();
+			
 		} catch (SQLException e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -130,11 +130,11 @@ public class MemberDAO {
 		}
 	}
 
-	*//**
+	/**
 	 * 내 정보 보기
 	 * 
 	 * @return List<MemberVO>
-	 *//*
+	 *//* 
 	public List<MemberVO> selectMember() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
 

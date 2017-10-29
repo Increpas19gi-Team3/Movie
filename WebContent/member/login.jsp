@@ -5,9 +5,28 @@
 <%-- 정적 인클루드 --%>
 <%@include file="/com/header.jsp"%>
 
-<script type="text/javascript" src="script/member.js"></script>
-
 <form action="../member/member.do" method="post">
+
+<!-- 
+기능이 적용이 안됨
+<script type="text/javascript">
+
+function loginCheck() {
+	// MID의 길이 값이 0이면 출력되는 문
+	if (document.loginValue.MID.value.length == 0) {
+		alert("아이디를 써주세요");		
+		loginValue.MID.focus();
+		return false;
+	}
+	// 암호를 입력하지 않았을때 나오는 출력문
+	if (document.loginValue.Mpwd.value == "") {
+		alert("암호는 반드시 입력하셔야 합니다.");
+		loginValue.Mpwd.focus();
+		return false;
+	}
+</script> 
+->
+
 	<!-- Login는 key값 loginValue는.. -->
 	<input type="hidden" name="Login" value="loginValue">
 	<div class="" align="center">
@@ -44,12 +63,10 @@
 	</div>
 
 	<div class="" align="center">
-		<a href="findid.jsp" style="margin-top: 10px">아이디 찾기</a> <a
-			href="findpw.jsp" style="margin-top: 10px">비밀번호 찾기</a> <a
-			href="join.jsp" style="margin-top: 10px">회원가입</a>
+		<a href="../member/findid.jsp" style="margin-top: 10px">아이디 찾기</a> 
+		<a href="../member/findpw.jsp" style="margin-top: 10px">비밀번호 찾기</a> 
+		<a href="../member/Membership.do" style="margin-top: 10px">회원가입</a>
 	</div>
 </form>
 
 <%@include file="/com/footer.jsp"%>
-
-

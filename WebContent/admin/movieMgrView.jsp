@@ -98,14 +98,6 @@
 			<input type="button" value="수정" onclick="location.href='../admin/admin_Movie.do?CmdMgr=Movie_UPDATE_FORM&&MCODE=${mVO.MCODE}'">
 			<input type="button" value="삭제" onclick="location.href='../admin/admin_Movie.do?CmdMgr=Movie_DELETE&&MCODE=${mVO.MCODE}'">
 		</form> 
-	</div>
- 
-
-
-
-
-
-
-	
+	</div>	
 
 <%@include file="/com/footer.jsp" %>
