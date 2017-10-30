@@ -7,7 +7,7 @@
 
 <form action="../member/member.do" method="post">
 
-<!-- 
+	<!-- 
 기능이 적용이 안됨
 <script type="text/javascript">
 
@@ -46,12 +46,9 @@ function loginCheck() {
 		<div class="row">
 			<table>
 				<tr>
-					<td>
-					<input type="radio" style="margin-top: 10px" 
-					name="Madmin" value="0">관리자 
-					<input type="radio" style="margin-top: 10px"
-					name="Madmin" value="1" checked="checked">일반인
-					</td>
+					<td><input type="radio" style="margin-top: 10px" name="Madmin"
+						value="0">관리자 <input type="radio" style="margin-top: 10px"
+						name="Madmin" value="1" checked="checked">일반인</td>
 				</tr>
 			</table>
 		</div>
@@ -61,12 +58,12 @@ function loginCheck() {
 				value="로그인" onclick="return loginCheck()">
 		</div>
 	</div>
-
-	<div class="" align="center">
-		<a href="../member/findid.jsp" style="margin-top: 10px">아이디 찾기</a> 
-		<a href="../member/findpw.jsp" style="margin-top: 10px">비밀번호 찾기</a> 
-		<a href="../member/Membership.do" style="margin-top: 10px">회원가입</a>
-	</div>
 </form>
+
+<div class="" align="center">
+	<a href="../member/findid.jsp" style="margin-top: 10px">아이디 찾기</a> 
+	<a href="../member/findpw.jsp" style="margin-top: 10px">비밀번호 찾기</a> 
+	<a href="../member/Membership.jsp" style="margin-top: 10px">회원가입</a>
+</div>
 
 <%@include file="/com/footer.jsp"%>

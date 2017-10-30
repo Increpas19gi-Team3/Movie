@@ -99,25 +99,33 @@ public class MemberDAO {
 	 * 회원 가입
 	 * 
 	 * @param memberVO
+	 * @return 
 	 */
-	public void InsertMember(String MID, String MPWD, String MNAME, String MEMAIL, String MTEL, String MADMIN) {
+	public void InsertMember(MemberVO mVo) {
 
 		String sql = "INSERT INTO MEMBER VALUES(?, ?, ?, ?, ?, ?)";
 
 		Connection conn = null;
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
-
+		
+		System.out.println(mVo.getMID());
+		System.out.println(mVo.getMPWD());
+		System.out.println(mVo.getMNAME());
+		System.out.println(mVo.getMEMAIL());
+		System.out.println(mVo.getMTEL());
+		System.out.println(mVo.getMADMIN());
+		
 		try {
 			conn = DBManager.getConnection();
 			prepStmt = conn.prepareStatement(sql);
 
-			prepStmt.setString(1, MID);
-			prepStmt.setString(2, MPWD);
-			prepStmt.setString(3, MNAME);
-			prepStmt.setString(4, MEMAIL);
-			prepStmt.setString(5, MTEL);
-			prepStmt.setString(6, MADMIN);
+			prepStmt.setString(1, mVo.getMID());
+			prepStmt.setString(2, mVo.getMPWD());
+			prepStmt.setString(3, mVo.getMNAME());
+			prepStmt.setString(4, mVo.getMEMAIL());
+			prepStmt.setString(5, mVo.getMTEL());
+			prepStmt.setString(6, mVo.getMADMIN());
 			prepStmt.executeQuery();
 
 			rs = prepStmt.executeQuery();
@@ -127,7 +135,8 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, prepStmt, rs);
-		}
+		}	
+		
 	}
 
 	/**

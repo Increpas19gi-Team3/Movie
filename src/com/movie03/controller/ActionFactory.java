@@ -102,7 +102,7 @@ public class ActionFactory {
 		else if (uri.contains("/member/member.do")) { // 로그인 유지를 위한 액션
 			action = new loginAction();
 		} // 일단 MembershipAction()을 로그인 유지 Action으로 사용
-		else if (uri.contains("/member/member.do")) { // 회원가입
+		else if (uri.contains("/member/Membership.do")) { // 회원가입
 			action = new MembershipAction();
 		} 
 		

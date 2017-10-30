@@ -1,18 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-<%@ page import="com.movie03.dto.MemberVO"%>
-
 <%-- 정적 인클루드 --%>
 <%@include file="/com/header.jsp"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 
 <div class="" align="center">
 	<h2>회원가입</h2>
 	<br>
-	<br>
-
-	<form action="../member/login.do" method="post" >
+	
+	<form action="../member/Membership.do" method="post" >
 	<input type="hidden" name="Membership" value="MembershipValue">
 
 		<div class="log">
@@ -39,20 +34,35 @@
 			<input type="text" style="margin-top: 10px" name=Mtel value=""
 				id="MTEL" placeholder="전화번호" maxlength="15">
 		</div>
+		
+		<div class="row">
+			<table>
+				<tr>
+					<td>
+					<input type="radio" style="margin-top: 10px" 
+					name="Madmin" value="0">관리자 
+					<input type="radio" style="margin-top: 10px" 
+					name="Madmin" value="1" checked="checked">일반인
+					</td>
+				</tr>
+			</table>
+		</div>
 
 		<div class="log">
-			<input type="submit" style="margin-top: 20px" value="확인">
+			<input type="submit" style="margin-top: 20px" value="확인" onclick="return input_check_func()">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="reset" value="취소">
 		</div>
 	</form>
 	
 	<script type="text/javascript">
 	function input_check_func() {
 		
-		var id = document.getElementById('MID').value;
-		var pw = document.getElementById('Mpwd').value;
-		var nm = document.getElementById('Mname').value;
-		var ph = document.getElementById('Mtel').value;
-		var em = document.getElementById('Memail').value;
+		var id = document.Membership.getElementById('MID').value;
+		var pw = document.Membership.getElementById('Mpwd').value;
+		var nm = document.Membership.getElementById('Mname').value;
+		var ph = document.Membership.getElementById('Mtel').value;
+		var em = document.Membership.getElementById('Memail').value;
 
 		if (id == null || id == "") {
 			alert("아이디를 입력하셔야 합니다.");

@@ -42,9 +42,7 @@ public class AdminMovieAction implements Action{
 		
 		//상세보기, 수정, 삭제
 		String reqMCODE = ""; // 영화코드
-		if((String)reqModel.get("MCODE") != null) reqMCODE = (String)reqModel.get("MCODE");
-		
-		
+		if((String)reqModel.get("MCODE") != null) reqMCODE = (String)reqModel.get("MCODE");		
 		
 		if(cmd != null){
 			if(cmd.equals("Movie_LIST")){// 리스트 화면
@@ -55,7 +53,7 @@ public class AdminMovieAction implements Action{
 				
 				url = "../admin/movieMgrList.jsp";
 				
-			}if(cmd.equals("Movie_VIEW")){// 상세보기 화면
+			}if(cmd.equals("Movie_VIEW")){ // 상세보기 화면
 				MovieVO movieView = adminDAO.selectMovieView(reqMCODE);				
 				
 				respModel.put("MgrViewMovie", movieView);
@@ -63,14 +61,14 @@ public class AdminMovieAction implements Action{
 				
 				url = "../admin/movieMgrView.jsp";
 				
-			}else if(cmd.equals("Movie_INSERT_FORM")){//입력 폼으로 이동
+			}else if(cmd.equals("Movie_INSERT_FORM")){ //입력 폼으로 이동
 				
 				respModel.put("CmdMgr", "Movie_INSERT_FORM");
 				url = "../admin/movieMgrForm.jsp";				
 				
-			}else if(cmd.equals("Movie_INSERT")){//입력 - DB
+			}else if(cmd.equals("Movie_INSERT")){ //입력 - DB
 				
-				//DB 입력 쿼리
+				// DB 입력 쿼리
 				adminDAO.insertMovie(setData(reqModel));
 				
 				// 입력 후, 리스트로 보냄
@@ -120,12 +118,8 @@ public class AdminMovieAction implements Action{
 			respModel.put("MgrListMovie", movieList);
 			
 			respModel.put("CmdMgr", "Movie_LIST");
-			url = "../admin/movieMgrList.jsp";
-			
-			
-		}
-		
-		
+			url = "../admin/movieMgrList.jsp";			
+		}		
 		return url;
 	}
 	
