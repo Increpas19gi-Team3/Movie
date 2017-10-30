@@ -181,7 +181,7 @@ public class MovieServlet extends HttpServlet {
 		System.out.println("----------------------------------------------------");
 
 		System.out.println("***** 저장된 reqModel 출력 *****");
-		// 'Set'?? 뭔지 모르겠음
+		
 		Set<String> keys = reqModel.keySet();
 		for (Object key : keys) {
 			System.out.println(key + " : " + reqModel.get(key));

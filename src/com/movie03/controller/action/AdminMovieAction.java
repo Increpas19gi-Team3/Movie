@@ -26,7 +26,7 @@ public class AdminMovieAction implements Action{
 		String cmd = (String)reqModel.get("CmdMgr");
 		System.out.println("AdminMovieAction CmdMgr = " +cmd);
 		
-		//리스트 검색, 정렬 용도 변수
+		// 리스트 검색, 정렬 용도 변수
 		String reqListGubun = ""; //찾을 컬럼
 		String reqListWord = "";
 		String reqListSort = "ASC";

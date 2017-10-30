@@ -55,7 +55,8 @@ public class MovieAction implements Action {
 		// 검색에 관한 - CmdMovie
 		if (Cmd != null) { // 뭔가 검색어를 입력 받았다면
 			// MovieList.jsp-<input type="hidden" name="CmdMovie"
-			// value="Search"
+			// value="Search" 객체임
+			// 한마디로 CmdMovie.Search 임
 			if (Cmd.equals("Search")) {
 				// 요청 request = get
 				// select_word : 선택박스(제목, 감독, 배우, 장르)

@@ -24,13 +24,12 @@
 <!-- 글-목록을 요청영역에서 가져옴  -->
 <%
 	HashMap<String, Object> respModel = (HashMap<String, Object>)request.getAttribute("respModel");	
-
-	String OrderBy = (String) respModel.get("OrderBy");
-	pageContext.setAttribute("OrderBy", OrderBy);
 	
-	String DetailMovie = (String) respModel.get("DetailMovie");
-	pageContext.setAttribute("DetailMovie", DetailMovie);
+	// 오름 내림차순으로 정리하기 위해 OrderBy을 선언함
+	String OrderBy = (String) respModel.get("OrderBy");
+	pageContext.setAttribute("OrderBy", OrderBy);	
 
+	// 요청받은 MovieList을 mVo에 담아서 씀
 	List<MovieVO> mVo = (List<MovieVO>) respModel.get("MovieList");
 	pageContext.setAttribute("mVo", mVo);
 %>
@@ -39,7 +38,7 @@
 	<h1>영화-리스트</h1>
 	<br><br>
 	<form name="#" method="post" action="../movie/movie.do">
-		<!-- 이부분의 input의 type="hidden" 속성을 잘 모르겠음 -->
+		<!-- type-hidden을 놓으면 key값은 CmdMovie 나머지 값들은 Search -->		
 		<input type="hidden" name="CmdMovie" value="Search">
 		
 		<table class="#" border="1">
@@ -50,7 +49,8 @@
 				<th>감독</th>
 				<th>배우</th>
 				<th>장르</th>
-
+				
+				<!-- 위에서 선언한 mVo을 movie에 담아서 foreach를 실행함 --> 
 				<c:forEach var="movie" items="${mVo}">
 					<tr class="#">
 						<td>${movie.MCODE}</td>
@@ -68,7 +68,7 @@
 		<!-- 선택바 : 없음, 제목, 감독, 배우, 장르
 	 	 내용(text) : 검색내용이 없을 시 경고창으로 알림
 		 클릭버튼(value=검색) : 검색을 클릭시 검색 내용만 출력되게 만듬 -->		 
-		<!-- <select name="select_word">
+		<select name="select_word">
 			<option value="none">없음</option>
 			<option value="title">제목</option>
 			<option value="director">감독</option>
@@ -77,7 +77,7 @@
 		</select> 
 		
 		<input type="text" name="search_text"> 
-		<input type="submit" value="검색" > -->
+		<input type="submit" value="검색" >
 	</form>
 </div>
 

@@ -302,6 +302,7 @@ public class AdminDAO {
 	 * @return MovieVO
 	 */
 	public MovieVO selectMovieView(String MCODE){
+		
 		MovieVO mVO = new MovieVO();
 		
 		String sql = "SELECT MCODE, TITLE, PRICE, DIRECTOR, ACTOR, To_Char(OPENDAY, 'YYYY-MM-DD') AS OPENDAY, GENRE, POSTER, SYNOPSIS, "+

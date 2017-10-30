@@ -217,11 +217,7 @@
 						</td>
 					</tr>
 				</table>
-			</c:if>
-			
-			
-			
-			
+			</c:if>			
 			
 			<br>
 		  
@@ -229,14 +225,6 @@
 			<input type="reset" value="취소">
 			<input type="button" value="목록" onclick="location.href='../admin/admin_Movie.do?CmdMgr=Movie_LIST&SearchGubun=${SearchGubun}&SearchWord=${SearchWord}&Sort=${Sort}'">
 		</form> 
-	</div>
- 
-
-
-
-
-
-
-	
+	</div>	
 
 <%@include file="/com/footer.jsp" %>

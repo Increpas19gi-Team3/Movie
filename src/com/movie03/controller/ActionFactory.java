@@ -15,8 +15,8 @@ import com.movie03.controller.action.AdminTheaterAction;
 //import com.movie03.controller.action.BoardReplyAction;
 import com.movie03.controller.action.BoardReplyAction2;
 import com.movie03.controller.action.BoardReplyDelAction2;
-import com.movie03.controller.action.JoinAction;
-import com.movie03.controller.action.MemberAction;
+import com.movie03.controller.action.MembershipAction;
+import com.movie03.controller.action.loginAction;
 import com.movie03.controller.action.MovieAction;
 //import com.movie03.controller.action.BoardUpdateAction;
 //import com.movie03.controller.action.BoardUpdateFormAction;
@@ -97,18 +97,17 @@ public class ActionFactory {
 		else if (uri.contains("/theater/theater.do")) {
 			action = new TheaterAction();
 		}
-		// Login(로그인) - 로그인
-		else if (uri.contains("/member/member.do")) {
-			action = new MemberAction();
-		} // ? 
-		else if (uri.contains("/member/join.do")) {
-			action = new JoinAction();
-		}		
+
+		// Login(로그인) - 로그인		
+		else if (uri.contains("/member/member.do")) { // 로그인 유지를 위한 액션
+			action = new loginAction();
+		} // 일단 MembershipAction()을 로그인 유지 Action으로 사용
+		else if (uri.contains("/member/member.do")) { // 회원가입
+			action = new MembershipAction();
+		} 
 		
-		
+
 		System.out.println("ActionFactory Action :" + action);
 		return action;
-	
-		
 	}
 }
