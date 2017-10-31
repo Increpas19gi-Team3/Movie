@@ -136,9 +136,44 @@ public class MemberDAO {
 			e.printStackTrace();
 		} finally {
 			DBManager.close(conn, prepStmt, rs);
-		}	
-		
+		}		
 	}
+	
+	/**
+	 * 아이디 찾기
+	 * 
+	 * @param memberVO
+	 */
+	public String find_ID(MemberVO mVo) {
+
+		String MID = "";
+		String sql = "SELECT MID FROM MEMBER WHERE MNAME = ? and MTEL = ? and MEMAIL = ?";
+
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, mVo.getMNAME());
+			prepStmt.setString(2, mVo.getMTEL());
+			prepStmt.setString(3, mVo.getMEMAIL());
+			rs = prepStmt.executeQuery();
+			
+			while (rs.next()) {
+				MID = rs.getString("MID");
+				System.out.println("MID : "+ MID);
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		return MID;
+	}
+	
 
 	/**
 	 * 내 정보 보기
@@ -236,38 +271,7 @@ public class MemberDAO {
 		}
 	}
 
-	*//**
-	 * 아이디 찾기
-	 * 
-	 * @param memberVO
-	 *//*
-	public String find_ID(String MNAME, String MTEL, String MEMAIL) {
-
-		String MID = "";
-		String sql = "SELECT MID FROM MEMBER WHERE MNAME = ?, MTEL = ?, MEMAIL =?";
-
-		Connection conn = null;
-		PreparedStatement prepStmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBManager.getConnection();
-			prepStmt = conn.prepareStatement(sql);
-			prepStmt.setString(1, MNAME);
-			prepStmt.setString(2, MTEL);
-			prepStmt.setString(3, MEMAIL);
-			rs = prepStmt.executeQuery();
-			while (rs.next()) {
-				MID = rs.getString("MID");
-			}
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, prepStmt);
-		}
-		return MID;
-	}
+	
 
 	*//**
 	 * 비밀번호 찾기
