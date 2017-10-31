@@ -109,6 +109,7 @@ public class MemberDAO {
 		PreparedStatement prepStmt = null;
 		ResultSet rs = null;
 		
+		System.out.println("sql="+sql);
 		System.out.println(mVo.getMID());
 		System.out.println(mVo.getMPWD());
 		System.out.println(mVo.getMNAME());
@@ -126,9 +127,9 @@ public class MemberDAO {
 			prepStmt.setString(4, mVo.getMEMAIL());
 			prepStmt.setString(5, mVo.getMTEL());
 			prepStmt.setString(6, mVo.getMADMIN());
-			prepStmt.executeQuery();
-
 			rs = prepStmt.executeQuery();
+
+			System.out.println("rs:"+rs);
 			
 		} catch (SQLException e) {
 			// TODO: handle exception

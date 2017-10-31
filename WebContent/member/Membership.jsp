@@ -8,7 +8,7 @@
 	<br>
 	
 	<form action="../member/Membership.do" method="post" >
-	<input type="hidden" name="Membership" value="MembershipValue">
+	<input type="hidden" name="CmdMgr">
 
 		<div class="log">
 			<input type="text" style="margin-top: 10px" name=MID value=""
