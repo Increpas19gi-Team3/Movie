@@ -174,6 +174,40 @@ public class MemberDAO {
 		return MID;
 	}
 	
+	/**
+	 * 비밀번호 찾기
+	 * 
+	 * @param memberVO
+	 */
+	public String find_PWD(MemberVO mVo) {
+
+		String Mpwd = "";
+		String sql = "SELECT MPWD FROM MEMBER WHERE MNAME=? and MTEL=? and MEMAIL=?";
+
+		Connection conn = null;
+		PreparedStatement prepStmt = null;
+		ResultSet rs = null;
+
+		try {
+			conn = DBManager.getConnection();
+			prepStmt = conn.prepareStatement(sql);
+			prepStmt.setString(1, mVo.getMNAME());
+			prepStmt.setString(2, mVo.getMTEL());
+			prepStmt.setString(3, mVo.getMEMAIL());
+			rs = prepStmt.executeQuery();
+			while (rs.next()) {
+				Mpwd = rs.getString("Mpwd");
+				System.out.println("Mpwd : "+ Mpwd);
+			}
+		} catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, prepStmt, rs);
+		}
+		return Mpwd;
+	}
+	
 
 	/**
 	 * 내 정보 보기
@@ -273,38 +307,7 @@ public class MemberDAO {
 
 	
 
-	*//**
-	 * 비밀번호 찾기
-	 * 
-	 * @param memberVO
-	 *//*
-	public String find_PWD(String MID, String MTEL, String MEMAIL) {
 
-		String MPWD = "";
-		String sql = "SELECT MID FROM MEMBER WHERE MID = ?, MTEL = ?, MEMAIL =?";
-
-		Connection conn = null;
-		PreparedStatement prepStmt = null;
-		ResultSet rs = null;
-
-		try {
-			conn = DBManager.getConnection();
-			prepStmt = conn.prepareStatement(sql);
-			prepStmt.setString(1, MID);
-			prepStmt.setString(2, MTEL);
-			prepStmt.setString(3, MEMAIL);
-			rs = prepStmt.executeQuery();
-			while (rs.next()) {
-				MPWD = rs.getString("MPWD");
-			}
-		} catch (SQLException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		} finally {
-			DBManager.close(conn, prepStmt);
-		}
-		return MPWD;
-	}
 
 	*//**
 	 * 아이디 중복

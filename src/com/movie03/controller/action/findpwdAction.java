@@ -9,31 +9,31 @@ import com.movie03.dto.MemberVO;
 import com.movie03.dto.MovieVO;
 
 /**
- * 아이디 찾기를 위한 Action
+ * 비밀번호를 찾기위한 Action
  * 
  * @author 손가연, 손대성
  */
-public class findidAction implements Action {
+public class findpwdAction implements Action {
 
 	@Override
 	public String execute(Map<String, Object> reqModel, Map<String, Object> respModel) throws IOException {
 
 		// consoloe-창에 보여줌
-		System.out.println("아이디 찾기 진행중>>>>");
+		System.out.println("비밀번호 찾기 진행중>>>>");
 		
 		String url="";		
 		 
 		MemberDAO Mdao = MemberDAO.getInstance();
 		MemberVO mVo = new MemberVO();
 		
-		String findid = (String) reqModel.get("findid");
-		System.out.println("findidAction findid = " + findid);
+		String findpwd = (String) reqModel.get("findpwd");
+		System.out.println("findpwdAction findpwd = " + findpwd);
 		
 		String Mname = ""; // 이름
 		String Memail = ""; // 메일
 		String Mtel = ""; // 전화번호		
 
-		if (findid != null) {
+		if (findpwd != null) {
 						
 			Mname = (String) reqModel.get("Mname");
 			Memail = (String) reqModel.get("Memail");
@@ -42,12 +42,12 @@ public class findidAction implements Action {
 			mVo.setMNAME(Mname);
 			mVo.setMEMAIL(Memail);
 			mVo.setMTEL(Mtel);			
-			System.out.println("if에 관한 findidAction != null 확인중>>>");
+			System.out.println("if에 관한 findpwdAction != null 확인중>>>");
 			
-			if(Mdao.find_ID(mVo) != null ){
+			if(Mdao.find_PWD(mVo) != null ){
 				url = "../member/find.jsp";	
-				mVo.setMID(Mdao.find_ID(mVo));
 				
+				mVo.setMPWD(Mdao.find_PWD(mVo));				
 				respModel.put("mVo", mVo);
 			}else{
 				url ="../member/login.jsp";

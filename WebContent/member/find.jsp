@@ -31,23 +31,31 @@
 
 	<form class="" action="find.jsp" method="post">
 
-		<h1>고객님의 ID는.. </h1>		
+		<h1>고객님의 ID는..</h1>
 		<c:choose>
 			<c:when test="${not empty mVo.MID}">
+				<br>
 				<h2>'ID' : ${mVo.MID} 입니다.</h2>
+				<br>
 			</c:when>
 			<c:otherwise>
+				<br>
 				<h2>'ID'를 찾을 수 없습니다.</h2>
+				<br>
 			</c:otherwise>
 		</c:choose>
 
-		<h1>고객님의 비밀번호는..</h1>		
+		<h1>고객님의 비밀번호는..</h1>
 		<c:choose>
 			<c:when test="${empty mVo.MPWD}">
+				<br>
 				<h2>'Password'를 찾을 수 없습니다.</h2>
+				<br>
 			</c:when>
 			<c:otherwise>
+				<br>
 				<h2>Password : ${mVo.MPWD} 입니다.</h2>
+				<br>
 			</c:otherwise>
 		</c:choose>
 		<br /> <br />

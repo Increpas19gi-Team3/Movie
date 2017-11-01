@@ -62,7 +62,7 @@ function loginCheck() {
 
 <div class="" align="center">
 	<a href="../member/findid.jsp" style="margin-top: 10px">아이디 찾기</a> 
-	<a href="../member/findpw.jsp" style="margin-top: 10px">비밀번호 찾기</a> 
+	<a href="../member/findpwd.jsp" style="margin-top: 10px">비밀번호 찾기</a> 
 	<a href="../member/Membership.jsp" style="margin-top: 10px">회원가입</a>
 </div>
 

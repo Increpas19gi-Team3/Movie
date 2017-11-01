@@ -31,6 +31,7 @@ import com.movie03.controller.action.ReserveResultAction;
 import com.movie03.controller.action.ReserveSeatAction;
 import com.movie03.controller.action.TheaterAction;
 import com.movie03.controller.action.findidAction;
+import com.movie03.controller.action.findpwdAction;
 
 public class ActionFactory {
 	private static ActionFactory instance = new ActionFactory();
@@ -105,8 +106,10 @@ public class ActionFactory {
 		} // 일단 MembershipAction()을 로그인 유지 Action으로 사용
 		else if (uri.contains("/member/Membership.do")) { // 회원가입
 			action = new MembershipAction();
-		}else if (uri.contains("/member/findid.do")) { // 아이디 찾기
+		} else if (uri.contains("/member/findid.do")) { // 아이디 찾기
 			action = new findidAction();
+		} else if (uri.contains("/member/findpwd.do")) { // 비밀번호 찾기
+			action = new findpwdAction();
 		} 
 		
 
